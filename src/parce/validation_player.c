@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:23 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/07 18:09:01 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:51:37 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int validate_player(t_data *data, char **map, int rows)
 					data->map->view = map[row][col];
 				else
 					return (print_error("Multiple players"));
-				data->map->px = col + 1;
-				data->map->py = row + 1;
+				// data->map->px = col + 1;
+				// data->map->py = row + 1; // ch
+				data->map->px = col;
+				data->map->py = row;
 			}
 			col++;
 		}

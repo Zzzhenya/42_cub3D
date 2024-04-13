@@ -6,15 +6,12 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:09:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/09 19:18:08 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:17:56 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
-
-# define W	1024
-# define H	512
 
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
@@ -28,6 +25,12 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include "libft/libft.h"
+
+# define W	1024
+# define H	512
+# define TILE_SIZE 64
+# define TILE_SIZE_MINI 16
+# define PI 3.14159265358979323846
 
 /*!
  *	@struct				s_map_utils
@@ -80,17 +83,23 @@ typedef struct s_image
  * @brief			Represents a map with player coordinates and view direction
  * @param	px		X-coordinate of the player
  * @param	py		Y-coordinate of the player
+ * @param	pdx		delta Y
+ * @param	pdx		delta X
+ * @param	pa		Angle of the player view's direction
  * @param	view	Direction the player is facing (N, S, E, W)
  * @param	map		2D array representing the map
  */
 
 typedef struct s_map
 {
-	char	*str;
-	double	px;
-	double	py;
-	char	view;
-	char	**map;
+	char		*str;
+	float		px;
+	float		py;
+	float		pdy;
+	float		pdx;
+	float		pa;
+	char		view;
+	char		**map;
 }	t_map;
 
 /*!
@@ -184,9 +193,12 @@ void	draw_game(int x, int y, t_data *data);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 int		ft_rgb(int r, int g, int b);
 
+double	degrees_to_radians(double degrees);
+double	get_degree(char view);
+
 // mini_map
 void	mini_map(t_data *data);
-
+void	draw_player(t_data *data);
 
 void	malloc_error(void);
 void	exit_data(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/07 18:08:40 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:10:31 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ void display_controls(void)
     printf("\tD: strafe right\n");
     printf("\tleft arrow: rotate left\n");
     printf("\tright arrow: rotate right\n");
+}
+
+double	degrees_to_radians(double degrees)
+{
+	return ((degrees * PI) / 180.0);
+}
+
+double	get_degree(char view)
+{
+	if (view == 'N')
+		return (90.0);
+	else if (view == 'E')
+		return (0.0);
+	else if (view == 'S')
+		return (270.0);
+	else if (view == 'W')
+		return (180.0);
+	return (0.0);
 }

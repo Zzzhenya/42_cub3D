@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/09 20:33:37 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:18:32 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ int	main(int ac, char **av)
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross, \
 	data);
 	// mlx_hook(data->win_ptr, ButtonPress, ButtonPressMask, &mouse, data);
-	mini_map(data);
-	// game(data);
+	game(data);
 	mlx_loop(data->mlx_ptr);
 	return (0);
 }

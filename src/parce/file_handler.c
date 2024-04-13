@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/07 18:08:21 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/13 09:54:25 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int	validate_file_contents(char *file, t_data *data)
 	data->rows = ft_arrsize(data->map->map);
 	if (validate_player(data, data->map->map, data->rows) != 0)
 	{
-		// printf("px:%f, py:%f, char:%c\n", data->map->px, data->map->py, data->map->view); //rm
+		// printf("px:%d, py:%d, char:%c\n", data->map->px, data->map->py, data->map->view); //rm
 		return (1);
 	}
+
+		printf("px:%f, py:%f, char:%c\n", data->map->px, data->map->py, data->map->view); //rm
 	/**
 	 * in process
 	*/
@@ -86,6 +88,7 @@ int	copy_file(char *file, t_data *data)
 	char	*str;
 	char	*tmp;
 	int		i;
+	size_t	len;
 
 	i = 0;
 	data->fd = open(file, O_RDONLY);
@@ -94,14 +97,15 @@ int	copy_file(char *file, t_data *data)
 		str = get_next_line(data->fd);
 		if (!str)
 			break ;
+		len = ft_strlen(str);
+		if (len)
+			str[len - 1] = '\0';
 		data->arr_file[i] = ft_strdup(str);
 		i++;
 		tmp = str;
-		free(tmp);
-		tmp = NULL;
+		ft_free(&tmp);
 	}
-	free(str);
-	str = NULL;
+	ft_free(&str);
 	data->arr_file[i] = NULL;
 	close(data->fd);
 	data->fd = -1;
