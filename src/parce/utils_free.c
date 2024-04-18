@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:38 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/07 18:08:48 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:16 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	clean_up_data(t_data *data)
 		ft_free_arr(data->map->map);
 	free_elem(data->elem);
 	free(data);
+	write(1, "CLEANED\n", 8);
 }

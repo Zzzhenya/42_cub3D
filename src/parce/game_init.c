@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/13 14:21:04 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:13:17 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void game_init(t_data *data)
 {
-    (void)data;
-	data->map->pdy = sin(data->map->pa) * 5;
-	data->map->pdx = cos(data->map->pa) * 5;
 	data->map->pa = get_degree(data->map->view);
+	data->map->pdy = -sin(degrees_to_radians((data->map->pa)));
+	data->map->pdx = cos(degrees_to_radians((data->map->pa)));
+	data->ray->increment_angle = 2 * HFOV / W;
 }
 
 void	game(t_data *data)
@@ -27,6 +27,7 @@ void	game(t_data *data)
 
 	x = 0;
 	y = 0;
+	my_print(data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	while (x < W)
 	{
@@ -40,6 +41,7 @@ void	game(t_data *data)
 	}
 	mini_map(data);
 	draw_player(data);
+	// draw_rays_2d(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
 	data->img.mlx_img, 0, 0);
 }
@@ -61,3 +63,4 @@ int	ft_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
 }
+

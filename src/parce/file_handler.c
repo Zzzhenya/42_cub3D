@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/13 09:54:25 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:05:51 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	validate_file_contents(char *file, t_data *data)
 		return (1);
 	}
 
-		printf("px:%f, py:%f, char:%c\n", data->map->px, data->map->py, data->map->view); //rm
 	/**
 	 * in process
 	*/

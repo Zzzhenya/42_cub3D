@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/13 12:18:32 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:33:40 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	data_init(t_data *data)
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
-	t_map	map;
-	t_elem	elem;
+	t_data		*data;
+	t_map		map;
+	t_elem		elem;
+	t_ray		ray;
 
 	if (ac != 2)
 		return (write(2, "Error\n", 6));
@@ -75,6 +76,7 @@ int	main(int ac, char **av)
 		malloc_error();
 	data->elem = &elem;
 	data->map = &map;
+	data->ray = &ray;
 	data_init(data);
 	if (read_file(av[1], data) != 0)
 		return (clean_up_data(data), 1);
