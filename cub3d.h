@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:09:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/13 14:17:56 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:18:46 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@
 # include <X11/keysymdef.h>
 # include "libft/libft.h"
 
-# define W	1024
-# define H	512
-# define TILE_SIZE 64
-# define TILE_SIZE_MINI 16
-# define PI 3.14159265358979323846
+# define W	1200
+# define H	900
+# define CELLSIZE 64
+# define TILE_SIZE_MINI CELLSIZE
+# define PLAYER_SIZE TILE_SIZE_MINI / 4
+# define FOV 60
+# define HFOV 30
+# define PI 3.1415926535
 
 /*!
  *	@struct				s_map_utils
@@ -79,6 +82,51 @@ typedef struct s_image
 }	t_image;
 
 /**
+ * @struct			s_line
+ * @param	x		the x coordinate of line relative to screen
+ * @param	y0		y start index of drawing texture
+ * @param	y1		y end index of drawing texture
+*/
+
+typedef struct s_line
+{
+	int	x0;
+	int	x1;
+	int	y0;
+	int	y1;
+	int	color;
+} t_line;
+
+// /**
+//  * @struct			s_ray
+//  * @param	dirX	direction X vector
+//  * @param	dirY	direction Y vector
+//  * @param	planeX	
+//  * @param	planeY	
+//  * @param	increment_angle	Angle difference between one ray and the next one
+// */
+
+// typedef struct s_ray
+// {
+// 	float	dirX;
+// 	float	dirY;
+// 	float	planeX;
+// 	float	planeY;
+// 	float	increment_angle;
+// 	float	xn;
+// 	float	yn;
+// }	t_ray;
+
+typedef struct s_ray
+{
+	float	xn;
+	float	yn;
+	float	x;
+	float	y;
+	float	increment_angle;
+}	t_ray;
+
+/**
  * @struct			s_map
  * @brief			Represents a map with player coordinates and view direction
  * @param	px		X-coordinate of the player
@@ -88,7 +136,7 @@ typedef struct s_image
  * @param	pa		Angle of the player view's direction
  * @param	view	Direction the player is facing (N, S, E, W)
  * @param	map		2D array representing the map
- */
+*/
 
 typedef struct s_map
 {
@@ -141,17 +189,18 @@ typedef struct s_elem
 
 typedef struct s_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	*name;
-	int		fd;
-	char	**arr_file;
-	int		rows;
-	int		lines;
-	int		offset;
-	t_image	img;
-	t_map	*map;
-	t_elem	*elem;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		*name;
+	int			fd;
+	char		**arr_file;
+	int			rows;
+	int			lines;
+	int			offset;
+	t_image		img;
+	t_map		*map;
+	t_elem		*elem;
+	t_ray		*ray;
 }	t_data;
 
 /* allowed function:
@@ -160,7 +209,10 @@ typedef struct s_data
  strerror, exit
 */
 
+void	my_print(t_data *data);
+
 int		game_map_dup(t_data *data, char **arr);
+void draw_line_other(t_line *line, t_data* data) ;
 
 // read file
 int		check_filename(char *str, char *extention);
@@ -179,7 +231,6 @@ int		copy_c_color(t_data *data, char **s);
 int		copy_f_color(t_data *data, char **s);
 int		validate_elem(t_elem *elem);
 
-
 void	window_init(t_data *data);
 int		cross(t_data *data);
 int		keypress(int keysym, t_data *data);
@@ -192,13 +243,14 @@ void	game(t_data *data);
 void	draw_game(int x, int y, t_data *data);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 int		ft_rgb(int r, int g, int b);
-
-double	degrees_to_radians(double degrees);
-double	get_degree(char view);
-
-// mini_map
+void	draw_line(t_data *data, t_line *line, int color);
 void	mini_map(t_data *data);
 void	draw_player(t_data *data);
+
+float	degrees_to_radians(int degrees);
+int		get_degree(char view);
+int		fix_angle(int a);
+void	draw_rays_2d(t_data *data);
 
 void	malloc_error(void);
 void	exit_data(t_data *data);
@@ -218,4 +270,5 @@ int		ft_isdigit_str(char *s);
 void	ft_free(char **str);
 void	ft_free_arr(char **arr);
 int		count_elem(char *s, char c);
+
 #endif
