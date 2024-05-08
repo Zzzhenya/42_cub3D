@@ -253,7 +253,7 @@ void	calc_ray(t_data *data, t_ray *ray)
 }
  */
 
-//in process
+/*  //in process
 void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 {
 	float distance_v = 100000;
@@ -320,6 +320,7 @@ void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 				ray->y += yo;
 				// printf("R_A: %f, ray_y: %f, ray->x: %f, xo = %f, yo: %f\n", ray->ray_angle, ray->y, ray->x, xo, yo);
 				// printf("px: %f, py: %f, mx: %d, my: %d, MAP: %c\n", px, py, mx, my, data->map->map[my][mx]);
+				return ;
 			}
 		}
 	}
@@ -383,8 +384,8 @@ void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 				ray->y += yo;
 				printf("xo = %f, yo: %f\n", xo, yo);
 				// printf("R_A: %f, ray_y: %f, ray->x: %f, xo = %f, yo: %f\n", ray->ray_angle, ray->y, ray->x, xo, yo);
-				printf("px: %f, py: %f, mx: %d, my: %d, MAP: %c\n", player->px, player->py, mx, my, data->map->map[my][mx]);
-				// return ;
+				// printf("px: %f, py: %f, mx: %d, my: %d, MAP: %c\n", player->px, player->py, mx, my, data->map->map[my][mx]);
+				return ;
 			}
 		}
 	}
@@ -403,7 +404,7 @@ void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 	//  place to cast walls 
 	// exit(1);
 }
-
+ */
 
 /* 
 void	calc_ray(t_data *data, t_ray *ray)
@@ -493,7 +494,8 @@ void	calc_ray(t_data *data, t_ray *ray)
 }
  */
 
-void	cast_rays(t_data *data, t_player *player, t_ray *ray)
+// (working)
+/*  void	cast_rays(t_data *data, t_player *player, t_ray *ray)
 {
 	// ray->ray_angle = data->player->pa_rad - (FOV_R / 2);
 	ray->ray_angle = player->pa_rad;
@@ -509,8 +511,115 @@ void	cast_rays(t_data *data, t_player *player, t_ray *ray)
 		data->ray->ray_angle += STEP_ANGLE;
 		ray->ray_count++;
 	}
-}
+} */
 
+/* // https://lodev.org/cgtutor/raycasting.html
+ void	raycasting(t_data *data, t_player *player, t_ray *ray)
+ {
+	int	x;
+	float camera_x;
+
+	x = 0;
+	while (x < W)
+	{
+		//calculate ray position and direction
+		camera_x = 2 * x / W - 1; //x-coordinate in camera space
+		ray->ray_dir_x = data->player->pdx + player->plane_x * camera_x;
+		ray->ray_dir_y = data->player->pdy + player->plane_y * camera_x;
+
+		//which box of the map we're in
+		int map_x = (int)(player->px);
+		int map_y = (int)(player->py);
+
+		//length of ray from current position to next x or y-side
+		double sideDistX;
+		double sideDistY;
+
+		//length of ray from one x or y-side to next x or y-side
+		double deltaDistX = (ray->ray_dir_x == 0) ? 1e30 : fabsf(1 / ray->ray_dir_x);
+		double deltaDistY = (ray->ray_dir_y == 0) ? 1e30 : fabsf(1 / ray->ray_dir_y);
+		double perpWallDist;
+
+		//what direction to step in x or y-direction (either +1 or -1)
+		int step_x;
+		int step_y;
+
+		int hit = 0; //was there a wall hit?
+		int side; //was a NS or a EW wall hit?
+
+		//calculate step and initial sideDist
+		if (ray->ray_dir_x < 0)
+		{
+			step_x = -1;
+			sideDistX = (player->px - map_x) * deltaDistX;
+		}
+		else
+		{
+			step_x = 1;
+			sideDistX = (map_x + 1.0 - player->px) * deltaDistX;
+		}
+		if (ray->ray_dir_y < 0)
+		{
+			step_y = -1;
+			sideDistY = (player->py - map_y) * deltaDistY;
+		}
+		else
+		{
+			step_y = 1;
+			sideDistY = (map_y + 1.0 - player->py) * deltaDistY;
+		}
+		//perform DDA
+		while (hit == 0)
+		{
+			//jump to next map square, either in x-direction, or in y-direction
+			if (sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				map_y += step_y;
+				side = 1;
+			}
+			//Check if ray has hit a wall
+			if (data->map->map[map_x][map_y] > 0)
+				hit = 1;
+		}
+		//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
+		if(side == 0)
+			perpWallDist = (sideDistX - deltaDistX);
+		else
+			perpWallDist = (sideDistY - deltaDistY);
+		//Calculate height of line to draw on screen
+      	int lineHeight = (int)(H / perpWallDist);
+
+		//calculate lowest and highest pixel to fill in current stripe
+		int drawStart = -lineHeight / 2 + H / 2;
+		if(drawStart < 0)
+			drawStart = 0;
+		int drawEnd = lineHeight / 2 + H / 2;
+		if(drawEnd >= H)
+			drawEnd = H - 1;
+
+		// draw_celing(data, ray);
+		// draw_wall(data, ray);
+		// draw_floor(data, ray);
+
+
+		t_line line;
+		line.color = ft_rgb(data->elem->rgb_f[0], data->elem->rgb_f[1], data->elem->rgb_f[2]);
+		line.y0 = drawStart;
+		line.y1 = drawEnd;
+		draw_line(&line, data);
+		
+
+		x++;
+	}
+}
+ */
 void	draw_celing(t_data *data, t_ray *ray)
 {
 	t_line	line;

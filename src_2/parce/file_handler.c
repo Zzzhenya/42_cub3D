@@ -51,7 +51,11 @@ int	game_map_dup(t_data *data, char **arr)
 		return (print_error(NULL), perror("Malloc"), 1);
 	while (arr[i + data->offset + j])
 	{
-		data->map->map[j] = ft_strdup(arr[i + data->offset + j]);
+		if (is_whitespace_str(arr[i + data->offset + j]) && arr[i + data->offset + j + 1]\
+		 && !is_whitespace_str(arr[i + data->offset + j + 1]))
+			return (print_error("Map include empty lines"), 4); //added
+		if (!is_whitespace_str(arr[i + data->offset + j]))
+			data->map->map[j] = ft_strdup(arr[i + data->offset + j]);
 		j++;
 	}
 	return (0);
@@ -68,6 +72,9 @@ int	validate_file_contents(char *file, t_data *data)
 	data->rows = ft_arrsize(data->map->map);
 	if (validate_player(data, data->map->map, data->rows) != 0)
 		return (1);
+	int i = validate_map(data->map->map, data->rows);
+	if (i != 0)
+		return (print_error("Invalid map"), printf("%i\n", i), 2);
 	return (0);
 }
 
@@ -88,11 +95,11 @@ int	copy_file(char *file, t_data *data)
 			break ;
 		len = ft_strlen(str);
 		if (len)
-			str[len - 1] = '\0';
+			str[len] = '\0';
 		data->arr_file[i] = ft_strdup(str);
 		i++;
 		tmp = str;
-		ft_free(&tmp);
+		ft_free(&str);
 	}
 	ft_free(&str);
 	data->arr_file[i] = NULL;

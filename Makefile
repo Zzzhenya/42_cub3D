@@ -19,7 +19,7 @@ SRCS	= src_2/parce/cub_main.c src_2/parce/hook_key.c src_2/parce/file_handler.c 
 		src_2/parce/utils_arr.c  src_2/parce/utils_str.c src_2/parce/utils_free.c \
 		src_2/parce/validation_player.c src_2/parce/game_init.c \
 		src_2/parce/mini_map.c src_2/parce/utils_intersection.c src_2/parce/raycasting.c \
-		
+		src_2/parce/validation_map.c 
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -37,7 +37,7 @@ GNL 		= gnl/get_next_line.h
 CC			= cc
 HEAD		= $(LIBFT_PATH)/libft.h $(MLX_PATH)/libmlx.h $(GNL)
 
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 
 LFLAGS	= -lX11 -lXext -lm
 

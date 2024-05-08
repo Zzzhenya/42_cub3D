@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 	t_player	player;
 
 	if (ac != 2)
-		return (write(2, "Error\n", 6));
+		return (print_error("Run program with any map .cub"));
 	if (check_filename(av[1], ".cub") != 0)
 		return (1);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));

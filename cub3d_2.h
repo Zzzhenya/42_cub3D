@@ -44,6 +44,20 @@
 # define SCALE (W / 2) / CASTED_RAYS
 
 
+typedef struct s_map_utils
+{
+	int	row;
+	int	col;
+	char cur_char;
+	char *cur_row;
+	char *row_on_top;
+	char *row_on_btm;
+	int cur_row_len;
+	int top_row_len;
+	int btm_row_len;
+}	t_map_utils;
+
+
 /*!
  *	@struct				s_image
  *	@brief				Represents an image in the MiniLibX graphics library
@@ -79,15 +93,18 @@ typedef struct s_ray
 	float	y;
 	int		wall;
 	double	ray_angle;
-	float	ray_cos;
-	float	ray_sin;
+	float	ray_dir_x;
+	float	ray_dir_y;
 	float	distance;
 	int		wall_height;
+	int		ray_count;
+
+	float	ray_cos;
+	float	ray_sin;
 	int		ray_up_left;
 	int		ray_up_right;
 	int		ray_down_left;
 	int		ray_down_right;
-	int		ray_count;
 }	t_ray;
 
 
@@ -112,6 +129,8 @@ typedef struct s_player
 	float	pdx;
 	float	pa;
 	float	pa_rad;
+	float	plane_x;
+	float	plane_y;
 }	t_player;
 
 typedef struct s_map
@@ -197,11 +216,13 @@ float	degrees_to_radians(int degrees);
 int		get_degree(char view);
 int		fix_angle(int a);
 void	draw_rays_2d(t_data *data);
- void	raycasting(t_data *data, t_ray *ray);
+ void	raycasting(t_data *data, t_player *player, t_ray *ray);
 void	init_struct_ray(t_data *data);
 void	cast_rays(t_data *data, t_player *player, t_ray *ray);
 void	calc_ray(t_data *data, t_ray *ray, t_player *player);
 void	draw_player_dir(t_data *data, float target_x, float target_y);
+
+int	validate_map(char **map, int rows);
 
 // read file
 int		check_filename(char *str, char *extention);
@@ -234,7 +255,6 @@ int		ft_rgb(int r, int g, int b);
 // void	draw_line(t_data *data, t_line *line, int color);
 
 void	malloc_error(void);
-void	exit_data(t_data *data);
 void	clean_up_data(t_data *data);
 void	free_elem(t_elem *elem);
 void	free_arr_int(int **arr, int size);

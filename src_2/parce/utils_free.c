@@ -85,5 +85,4 @@ void	clean_up_data(t_data *data)
 		ft_free_arr(data->map->map);
 	free_elem(data->elem);
 	free(data);
-	write(1, "CLEANED\n", 8);
 }

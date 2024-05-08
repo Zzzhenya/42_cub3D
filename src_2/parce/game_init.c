@@ -21,6 +21,9 @@ void	game_init(t_data *data)
 	data->player->pdx = cos(data->player->pa_rad);
 	data->player->px = data->map->px * CELLSIZE + CELLSIZE / 2;
 	data->player->py = data->map->py * CELLSIZE + CELLSIZE / 2;
+	data->player->plane_x = 0;
+	data->player->plane_y = 0.66;
+
 	// printf("data->player->py: %f, data->player->px :%f\n", data->player->py, data->player->px);
 
 	// if (data->degrees == 90)
@@ -59,7 +62,7 @@ void	game(t_data *data)
 	x = 0;
 	y = 0;
 	// my_print(data, NULL);
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	// mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	while (x < W)
 	{
 		y = 0;
@@ -70,10 +73,10 @@ void	game(t_data *data)
 		}
 		x++;
 	}
-	// raycasting(data);
 	mini_map(data);
 	draw_player(data);
-	cast_rays(data, data->player, data->ray);
+	// cast_rays(data, data->player, data->ray);
+	// raycasting(data, data->player, data->ray);
 	// draw_rays_2d(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
 	data->img.mlx_img, 0, 0);

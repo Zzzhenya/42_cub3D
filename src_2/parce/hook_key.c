@@ -75,8 +75,6 @@ int	keypress(int keysym, t_data *data)
 	return (game(data), 0);
 }
 
-
-
 int	cross(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
