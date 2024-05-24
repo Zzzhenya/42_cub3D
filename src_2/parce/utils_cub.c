@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:28:40 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:43:07 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	display_controls(void)
 
 float	degrees_to_radians(int degrees)
 {
-	return (((degrees * PI) / 180.0));
+	return ((degrees * (PI / 180.0)));
 }
 
 int	get_degree(char view)

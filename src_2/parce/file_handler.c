@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:31:04 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:49:56 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	game_map_dup(t_data *data, char **arr)
 	{
 		if (is_whitespace_str(arr[i + data->offset + j]) && arr[i + data->offset + j + 1]\
 		 && !is_whitespace_str(arr[i + data->offset + j + 1]))
-			return (print_error("Map include empty lines"), 4); //added
+			return (print_error("Map include empty lines"), 4);
 		if (!is_whitespace_str(arr[i + data->offset + j]))
 			data->map->map[j] = ft_strdup(arr[i + data->offset + j]);
 		j++;
@@ -97,6 +97,7 @@ int	copy_file(char *file, t_data *data)
 		if (len)
 			str[len] = '\0';
 		data->arr_file[i] = ft_strdup(str);
+		data->arr_file[i][len - 1] = '\0'; // added
 		i++;
 		tmp = str;
 		ft_free(&str);

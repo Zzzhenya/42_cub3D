@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/22 18:41:16 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:32:54 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,44 @@ int	validate_map(char **map, int rows)
 {
 	print_arr(map);
 	printf("rows: %i\n", rows);
-	exit(0);
 	// t_map_utils t;
 	// t.col = 0;
 	// t.row = 0;
-
+	// t.row_on_top = map[0];
+	// t.row_on_btm = map[rows - 1];
+	// t.top_row_len = ft_strlen(t.row_on_top);
+	// t.btm_row_len = ft_strlen(t.row_on_btm);
 	// while (t.row < rows)
 	// {
+	// 	t.col = 0;
 	// 	while (map[t.row][t.col])
 	// 	{
 	// 		while (map[t.row][t.col] == ' ')
 	// 			t.col++;
-			
+	// 		if (map[t.row] == t.row_on_top || map[t.row] == t.row_on_btm)
+	// 		{
+	// 			if (map[t.row][t.col] != '1' || map[t.row][t.col] != ' ')
+	// 			{
+	// 				printf("\tmap[t.row][t.col] %d\n", map[t.row][t.col]);
+	// 				return (print_error("Invalid map character"), 1);
+	// 			}
+	// 			t.col++;
+	// 		}
+	// 		else
+	// 		{
+	// 			t.cur_row_len = ft_strlen(map[t.row]);
+	// 			if (map[t.row][t.col] != '1' || map[t.row][t.cur_row_len - 1] != '1')
+	// 			{
+	// 				printf("\tmap[t.row][t.col] %d\n", map[t.row][t.col]);
+	// 				return (print_error("Invalid map character"), 2);
+	// 			}
+	// 		}
 	// 		t.col++;
 	// 	}
-
 	// 	t.row++;
 	// }
-
 	return (0);
 }
-
-
 
 /*
 Ignore leading whitespaces

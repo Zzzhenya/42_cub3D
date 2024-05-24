@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:09:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:31:03 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:44:49 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define W 1300
 # define HALF_W	W / 2
 # define HALF_H	H / 2
-# define CELLSIZE 64
+# define CELLSIZE 32
 # define TILE_SIZE_MINI CELLSIZE
 # define PLAYER_SIZE 8
 # define PI 3.141592653565358979323846

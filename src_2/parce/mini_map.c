@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:29:48 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:39:40 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ void	mini_map(t_data *data)
 	int	col;
 	int row;
 	int	map_y;
+	// int	tile_x;
+	// int	tile_y;
 
 	// map_y = H - ((data->rows + 1) * CELLSIZE);
 	map_y = 0;
 	col = 0;
 	row = 0;
+
 	while (row < data->rows)
 	{
 		col = 0;
 		while (data->map->map[row][col])
 		{
+			// tile_y = row * CELLSIZE;
+			// tile_x = col * CELLSIZE;
 			// draw_g_line(map_y + row + (row * CELLSIZE), \
 			// col + (col * CELLSIZE), data, 0x001500);
 			if (data->map->map[row][col] == '1')
