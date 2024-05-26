@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:36:32 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	game_map_dup(t_data *data, char **arr)
 	return (0);
 }
 
-int	validate_file_contents(char *file, t_data *data)
+int	validate_file_content(char *file, t_data *data)
 {
 	if (copy_file(file, data) != 0)
 		return (print_error("Invalid file"));

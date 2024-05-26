@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/05/25 15:13:29 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/26 14:37:15 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,27 +14,24 @@ NAME		= cub3D
 
 SRCS_DIR	= src/
 
-SRCS	=	src/cub_main.c
-			
-SRCS	=	src/parce/file_handler.c \
+SRCS	:=	src/cub_main.c \
+			src/parce/file_handler.c \
 			src/parce/texture_handler.c \
-			
 			src/parce/utils_cub.c \
+			src/parce/utils_angle.c \
 			src/parce/utils_file.c \
 			src/parce/utils_arr.c \
 			src/parce/utils_str.c \
 			src/parce/utils_free.c \
 			src/parce/validation_player.c \
 			src/parce/validation_map.c \
-
-SRCS	=	src/game/game_init.c \
+			src/game/game_init.c \
 			src/game/hook_key.c \
-			
-
-SRCS	=	src/raycasting/raycasting.c \
+			src/raycasting/raycasting.c \
+			src/raycasting/ray_init.c \
+			src/raycasting/utils_raycasting.c \
 			src/raycasting/utils_intersection.c \
-
-SRCS	=	src/bonus/mini_map.c \
+			src/bonus/mini_map.c
 
 OBJS	= $(SRCS:.c=.o)
 

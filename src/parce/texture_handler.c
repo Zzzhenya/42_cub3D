@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:21 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:40:10 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	copy_c_color(t_data *data, char **s)
 		return (print_error("Invalid color's information"));
 	arr = ft_split(*s, ',');
 	j = -1;
-	while (++j < 3)
+	while (++j < 3 && arr[j])
 	{
 		tmp = ft_strtrim(arr[j], " \t\n\r\f\v");
 		if (!tmp)
@@ -84,7 +84,7 @@ int	copy_f_color(t_data *data, char **s)
 		return (print_error("Invalid color's information"));
 	arr = ft_split(*s, ',');
 	j = -1;
-	while (++j < 3)
+	while (++j < 3 && arr[j])
 	{
 		tmp = ft_strtrim(arr[j], " \t\n\r\f\v");
 		if (!tmp)

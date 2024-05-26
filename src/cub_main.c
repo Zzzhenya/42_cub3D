@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 15:09:50 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:36:32 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	data_init(data);
 	if (read_file(av[1], data) != 0)
 		return (clean_up_data(data), 1);
-	if (validate_file_contents(av[1], data) != 0)
+	if (validate_file_content(av[1], data) != 0)
 		return (clean_up_data(data), 1);
 	window_init(data);
 	display_controls();

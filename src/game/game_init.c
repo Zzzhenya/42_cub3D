@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 21:23:36 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:35:55 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	game_init(t_data *data)
 	data->player->pdx = cos(data->player->pa_rad);
 	data->player->px = data->map->px * CELLSIZE + CELLSIZE / 2;
 	data->player->py = data->map->py * CELLSIZE + CELLSIZE / 2;
-	data->player->plane_x = 0;
-	data->player->plane_y = 0.66;
-	data->player->rotation_speed = 2 * (PI / 180.0);
+	// data->player->plane_x = 0;
+	// data->player->plane_y = 0.66;
+	data->player->rotation_speed = (float)(2 * (PI / 180.0));
 
 	// printf("data->player->py: %f, data->player->px :%f\n", data->player->py, data->player->px);
 
@@ -45,18 +45,10 @@ void	game_init(t_data *data)
 	// 	data->map->pdy = sin(data->map->pa_rad);
 	// 	data->map->pdx = cos(data->map->pa_rad);
 	// }
-	init_struct_ray(data->ray);
+	init_struct_ray(data->ray, data->player);
 }
 
-void	init_struct_ray(t_ray *ray)
-{
-	ray->x = 0;
-	ray->y = 0;
-	ray->wall_hit = 0;
-	ray->wall_hit_x = 0;
-	ray->wall_hit_y = 0;
-	// ray->ray_angle = player->pa_rad;
-}
+
 
 void	game(t_data *data)
 {
@@ -78,10 +70,7 @@ void	game(t_data *data)
 		x++;
 	}
 	mini_map(data);
-	draw_player(data);
-	// cast_rays(data, data->player, data->ray);
-	// raycasting(data, data->player, data->ray);
-	// draw_rays_2d(data);
+	
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
 	data->img.mlx_img, 0, 0);
 }
@@ -103,4 +92,3 @@ int	ft_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
 }
-

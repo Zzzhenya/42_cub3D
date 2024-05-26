@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 21:10:44 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:48:38 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	malloc_error(void)
 	perror("malloc");
 	exit(EXIT_FAILURE);
 }
-
 
 void	display_controls(void)
 {
@@ -30,29 +29,20 @@ void	display_controls(void)
 	printf("\tright arrow: rotate right\n");
 }
 
-float	degrees_to_radians(int degrees)
+int	has_wall_at(t_data *data, float x, float y)
 {
-	return ((degrees * (PI / 180.0)));
-}
-
-int	get_degree(char view)
-{
-	if (view == 'N')
-		return (270.0);
-	else if (view == 'E')
-		return (0.0);
-	else if (view == 'S')
-		return (90.0);
-	else if (view == 'W')
-		return (180.0);
-	return (0.0);
-}
-
-int	fix_angle(int a)
-{
-	if (a > 359)
-		a -= 360;
-	if (a <= 0)
-		a += 360;
-	return (a);
+	int	idx_x;
+	int	idx_y;
+// x > W  || y > H
+	if (x < 0 || x > (15 * CELLSIZE) || y < 0 || y > (CELLSIZE * data->rows))
+	{
+		return (print_error("has_wall_at"), 1);
+	}
+	idx_x = (int)floor(x / CELLSIZE);
+	idx_y = (int)floor(y / CELLSIZE);
+	printf("map->map[(int)floor(y)][(int)floor(x)]: %c | y = %d | x = %d\n", 
+	data->map->map[idx_y][idx_x], idx_y, idx_x);
+	if (data->map->map[idx_y][idx_x] && data->map->map[idx_y][idx_x] == '1')
+		return (1);
+	return (0);
 }

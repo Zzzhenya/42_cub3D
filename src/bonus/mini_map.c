@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:39:29 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,21 @@ void	my_print(t_data *data, t_ray *ray)
 	printf("pa:%f pdx:%f pdy:%f\n", data->player->pa, data->player->pdx, data->player->pdy);
 	if (ray)
 	{
+		return ;
 		// printf("distance: %f, ray_angle: %i, cos: %f, sin: %f, count: %i, wall_hight: %i, x: %f, y: %f\n",\
 		//  ray->distance, ray->ray_angle, ray->ray_cos, ray->ray_sin, ray->ray_count, ray->wall_height, ray->x, ray->y);
-		printf("positon in map (wall): %i, ray->y: %i, ray->x: %i\n", ray->wall, (int)floor(ray->y), (int)floor(ray->x));
+		// printf("positon in map (wall): %i, ray->y: %i, ray->x: %i\n", ray->wall, (int)floor(ray->y), (int)floor(ray->x));
 	}
 }
 
 void	mini_map(t_data *data)
+{
+	draw_mini_map(data);
+	draw_player(data);
+	cast_all_rays(data, data->player, data->ray);
+}
+
+void	draw_mini_map(t_data *data)
 {
 	int	col;
 	int row;
@@ -38,7 +46,6 @@ void	mini_map(t_data *data)
 
 	// map_y = H - ((data->rows + 1) * CELLSIZE);
 	map_y = 0;
-	col = 0;
 	row = 0;
 
 	while (row < data->rows)
@@ -71,7 +78,6 @@ void	mini_map(t_data *data)
 		row++;
 	}
 }
-
  
 void	draw_player(t_data *data)
 {

@@ -34,15 +34,29 @@
 # define TILE_SIZE_MINI CELLSIZE
 # define PLAYER_SIZE 8
 # define PI 3.141592653565358979323846
+# define MAX_VALUE 100000
 # define FOV 60
 # define FOV_R PI / 3
-# define CASTED_RAYS 1  //amount of rays in FOV
+# define CASTED_RAYS 320  //amount of rays in FOV
 # define STEP_ANGLE FOV_R / CASTED_RAYS
 # define MAX_DEPTH H
 # define HFOV FOV / 2
 # define PL_STEP 4
 # define SCALE (W / 2) / CASTED_RAYS
 
+
+/**
+ * 
+ * 		3Pi/2
+ * 		 270
+ * 
+ *  Pi			0
+ * 180			0
+ * 				
+ * 		Pi/2
+ *		 90
+ * 
+*/
 
 typedef struct s_map_utils
 {
@@ -86,13 +100,20 @@ typedef struct s_line
 	int	color;
 }	t_line;
 
+/**
+ * @struct					s_ray
+ * @brief					Represents a ray
+ * @param	wall_hit_x		X-coordinate of the wall hit
+ * @param	wall_hit_y		Y-coordinate of the wall hit
+
+*/
 
 typedef struct s_ray
 {
-	float	x;
-	float	y;
-	int		wall_hit;
-	double	ray_angle;
+	// float	x;
+	// float	y;
+	int		vert_hit;
+	float	ray_angle;
 	float	distance;
 	int		wall_height;
 	int		ray_count;
@@ -102,12 +123,13 @@ typedef struct s_ray
 	float	ray_dir_x;
 	float	ray_dir_y;
 
+	int		up;
+	int		right;
+	int		left;
+	int		down;
+
 	float	ray_cos;
 	float	ray_sin;
-	int		ray_up_left;
-	int		ray_up_right;
-	int		ray_down_left;
-	int		ray_down_right;
 }	t_ray;
 
 
@@ -132,8 +154,8 @@ typedef struct s_player
 	float	pdx;
 	float	pa;
 	float	pa_rad;
-	float	plane_x;
-	float	plane_y;
+	// float	plane_x;
+	// float	plane_y;
 	float	rotation_speed;
 }	t_player;
 
@@ -214,13 +236,13 @@ typedef struct s_data
 void	data_init(t_data *data);
 void	window_init(t_data *data);
 
-
 void	my_print(t_data *data, t_ray *ray);
 
 int		game_map_dup(t_data *data, char **arr);
 void	draw_line(t_line *line, t_data *data);
 void	draw_line_other(t_line *line, t_data *data);
 void	mini_map(t_data *data);
+void	draw_mini_map(t_data *data);
 void	draw_player(t_data *data);
 float	degrees_to_radians(int degrees);
 int		get_degree(char view);
@@ -231,7 +253,7 @@ void	cast_rays(t_data *data, t_player *player, t_ray *ray);
 void	calc_ray(t_data *data, t_ray *ray, t_player *player);
 void	draw_player_dir(t_data *data, float target_x, float target_y);
 
-int	validate_map(char **map, int rows);
+int		validate_map(char **map, int rows);
 
 // read file
 int		check_filename(char *str, char *extention);
@@ -239,7 +261,7 @@ int		file_line(char *file, t_data	*data);
 int		read_file(char *file, t_data	*data);
 int		copy_file(char *file, t_data *data);
 int		validate_player(t_data *data, char **map, int rows);
-int		validate_file_contents(char *file, t_data *data);
+int		validate_file_content(char *file, t_data *data);
 int		parce_file(t_data *data);
 
 int		copy_data(t_data *data, char *s);
@@ -253,15 +275,24 @@ int		cross(t_data *data);
 int		keypress(int keysym, t_data *data);
 // int		mouse(int button, int x, int y, t_data *data);
 void	display_controls(void);
+void	move_player(t_data *data, float target_x, float target_y);
+void	rotate_player(t_data *data, t_player *player, int keysym);
+int		has_wall_at(t_data *data, float x, float y);
 
 // draw game
 void	game_init(t_data *data);
-void	init_struct_ray(t_data *data);
 void	game(t_data *data);
 void	draw_game(int x, int y, t_data *data);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 int		ft_rgb(int r, int g, int b);
 // void	draw_line(t_data *data, t_line *line, int color);
+
+// raycalsting
+void	cast_ray(t_data *data, t_player *player, t_ray *ray);
+void	cast_all_rays(t_data *data, t_player *player, t_ray *ray);
+void	update_ray(t_ray *ray);
+void	init_struct_ray(t_ray *ray, t_player *player);
+float	get_distance(float px, float py, float hit_x, float hit_y);
 
 void	malloc_error(void);
 void	clean_up_data(t_data *data);
