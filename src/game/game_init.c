@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:31:10 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 21:23:36 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 void	game_init(t_data *data)
 {
@@ -23,6 +23,7 @@ void	game_init(t_data *data)
 	data->player->py = data->map->py * CELLSIZE + CELLSIZE / 2;
 	data->player->plane_x = 0;
 	data->player->plane_y = 0.66;
+	data->player->rotation_speed = 2 * (PI / 180.0);
 
 	// printf("data->player->py: %f, data->player->px :%f\n", data->player->py, data->player->px);
 
@@ -44,14 +45,17 @@ void	game_init(t_data *data)
 	// 	data->map->pdy = sin(data->map->pa_rad);
 	// 	data->map->pdx = cos(data->map->pa_rad);
 	// }
-	init_struct_ray(data);
+	init_struct_ray(data->ray);
 }
 
-void	init_struct_ray(t_data *data)
+void	init_struct_ray(t_ray *ray)
 {
-	data->ray->x = 0;
-	data->ray->y = 0;
-	// data->ray->ray_angle = data->player->pa_rad - (FOV_R / 2);
+	ray->x = 0;
+	ray->y = 0;
+	ray->wall_hit = 0;
+	ray->wall_hit_x = 0;
+	ray->wall_hit_y = 0;
+	// ray->ray_angle = player->pa_rad;
 }
 
 void	game(t_data *data)

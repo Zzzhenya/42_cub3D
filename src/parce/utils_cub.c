@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/24 16:43:07 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 21:10:44 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 void	malloc_error(void)
 {
@@ -38,11 +38,11 @@ float	degrees_to_radians(int degrees)
 int	get_degree(char view)
 {
 	if (view == 'N')
-		return (90.0);
+		return (270.0);
 	else if (view == 'E')
 		return (0.0);
 	else if (view == 'S')
-		return (270.0);
+		return (90.0);
 	else if (view == 'W')
 		return (180.0);
 	return (0.0);

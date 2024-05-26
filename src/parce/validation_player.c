@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation_player.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:23 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:27:13 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 // function set a players's positon && point of view && check if only one player
 int	validate_player(t_data *data, char **map, int rows)

@@ -3,23 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/04/21 16:19:21 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/25 15:13:29 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
-SRCS_DIR	= src_2/
+SRCS_DIR	= src/
 
-SRCS	= src_2/parce/cub_main.c src_2/parce/hook_key.c src_2/parce/file_handler.c \
-		src_2/parce/utils_cub.c src_2/parce/texture_handler.c src_2/parce/utils_file.c \
-		src_2/parce/utils_arr.c  src_2/parce/utils_str.c src_2/parce/utils_free.c \
-		src_2/parce/validation_player.c src_2/parce/game_init.c \
-		src_2/parce/mini_map.c src_2/parce/utils_intersection.c src_2/parce/raycasting.c \
-		src_2/parce/validation_map.c 
+SRCS	=	src/cub_main.c
+			
+SRCS	=	src/parce/file_handler.c \
+			src/parce/texture_handler.c \
+			
+			src/parce/utils_cub.c \
+			src/parce/utils_file.c \
+			src/parce/utils_arr.c \
+			src/parce/utils_str.c \
+			src/parce/utils_free.c \
+			src/parce/validation_player.c \
+			src/parce/validation_map.c \
+
+SRCS	=	src/game/game_init.c \
+			src/game/hook_key.c \
+			
+
+SRCS	=	src/raycasting/raycasting.c \
+			src/raycasting/utils_intersection.c \
+
+SRCS	=	src/bonus/mini_map.c \
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -69,7 +84,7 @@ re:		fclean all
 # NAME        = cub3D
 
 # SUBFOLDERSRC = . parce
-# BASEPATHSRC = ./src_2/
+# BASEPATHSRC = ./src/
 # PATHSRC     = $(addprefix $(BASEPATHSRC), $(SUBFOLDERSRC))
 
 # SRCS        = $(foreach dir,$(PATHSRC),$(wildcard $(dir)/*.c)) // not allowed
@@ -77,7 +92,7 @@ re:		fclean all
 # OBJS        = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 # INCLUDE_DIR = ./include
-# HEADERS     = cub3d_2.h
+# HEADERS     = cub3d.h
 
 # MLX_PATH    = minilibx-linux
 # MLX_NAME    = libmlx.a

@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    validation_map copy.txt                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#              #
-#    Updated: 2024/05/22 15:58:02 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 // static void	init_data(t_map_utils *data);
 // static char	*get_row(int i, char **map, int row, char c);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:21 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:29:13 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 int	fill_struct_elem(t_data *data, char **s)
 {

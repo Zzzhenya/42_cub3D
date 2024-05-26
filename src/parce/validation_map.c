@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/24 18:32:54 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 int	validate_map(char **map, int rows)
 {

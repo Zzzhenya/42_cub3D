@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_2.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:09:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/24 18:44:49 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:27:06 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_2_H
-# define CUB3D_2_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
@@ -91,13 +91,16 @@ typedef struct s_ray
 {
 	float	x;
 	float	y;
-	int		wall;
+	int		wall_hit;
 	double	ray_angle;
-	float	ray_dir_x;
-	float	ray_dir_y;
 	float	distance;
 	int		wall_height;
 	int		ray_count;
+	int		wall_hit_x;
+	int		wall_hit_y;
+
+	float	ray_dir_x;
+	float	ray_dir_y;
 
 	float	ray_cos;
 	float	ray_sin;
@@ -131,6 +134,7 @@ typedef struct s_player
 	float	pa_rad;
 	float	plane_x;
 	float	plane_y;
+	float	rotation_speed;
 }	t_player;
 
 typedef struct s_map
@@ -205,6 +209,12 @@ typedef struct s_data
  strerror, exit
 */
 
+// init data & win
+
+void	data_init(t_data *data);
+void	window_init(t_data *data);
+
+
 void	my_print(t_data *data, t_ray *ray);
 
 int		game_map_dup(t_data *data, char **arr);
@@ -217,7 +227,6 @@ int		get_degree(char view);
 int		fix_angle(int a);
 void	draw_rays_2d(t_data *data);
  void	raycasting(t_data *data, t_player *player, t_ray *ray);
-void	init_struct_ray(t_data *data);
 void	cast_rays(t_data *data, t_player *player, t_ray *ray);
 void	calc_ray(t_data *data, t_ray *ray, t_player *player);
 void	draw_player_dir(t_data *data, float target_x, float target_y);
@@ -240,7 +249,6 @@ int		copy_c_color(t_data *data, char **s);
 int		copy_f_color(t_data *data, char **s);
 int		validate_elem(t_elem *elem);
 
-void	window_init(t_data *data);
 int		cross(t_data *data);
 int		keypress(int keysym, t_data *data);
 // int		mouse(int button, int x, int y, t_data *data);
@@ -248,6 +256,7 @@ void	display_controls(void);
 
 // draw game
 void	game_init(t_data *data);
+void	init_struct_ray(t_data *data);
 void	game(t_data *data);
 void	draw_game(int x, int y, t_data *data);
 void	ft_pixel_put(t_image *img, int x, int y, int color);

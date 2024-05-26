@@ -1,16 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/04/21 15:48:55 by ohladkov         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    raycasting.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#              #
+#    Updated: 2024/05/25 21:18:45 by ohladkov         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-#include "../../cub3d_2.h"
+#include "../../cub3d.h"
 
 void	draw_celing(t_data *data, t_ray *ray);
 void	draw_wall(t_data *data, t_ray *ray);
@@ -27,7 +27,7 @@ float	get_sqrt(t_player *player, t_ray *ray);
 	// ray.ray_angle = data->map->pa - HFOV;
 	//ray->ray_angle = data->map->pa_rad - (FOV_R / 2);
 	// ray->ray_count = 0;
-	// ray->wall = 0;
+	// ray->wall_hit = 0;
 	// while (ray->ray_count < W)
 	// {
 		ray->y = data->map->py * CELLSIZE;
@@ -35,14 +35,14 @@ float	get_sqrt(t_player *player, t_ray *ray);
 		ray->ray_cos = cos(ray->ray_angle) * CELLSIZE; //  * CELLSIZE
 		ray->ray_sin = sin(ray->ray_angle) * CELLSIZE; // * CELLSIZE
 		// my_print(data, &ray);
-		ray->wall = 0;
+		ray->wall_hit = 0;
 		// TODO count_intersections
-		while (ray->wall == 0)
+		while (ray->wall_hit == 0)
 		{
 			ray->x += ray->ray_cos;
 			ray->y += ray->ray_sin;
 			if (data->map->map[(int)floor(ray->y / 64)][(int)floor(ray->x / 64)] == '1')
-				ray->wall = 1;
+				ray->wall_hit = 1;
 		}
 		
 		ray->distance = get_sqrt(data->map, ray);
