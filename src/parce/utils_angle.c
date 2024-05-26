@@ -15,7 +15,7 @@
 
 float	degrees_to_radians(int degrees)
 {
-	return ((degrees * (float)(PI / 180.0)));
+	return ((degrees * (float)((float)PI / 180.0)));
 }
 
 int	get_degree(char view)

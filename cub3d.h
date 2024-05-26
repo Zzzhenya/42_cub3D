@@ -30,19 +30,19 @@
 # define W 1300
 # define HALF_W	W / 2
 # define HALF_H	H / 2
-# define CELLSIZE 32
-# define TILE_SIZE_MINI CELLSIZE
+# define TILE_SIZE 64
 # define PLAYER_SIZE 8
-# define PI 3.141592653565358979323846
-# define MAX_VALUE 100000
+# define PI 3.1415926535 //65358979323846
 # define FOV 60
 # define FOV_R PI / 3
+# define FOV_ANGELS 60 * (PI / 180.0)
 # define CASTED_RAYS 320  //amount of rays in FOV
 # define STEP_ANGLE FOV_R / CASTED_RAYS
 # define MAX_DEPTH H
 # define HFOV FOV / 2
 # define PL_STEP 4
 # define SCALE (W / 2) / CASTED_RAYS
+# define MINIMAP_SCALE 0.2
 
 
 /**
@@ -110,8 +110,6 @@ typedef struct s_line
 
 typedef struct s_ray
 {
-	// float	x;
-	// float	y;
 	int		vert_hit;
 	float	ray_angle;
 	float	distance;
@@ -119,17 +117,17 @@ typedef struct s_ray
 	int		ray_count;
 	int		wall_hit_x;
 	int		wall_hit_y;
-
-	float	ray_dir_x;
-	float	ray_dir_y;
-
 	int		up;
 	int		right;
 	int		left;
 	int		down;
 
-	float	ray_cos;
-	float	ray_sin;
+	// float	ray_dir_x;
+	// float	ray_dir_y;
+
+
+	// float	ray_cos;
+	// float	ray_sin;
 }	t_ray;
 
 
@@ -150,12 +148,10 @@ typedef struct s_player
 	int		player_fov;
 	float	px; // in pixels
 	float	py;
-	float	pdy;
-	float	pdx;
+	// float	pdy;
+	// float	pdx;
 	float	pa;
 	float	pa_rad;
-	// float	plane_x;
-	// float	plane_y;
 	float	rotation_speed;
 }	t_player;
 
@@ -215,6 +211,7 @@ typedef struct s_data
 	int			fd;
 	char		**arr_file;
 	int			rows;
+	int			cols;
 	int			lines;
 	int			offset;
 	int			degrees;
@@ -236,21 +233,16 @@ typedef struct s_data
 void	data_init(t_data *data);
 void	window_init(t_data *data);
 
-void	my_print(t_data *data, t_ray *ray);
 
 int		game_map_dup(t_data *data, char **arr);
 void	draw_line(t_line *line, t_data *data);
 void	draw_line_other(t_line *line, t_data *data);
 void	mini_map(t_data *data);
-void	draw_mini_map(t_data *data);
-void	draw_player(t_data *data);
+void	draw_mini_map(t_data *data, int map_y, int map_x);
+void	draw_player(t_data *data, int map_y, int map_x);
 float	degrees_to_radians(int degrees);
 int		get_degree(char view);
 int		fix_angle(int a);
-void	draw_rays_2d(t_data *data);
- void	raycasting(t_data *data, t_player *player, t_ray *ray);
-void	cast_rays(t_data *data, t_player *player, t_ray *ray);
-void	calc_ray(t_data *data, t_ray *ray, t_player *player);
 void	draw_player_dir(t_data *data, float target_x, float target_y);
 
 int		validate_map(char **map, int rows);
@@ -291,8 +283,12 @@ int		ft_rgb(int r, int g, int b);
 void	cast_ray(t_data *data, t_player *player, t_ray *ray);
 void	cast_all_rays(t_data *data, t_player *player, t_ray *ray);
 void	update_ray(t_ray *ray);
+float	normilize_angle(float angle);
 void	init_struct_ray(t_ray *ray, t_player *player);
 float	get_distance(float px, float py, float hit_x, float hit_y);
+float	wall_strip_height(t_ray *ray);
+float	distance_proj_plane(void);
+
 
 void	malloc_error(void);
 void	clean_up_data(t_data *data);

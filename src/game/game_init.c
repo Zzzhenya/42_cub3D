@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 17:35:55 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:56:13 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	game_init(t_data *data)
 	data->degrees = get_degree(data->map->view);
 	printf("degree: %i\n", data->degrees);
 	data->player->pa_rad = degrees_to_radians(get_degree(data->map->view));
-	data->player->pdy = -sin(data->player->pa_rad);
-	data->player->pdx = cos(data->player->pa_rad);
-	data->player->px = data->map->px * CELLSIZE + CELLSIZE / 2;
-	data->player->py = data->map->py * CELLSIZE + CELLSIZE / 2;
+	// data->player->pdy = -sin(data->player->pa_rad);
+	// data->player->pdx = cos(data->player->pa_rad);
+	data->player->px = data->map->px * TILE_SIZE + TILE_SIZE / 2;
+	data->player->py = data->map->py * TILE_SIZE + TILE_SIZE / 2;
 	// data->player->plane_x = 0;
 	// data->player->plane_y = 0.66;
-	data->player->rotation_speed = (float)(2 * (PI / 180.0));
+	data->player->rotation_speed = (2 * ((float)PI / 180.0));
 
 	// printf("data->player->py: %f, data->player->px :%f\n", data->player->py, data->player->px);
 

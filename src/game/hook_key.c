@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:16 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 17:31:24 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:01:43 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,22 @@ int	keypress(int keysym, t_data *data)
 
 void	move_player(t_data *data, float target_x, float target_y)
 {
-	// int	check_x;
-	// int	check_y;
-
 	if (target_x < 0 || target_x > W || target_y < 0 || target_y > H)
 		return ;
-	// check_x = (int)floor(target_x / CELLSIZE);
-	// check_y = (int)floor(target_y / CELLSIZE);
-	// printf("px:%f, py:%f\n", data->player->px, data->player->py); //rm
-	// printf("check_x: %d, check_y: %d\n", check_x, check_y); //rm
-	// printf("new_x: %f, new_y: %f\n", target_x, target_y); //rm
-
 	if (has_wall_at(data, target_x, data->player->py) != 1)
 		data->player->px = target_x;
 	if (has_wall_at(data, data->player->px, target_y) != 1)
 		data->player->py = target_y;
-
-	// if (data->map->map[(int)floor(data->player->py / CELLSIZE)][check_x] != '1')
-	// 	data->player->px = target_x;
-	// if (data->map->map[check_y][(int)floor(data->player->px / CELLSIZE)] != '1')
-	// 	data->player->py = target_y;
 }
 
 void	rotate_player(t_data *data, t_player *player, int keysym)
 {
 	if (keysym == XK_Left)
-	{
-		player->pa_rad -= player->rotation_speed; //0.05
-		if (player->pa_rad < 0)
-			player->pa_rad += 2 * PI;
-	}
+		player->pa_rad -= player->rotation_speed;
 	else if (keysym == XK_Right)
-	{
 		player->pa_rad += player->rotation_speed;
-		if (player->pa_rad > 2 * PI)
-			player->pa_rad -= 2 * PI;
-	}
 	game(data);
 }
-
 
 int	cross(t_data *data)
 {

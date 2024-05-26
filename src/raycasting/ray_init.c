@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 17:21:42 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:55:49 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 void	init_struct_ray(t_ray *ray, t_player *player)
 {
-	ray->ray_angle = player->pa_rad - (FOV_R / 2);
 	ray->vert_hit = 0;
 	ray->wall_hit_x = 0;
 	ray->wall_hit_y = 0;
+	ray->ray_angle = player->pa_rad -  (60 * ((float)PI / 180.0) / 2);
 	update_ray(ray);
 }
 
 void	update_ray(t_ray *ray)
 {
+	ray->ray_angle = normilize_angle(ray->ray_angle);
 	if (ray->ray_angle > 0 && ray->ray_angle < (float)PI)
 		ray->down = 1;
 	else
@@ -31,7 +32,8 @@ void	update_ray(t_ray *ray)
 		ray->up = 0;
 	else
 		ray->up = 1;
-	if ((ray->ray_angle < (float)(0.5 * PI)) || (ray->ray_angle > (float)(1.5 * PI)))
+	if ((ray->ray_angle < (float)(0.5f * (float)PI)) || \
+	(ray->ray_angle > (float)(1.5f * (float)PI)))
 		ray->right = 1;
 	else
 		ray->right = 0;

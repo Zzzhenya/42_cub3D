@@ -6,7 +6,7 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/05/26 14:37:15 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/26 21:51:44 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	:=	src/cub_main.c \
 			src/parce/validation_map.c \
 			src/game/game_init.c \
 			src/game/hook_key.c \
+			src/game/utils_draw.c \
 			src/raycasting/raycasting.c \
 			src/raycasting/ray_init.c \
 			src/raycasting/utils_raycasting.c \
@@ -49,7 +50,7 @@ GNL 		= gnl/get_next_line.h
 CC			= cc
 HEAD		= $(LIBFT_PATH)/libft.h $(MLX_PATH)/libmlx.h $(GNL)
 
-CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 
 LFLAGS	= -lX11 -lXext -lm
 

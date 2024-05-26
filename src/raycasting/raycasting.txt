@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    raycasting.txt                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#              #
-#    Updated: 2024/05/25 21:18:45 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/26 21:25:44 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ float	get_sqrt(t_player *player, t_ray *ray);
 	// ray->wall_hit = 0;
 	// while (ray->ray_count < W)
 	// {
-		ray->y = data->map->py * CELLSIZE;
-		ray->x = data->map->px * CELLSIZE;
-		ray->ray_cos = cos(ray->ray_angle) * CELLSIZE; //  * CELLSIZE
-		ray->ray_sin = sin(ray->ray_angle) * CELLSIZE; // * CELLSIZE
+		ray->y = data->map->py * TILE_SIZE;
+		ray->x = data->map->px * TILE_SIZE;
+		ray->ray_cos = cos(ray->ray_angle) * TILE_SIZE; //  * TILE_SIZE
+		ray->ray_sin = sin(ray->ray_angle) * TILE_SIZE; // * TILE_SIZE
 		// my_print(data, &ray);
 		ray->wall_hit = 0;
 		// TODO count_intersections
@@ -117,8 +117,8 @@ float	get_sqrt(t_player *player, t_ray *ray);
 void	calc_ray(t_data *data, t_ray *ray)
 {
 	// (ray_angle == pa_rad + (FOV / 2))
-	float px = data->map->px * CELLSIZE;
-	float py = data->map->py * CELLSIZE;
+	float px = data->map->px * TILE_SIZE;
+	float py = data->map->py * TILE_SIZE;
 	float distance_v = 100000;
 	float distance_h = 100000;
 	float vector_x = 0;
@@ -273,8 +273,8 @@ void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 	if (sin(ray->ray_angle) > 0.001)
 	{
 		write(1, "UP\n", 3);
-		ray->y = floor(player->py / 64) * 64 - 1; // / CELLSIZE get grid
-		ray->x = (player->py - ray->y) / a_tan + player->px; //  / CELLSIZE get grid
+		ray->y = floor(player->py / 64) * 64 - 1; // / TILE_SIZE get grid
+		ray->x = (player->py - ray->y) / a_tan + player->px; //  / TILE_SIZE get grid
 
 		printf("1 ray->y: %f, ray->x: %f\n", ray->y, ray->x); //rm
 		yo = -64;
@@ -409,8 +409,8 @@ void	calc_ray(t_data *data, t_ray *ray, t_player *player)
 /* 
 void	calc_ray(t_data *data, t_ray *ray)
 {
-	float px = data->map->px * CELLSIZE;
-	float py = data->map->py * CELLSIZE;
+	float px = data->map->px * TILE_SIZE;
+	float py = data->map->py * TILE_SIZE;
 	float distance_v = 100000;
 	float distance_h = 100000;
 	// float vector_x = 0;
@@ -418,17 +418,17 @@ void	calc_ray(t_data *data, t_ray *ray)
 
 	// Vertical line
 	float tan_ray = tan(ray->ray_angle);
-	float delta_xv = (ray->ray_angle > (float)(PI / 2) && ray->ray_angle < (float)(3 * PI / 2)) ? -CELLSIZE : CELLSIZE;
+	float delta_xv = (ray->ray_angle > (float)(PI / 2) && ray->ray_angle < (float)(3 * PI / 2)) ? -TILE_SIZE : TILE_SIZE;
 	float delta_yv = delta_xv * tan_ray;
-	float x_v = floor(px / CELLSIZE) * CELLSIZE + delta_xv;
+	float x_v = floor(px / TILE_SIZE) * TILE_SIZE + delta_xv;
 	float y_v = py + (px - x_v) * tan_ray;
 	printf("y_v: %f, py: %f, px: %f, x_v: %f, tan_ray: %f\n", y_v, py, px, x_v, tan_ray);
 
 	// Horizontal line
 	float cot_ray = 1.0 / tan_ray;
-	float delta_yh = (ray->ray_angle > (float)PI) ? -CELLSIZE : CELLSIZE;
+	float delta_yh = (ray->ray_angle > (float)PI) ? -TILE_SIZE : TILE_SIZE;
 	float delta_xh = delta_yh * cot_ray;
-	float y_h = floor(py / CELLSIZE) * CELLSIZE + delta_yh;
+	float y_h = floor(py / TILE_SIZE) * TILE_SIZE + delta_yh;
 	float x_h = px + (py - y_h) * cot_ray;
 
 	// Check for vertical intersection
@@ -437,7 +437,7 @@ void	calc_ray(t_data *data, t_ray *ray)
 		if (ray->ray_angle > 0 && ray->ray_angle < (float)PI)
 			x_v -= 0.0001;
 		else
-			x_v += CELLSIZE;
+			x_v += TILE_SIZE;
 		write(1, "KO\n", 3);
 
 		if (ray->ray_angle == (float)(PI / 2) || ray->ray_angle == (float)(3 * PI / 2))
@@ -447,7 +447,7 @@ void	calc_ray(t_data *data, t_ray *ray)
 		}
 		else
 		{
-			while (data->map->map[(int)floor(y_v / CELLSIZE)][(int)floor(x_v / CELLSIZE)] != '1')
+			while (data->map->map[(int)floor(y_v / TILE_SIZE)][(int)floor(x_v / TILE_SIZE)] != '1')
 			{
 				write(1, "OK\n", 3);
 				x_v += delta_xv;
@@ -463,13 +463,13 @@ void	calc_ray(t_data *data, t_ray *ray)
 		if (ray->ray_angle > (float)(PI / 2) && ray->ray_angle < (float)(3 * PI / 2))
 			y_h -= 0.0001;
 		else
-			y_h += CELLSIZE;
-		printf("row: %d, col: %d\n", (int)floor(y_v / CELLSIZE), (int)floor(x_v/ CELLSIZE));
+			y_h += TILE_SIZE;
+		printf("row: %d, col: %d\n", (int)floor(y_v / TILE_SIZE), (int)floor(x_v/ TILE_SIZE));
 		if (ray->ray_angle == (float)(PI) || ray->ray_angle == (float)0)
 			distance_h = 1000000;
 		else
 		{
-			while (data->map->map[(int)(y_h / CELLSIZE)][(int)(x_h / CELLSIZE)] != '1')
+			while (data->map->map[(int)(y_h / TILE_SIZE)][(int)(x_h / TILE_SIZE)] != '1')
 			{
 				x_h += delta_xh;
 				y_h += delta_yh;
