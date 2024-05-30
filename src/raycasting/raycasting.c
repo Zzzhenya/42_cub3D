@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 22:22:53 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:36:23 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	cast_all_rays(t_data *data, t_player *player, t_ray *ray)
 {
-	(void)player;
 	init_struct_ray(ray, player);
 	ray->ray_count = 0;
 	while (ray->ray_count < CASTED_RAYS)
@@ -22,8 +21,8 @@ void	cast_all_rays(t_data *data, t_player *player, t_ray *ray)
 		cast_ray(data, player, ray);
 		draw_player_dir(data, ray->wall_hit_x, ray->wall_hit_y); // bonus
 		ray->ray_count++;
-		ray->ray_angle += (60 * ((float)PI / 180.0) / CASTED_RAYS);
-		update_ray(ray);
+		ray->ray_angle += ((60 * ((float)PI / 180.0)) / CASTED_RAYS);
+		update_ray_angle(ray);
 	}
 }
 
@@ -147,7 +146,7 @@ void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 	else
 		vert_hit_distance = W + H;
 
-	// olny store the smallest of the distances
+	// only store the smallest of the distances
 	if (horz_hit_distance < vert_hit_distance)
 	{
 		ray->wall_hit_x = horz_wall_hit_x;
