@@ -6,7 +6,7 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/05/26 21:51:44 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/05/30 16:41:48 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS	:=	src/cub_main.c \
 			src/game/hook_key.c \
 			src/game/utils_draw.c \
 			src/raycasting/raycasting.c \
+			src/raycasting/render_walls.c \
 			src/raycasting/ray_init.c \
 			src/raycasting/utils_raycasting.c \
 			src/raycasting/utils_intersection.c \
