@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 22:20:52 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:58:15 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	mini_map(t_data *data)
 {
 	int	scale_x;
 	int	scale_y;
-
 	scale_x = TILE_SIZE * MINIMAP_SCALE;
 	scale_y = H - (data->rows * TILE_SIZE * MINIMAP_SCALE) - TILE_SIZE;
 	draw_mini_map(data, scale_y, scale_x);
