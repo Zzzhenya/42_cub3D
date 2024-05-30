@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 21:56:13 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:55:29 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	game(t_data *data)
 		}
 		x++;
 	}
+	render_3d_walls(data, data->player, data->ray);
 	mini_map(data);
-	
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, \
 	data->img.mlx_img, 0, 0);
 }
