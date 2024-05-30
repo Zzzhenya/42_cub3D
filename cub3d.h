@@ -28,8 +28,6 @@
 
 # define H 900
 # define W 1300
-# define HALF_W	W / 2
-# define HALF_H	H / 2
 # define TILE_SIZE 64
 # define PLAYER_SIZE 8
 # define PI 3.1415926535 //65358979323846
@@ -43,6 +41,7 @@
 # define PL_STEP 4
 # define SCALE (W / 2) / CASTED_RAYS
 # define MINIMAP_SCALE 0.2
+# define WALL_STRIP_WIDTH 1
 
 
 /**
@@ -145,7 +144,6 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	int		player_fov;
 	float	px; // in pixels
 	float	py;
 	// float	pdy;
@@ -282,11 +280,13 @@ int		ft_rgb(int r, int g, int b);
 // raycalsting
 void	cast_ray(t_data *data, t_player *player, t_ray *ray);
 void	cast_all_rays(t_data *data, t_player *player, t_ray *ray);
-void	update_ray(t_ray *ray);
+void	update_ray_angle(t_ray *ray);
 float	normilize_angle(float angle);
 void	init_struct_ray(t_ray *ray, t_player *player);
 float	get_distance(float px, float py, float hit_x, float hit_y);
+void    render_strip_wall(t_data *data, t_ray *ray);
 float	wall_strip_height(t_ray *ray);
+void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
 float	distance_proj_plane(void);
 
 
