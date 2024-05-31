@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:38 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 22:29:18 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ void	clean_up_data(t_data *data)
 		ft_free_arr(data->arr_file);
 	if (data->map->map)
 		ft_free_arr(data->map->map);
+	if (data->color_buf)
+		free(data->color_buf);
+	if (data->texture_buf)
+		free(data->texture_buf);
 	free_elem(data->elem);
 	free(data);
 }

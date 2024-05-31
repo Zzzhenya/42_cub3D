@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 21:25:44 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:35:02 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	display_controls(void)
 	printf("Controls in Cub3D:\n");
 	printf("\tW: move forward\n");
 	printf("\tS: move backward\n");
-	printf("\tA: rotate left\n");
-	printf("\tD: rotate right\n");
+	printf("\tA: move left\n");
+	printf("\tD: move right\n");
 	printf("\tleft arrow: rotate left\n");
 	printf("\tright arrow: rotate right\n");
 }

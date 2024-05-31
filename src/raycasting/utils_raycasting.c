@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:43:47 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/30 19:53:40 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:16:50 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,3 @@ float	normilize_angle(float angle)
 	return (angle);
 }
 
-float	distance_proj_plane(void)
-{
-	return ((W / 2) / tan((60 * (PI / 180.0)) / 2));
-}
-
-float	wall_strip_height(t_ray *ray)
-{
-	return ((TILE_SIZE / ray->distance) * distance_proj_plane());
-}

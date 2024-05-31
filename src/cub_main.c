@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 11:36:32 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 22:24:09 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 	window_init(data);
 	display_controls();
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &keypress, data);
-	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross, \
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross_exit, \
 	data);
 	game(data);
 	mlx_loop(data->mlx_ptr);
@@ -65,6 +65,8 @@ void	data_init(t_data *data)
 	data->map->px = -1;
 	data->map->py = -1;
 	data->map->view = 0;
+	data->color_buf = NULL;
+	data->texture_buf = NULL;
 }
 
 void	window_init(t_data *data)
