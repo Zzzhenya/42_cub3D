@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:58:15 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:31:55 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	draw_player_dir(t_data *data, float target_x, float target_y)
 	map_x = data->player->px * MINIMAP_SCALE;
 	line.x0 = scale_x + map_x;
 	line.x1 = scale_x + floor(target_x) * MINIMAP_SCALE;
-	line.y0 = scale_y + map_y;
-	line.y1 = scale_y + floor(target_y) * MINIMAP_SCALE;
+	line.y_top = scale_y + map_y;
+	line.y_botm = scale_y + floor(target_y) * MINIMAP_SCALE;
 	line.color = 0xff0000;
 	draw_line_other(&line, data);
 }
@@ -137,15 +137,15 @@ void draw_rectangle(int row, int col, t_data *data, int color)
 void	draw_line_other(t_line *line, t_data *data) 
 {
 	int dx = abs(line->x1 - line->x0);
-	int dy = abs(line->y1 - line->y0);
+	int dy = abs(line->y_botm - line->y_top);
 	int sx = line->x0 < line->x1 ? 1 : -1;
-	int sy = line->y0 < line->y1 ? 1 : -1;
+	int sy = line->y_top < line->y_botm ? 1 : -1;
 	int err = (dx > dy ? dx : -dy) / 2;
 	int e2;
 
 	while (1) {
-		ft_pixel_put(&data->img, line->x0, line->y0, line->color);
-		if (line->x0 == line->x1 && line->y0 == line->y1)
+		ft_pixel_put(&data->img, line->x0, line->y_top, line->color);
+		if (line->x0 == line->x1 && line->y_top == line->y_botm)
 			break ;
 		e2 = err;
 		if (e2 > -dx)
@@ -156,7 +156,7 @@ void	draw_line_other(t_line *line, t_data *data)
 		if (e2 < dy)
 		{
 			err += dx;
-			line->y0 += sy;
+			line->y_top += sy;
 		}
 	}
 }
