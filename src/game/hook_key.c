@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:16 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/30 19:55:54 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:01:36 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
-		cross(data);
+		cross_exit(data);
 	if (keysym == XK_Left || keysym == XK_Right)
 		return (rotate_player(data, data->player, keysym), 0);
 	if (keysym == XK_w || keysym == XK_W)
@@ -60,7 +60,7 @@ void	rotate_player(t_data *data, t_player *player, int keysym)
 	game(data);
 }
 
-int	cross(t_data *data)
+int	cross_exit(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
