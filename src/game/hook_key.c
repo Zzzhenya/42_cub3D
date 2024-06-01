@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:16 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/31 20:01:36 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:02:23 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ void	rotate_player(t_data *data, t_player *player, int keysym)
 	else if (keysym == XK_Right)
 		player->pa_rad += player->rotation_speed;
 	game(data);
+}
+
+int mouse_move(int x, int y, t_data *data)
+{
+	(void)data;
+    printf("Mouse is at position (%d, %d)\n", x, y);
+    return 0;
 }
 
 int	cross_exit(t_data *data)

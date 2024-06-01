@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/31 22:24:09 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:02:46 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av)
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross_exit, \
 	data);
+	mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
 	game(data);
 	mlx_loop(data->mlx_ptr);
 	return (0);

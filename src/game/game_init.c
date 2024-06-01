@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/31 22:32:28 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:34:20 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,6 @@ void	init_texture_buf(t_data *data)
 				data->texture_buf[(TEXTURE_W * y) + x] = 0xFF0000FF;
 			else
 				data->texture_buf[(TEXTURE_W * y) + x] = 0xFF000000;
-			y++;
-		}
-		x++;
-	}
-}
-
-void	clear_color_buf(t_data *data, uint32_t color)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < W)
-	{
-		y = 0;
-		while (y < H)
-		{
-			data->color_buf[(W * y) + x] = color;
 			y++;
 		}
 		x++;

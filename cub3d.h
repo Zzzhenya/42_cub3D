@@ -115,10 +115,10 @@ typedef struct s_ray
 	int		vert_hit;
 	float	ray_angle;
 	float	distance;
-	int		wall_height;
+	float	wall_height;
 	int		ray_count;
-	int		wall_hit_x;
-	int		wall_hit_y;
+	float	wall_hit_x;
+	float	wall_hit_y;
 	int		up;
 	int		right;
 	int		left;
@@ -226,9 +226,8 @@ typedef struct s_data
 void	data_init(t_data *data);
 void	window_init(t_data *data);
 
-
 int		game_map_dup(t_data *data, char **arr);
-void	set_color_wall(t_line *line, t_data *data);
+void	set_color_wall(t_line *line, t_data *data, t_ray *ray);
 void	draw_line_other(t_line *line, t_data *data);
 void	draw_vert_line(t_line *line, t_data *data);
 void	mini_map(t_data *data);
@@ -259,7 +258,7 @@ int		validate_elem(t_elem *elem);
 
 int		cross_exit(t_data *data);
 int		keypress(int keysym, t_data *data);
-// int		mouse(int button, int x, int y, t_data *data);
+int 	mouse_move(int x, int y, t_data *data);
 void	display_controls(void);
 void	move_player(t_data *data, float target_x, float target_y);
 void	rotate_player(t_data *data, t_player *player, int keysym);
@@ -281,6 +280,7 @@ void	cast_all_rays(t_data *data, t_player *player, t_ray *ray);
 void	update_ray_angle(t_ray *ray);
 float	normilize_angle(float angle);
 void	init_struct_ray(t_ray *ray, t_player *player);
+void	init_texture_buf(t_data *data);
 float	get_distance(float px, float py, float hit_x, float hit_y);
 void    render_strip_wall(t_data *data, t_ray *ray);
 void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
@@ -303,6 +303,5 @@ int		ft_isdigit_str(char *s);
 void	ft_free(char **str);
 void	ft_free_arr(char **arr);
 int		count_elem(char *s, char c);
-
 
 #endif
