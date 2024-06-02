@@ -6,21 +6,11 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:38 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 18:57:27 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:55:36 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
-
-int	print_error(char *s)
-{
-	ft_putstr_fd("Error\n", 2);
-	if (s)
-	{
-		ft_putendl_fd(s, 2);
-	}
-	return (1);
-}
 
 void	ft_free(char **str)
 {
@@ -77,23 +67,24 @@ void	clean_up_data(t_data *data)
 		ft_free_arr(data->map->map);
 	if (data->color_buf)
 		free(data->color_buf);
-	if (data->texture_buf)
-		free(data->texture_buf);
 	if (data->elem)
-		free_elem(data, data->elem);
+	{
+		free_elem(data->elem);
+		free(data->elem);
+		data->elem = NULL;
+	}
 	if (data)
 	{
-        free(data->elem);
-        free(data->map);
-        free(data->ray);
-        free(data->player);
-        free(data);
-    }
+		free(data->map);
+		free(data->ray);
+		free(data->player);
+		free(data);
+	}
 }
 
-void	free_elem(t_data *data, t_elem *elem)
+void	free_elem(t_elem *elem)
 {
-	if (!data || !elem)
+	if (!elem)
 		return ;
 	ft_free(&elem->ea);
 	ft_free(&elem->we);

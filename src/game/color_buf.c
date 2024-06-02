@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 18:41:40 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:29:05 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	set_color_wall(t_line *line, t_data *data, t_ray *ray)
 	t_txr		*tmp;
 
 	// printf("ray->side: %i\n", ray->side);
-	if (ray->side < 1 || ray->side > 4) {
-        perror("Invalid ray side index");
-        return;
+	if (ray->side < 1 || ray->side > 4)
+	{
+        perror("Error\nInvalid ray side index");
+        return ;
     }
 	tmp = data->elem->txr[ray->side - 1];
 	y = line->y_top;
@@ -81,7 +82,7 @@ void	set_color_wall(t_line *line, t_data *data, t_ray *ray)
 
 		  // Ensure color buffer index is within bounds
         if ((W * y) + line->x0 >= W * H || (W * y) + line->x0 < 0) {
-            perror("Color buffer index out of bounds");
+            perror("Error\nColor buffer index out of bounds");
             return ;
         }
 

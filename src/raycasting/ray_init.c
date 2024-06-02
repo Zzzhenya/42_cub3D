@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 13:11:24 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:36:00 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	update_ray_angle(t_ray *ray)
 		ray->left = 0;
 	else
 		ray->left = 1;
-	if (ray->up && ray->right)
+	if (!ray->vert_hit && ray->up)
 		ray->side = 1;
-	else if (ray->up && ray->left)
+	else if (ray->vert_hit && ray->left)
 		ray->side = 2;
-	else if (ray->down && ray->left)
+	if (!ray->vert_hit && ray->down)
 		ray->side = 3;
-	else if (ray->down && ray->right)
+	else if (ray->vert_hit && ray->right)
 		ray->side = 4;
 }
 

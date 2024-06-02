@@ -37,7 +37,7 @@
 # define TEXTURE_H 64
 # define CASTED_RAYS 320  //amount of rays in FOV
 # define PL_STEP 10
-# define MINIMAP_SCALE 0.15
+# define MINIMAP_SCALE 0.2
 # define WALL_STRIP_WIDTH 1
 
 
@@ -244,13 +244,10 @@ void	set_color_wall(t_line *line, t_data *data, t_ray *ray);
 void	draw_line_other(t_line *line, t_data *data);
 void	draw_vert_line(t_line *line, t_data *data);
 void	mini_map(t_data *data);
-void	draw_mini_map(t_data *data, int map_y, int map_x);
-void	draw_player(t_data *data, int map_y, int map_x);
 float	degrees_to_radians(int degrees);
 int		get_degree(char view);
 int		fix_angle(int a);
-void	draw_player_dir(t_data *data, float target_x, float target_y);
-
+void	draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl);
 int		validate_map(char **map, int rows);
 
 // read file
@@ -264,9 +261,9 @@ int		parce_file(t_data *data);
 
 int		copy_data(t_data *data, char *s);
 int		fill_struct_elem(t_data *data, char **s);
-int		copy_texture(t_data *data, char **s, char **texture);
-int		copy_c_color(t_data *data, char **s);
-int		copy_f_color(t_data *data, char **s);
+int		copy_texture(t_elem *elem, char **s, char **texture);
+int		copy_c_color(t_elem *elem, char **s);
+int		copy_f_color(t_elem *elem, char **s);
 int		validate_elem(t_elem *elem);
 
 int		cross_exit(t_data *data);
@@ -278,9 +275,9 @@ void	rotate_player(t_data *data, t_player *player, int keysym);
 int		has_wall_at(t_data *data, float x, float y);
 
 // draw game
-void	game_init(t_data *data);
+int		game_init(t_data *data);
 void	game(t_data *data);
-void	init_elem_struct(t_data *data);
+// void	init_elem_struct(t_data *data);
 int	set_textures(t_data *data, t_elem *elem);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 void	ft_put_pixel_buf(t_data *data, t_image *img);
@@ -291,11 +288,11 @@ void	set_color_floor(t_line *line, t_data *data);
 
 // raycalsting
 void	cast_ray(t_data *data, t_player *player, t_ray *ray);
-void	cast_all_rays(t_data *data, t_player *player, t_ray *ray);
+void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scale_map);
 void	update_ray_angle(t_ray *ray);
 float	normilize_angle(float angle);
 void	init_struct_ray(t_ray *ray, t_player *player);
-void	init_texture_buf(t_data *data);
+// void	init_texture_buf(t_data *data);
 float	get_distance(float px, float py, float hit_x, float hit_y);
 void    render_strip_wall(t_data *data, t_ray *ray);
 void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
@@ -303,9 +300,9 @@ void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
 
 void	malloc_error(void);
 void	clean_up_data(t_data *data);
-void	free_elem(t_data *data, t_elem *elem);
+void	free_elem(t_elem *elem);
 void	free_arr_int(int **arr, int size);
-int		print_error(char *s);
+int		print_err(char *s);
 
 // utils
 void	print_arr(char **arr);

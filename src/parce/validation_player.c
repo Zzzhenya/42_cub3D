@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_player.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:23 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:56:55 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	validate_player(t_data *data, char **map, int rows)
 	int	col;
 
 	if (!*map || !map || rows == 0)
-		return (print_error("Missing a game map"));
+		return (print_err("Missing a game map"));
 	row = 0;
 	while (row < rows)
 	{
@@ -28,10 +28,9 @@ int	validate_player(t_data *data, char **map, int rows)
 		{
 			if (ft_strchr("SNEW", map[row][col]))
 			{
-				if (data->map->view == 0)
-					data->map->view = map[row][col];
-				else
-					return (print_error("Multiple players"));
+				if (data->map->view != 0)
+					return (print_err("Multiple players"));
+				data->map->view = map[row][col];
 				data->map->px = col;
 				data->map->py = row;
 			}
@@ -40,6 +39,6 @@ int	validate_player(t_data *data, char **map, int rows)
 		row++;
 	}
 	if (data->map->view == 0)
-		return (print_error("Missing a player"));
+		return (print_err("Missing a player"));
 	return (0);
 }

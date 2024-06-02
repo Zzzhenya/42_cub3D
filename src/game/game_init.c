@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 18:44:29 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:54:30 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,18 @@ void	game(t_data *data)
 	data->img.mlx_img, 0, 0);
 }
 
-void	game_init(t_data *data)
-{
-	if (set_textures(data, data->elem) != 0)
-		return ;
-	data->player->pa_rad = degrees_to_radians(get_degree(data->map->view));
-	data->player->px = data->map->px * TILE_SIZE + TILE_SIZE / 2;
-	data->player->py = data->map->py * TILE_SIZE + TILE_SIZE / 2;
-	data->player->rotation_speed = (2 * ((float)PI / 180.0));
-	init_struct_ray(data->ray, data->player);
-	data->color_buf = (u_int32_t *)malloc(sizeof(u_int32_t) * (u_int32_t)W * (u_int32_t)H);
-	if (!data->color_buf)
-	{
-		print_error("malloc error");
-		cross_exit(data);
-	}
-	// init_texture_buf(data);
-}
-
 int	set_textures(t_data *data, t_elem *elem)
 {
 	int	i;
 
+	i = 0;
+	while (i < 4)
+	{
+		data->elem->txr[i] = (t_txr *)ft_calloc(1, sizeof(t_txr));
+		if (!data->elem->txr[i])
+			return (perror("Error\nTexture malloc"), 1);
+		i++;
+	}
 	elem->txr[0]->img = mlx_xpm_file_to_image(data->mlx_ptr, elem->ea, &elem->txr[0]->width, &elem->txr[0]->height);
 	elem->txr[1]->img = mlx_xpm_file_to_image(data->mlx_ptr, elem->no, &elem->txr[1]->width, &elem->txr[1]->height);
 	elem->txr[2]->img = mlx_xpm_file_to_image(data->mlx_ptr, elem->we, &elem->txr[2]->width, &elem->txr[2]->height);
@@ -72,7 +62,7 @@ int	set_textures(t_data *data, t_elem *elem)
 	while (i < 4)
 	{
 		if (!elem->txr[i]->img)
-			return (print_error("mlx_xpm_file_to_image"), cross_exit(data));
+			return (perror("Error\nFailed loading texture"), 1);
 		elem->txr[i]->addr = (uint32_t *)mlx_get_data_addr(elem->txr[i]->img, \
 		&elem->txr[i]->bpp, &elem->txr[i]->line_length, &elem->txr[i]->endian);
 		// printf("texture %i -> bbp: %i, line_length: %i, endian: %i\n", i, elem->txr[i]->bpp, elem->txr[i]->line_length, elem->txr[i]->endian);
@@ -90,7 +80,7 @@ int	set_textures(t_data *data, t_elem *elem)
 // 	data->texture_buf = (u_int32_t *)malloc(sizeof(u_int32_t) * (u_int32_t)TEXTURE_W * (u_int32_t)TEXTURE_H);
 // 	if (!data->texture_buf)
 // 	{
-// 		print_error("malloc error");
+// 		print_err("malloc error");
 // 		cross_exit(data);
 // 	}
 // 	while (x < TEXTURE_H)

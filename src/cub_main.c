@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 19:01:24 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:14:27 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 int	main(int ac, char **av)
 {
-	t_data		*data;
+	t_data	*data;
 
 	if (ac != 2)
-		return (print_error("Run program with any map .cub"));
+		return (print_err("Run program with any map .cub"));
 	if (check_filename(av[1], ".cub") != 0)
 		return (1);
 	data = initialize_data();
+	if (!data)
+		malloc_error();
 	if (read_file(av[1], data) != 0)
 		return (clean_up_data(data), 1);
 	if (validate_file_content(av[1], data) != 0)
 		return (clean_up_data(data), 1);
 	window_init(data);
-	game_init(data);
+	if (game_init(data) != 0)
+		return (cross_exit(data), 1);
 	display_controls();
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross_exit, \
@@ -37,13 +40,13 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-
-t_data *initialize_data(void)
+t_data	*initialize_data(void)
 {
-	t_data *data = (t_data *)ft_calloc(1, sizeof(t_data));
-	if (!data) {
+	t_data	*data;
+
+	data = (t_data *)ft_calloc(1, sizeof(t_data));
+	if (!data)
 		malloc_error();
-	}
 	data->elem = (t_elem *)ft_calloc(1, sizeof(t_elem));
 	data->map = (t_map *)ft_calloc(1, sizeof(t_map));
 	data->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
@@ -51,9 +54,8 @@ t_data *initialize_data(void)
 	if (!data->elem || !data->map || !data->ray || !data->player)
 		malloc_error();
 	data_init(data);
-	return data;
+	return (data);
 }
-
 
 void	window_init(t_data *data)
 {
@@ -84,16 +86,9 @@ void	data_init(t_data *data)
 {
 	int	i;
 
-	data->map->map = NULL;
 	data->map->px = -1;
 	data->map->py = -1;
 	data->map->view = 0;
-	data->color_buf = NULL;
-	data->texture_buf = NULL;
-	data->elem->ea = NULL;
-	data->elem->we = NULL;
-	data->elem->so = NULL;
-	data->elem->no = NULL;
 	i = 0;
 	while (i < 3)
 	{
@@ -101,10 +96,20 @@ void	data_init(t_data *data)
 		data->elem->rgb_f[i] = -1;
 		i++;
 	}
-	i = 0;
-	while (i < 4)
-	{
-		data->elem->txr[i] = (t_txr *)ft_calloc(1, sizeof(t_txr));
-		i++;
-	}
+}
+
+int	game_init(t_data *data)
+{
+	if (set_textures(data, data->elem) != 0)
+		return (1);
+	data->player->pa_rad = degrees_to_radians(get_degree(data->map->view));
+	data->player->px = data->map->px * TILE_SIZE + TILE_SIZE / 2;
+	data->player->py = data->map->py * TILE_SIZE + TILE_SIZE / 2;
+	data->player->rotation_speed = (2 * ((float)PI / 180.0));
+	init_struct_ray(data->ray, data->player);
+	data->color_buf = (u_int32_t *)malloc(sizeof(u_int32_t) * \
+	(u_int32_t)W * (u_int32_t)H);
+	if (!data->color_buf)
+		return (perror("Error\nColor_buf malloc"), 1);
+	return (0);
 }
