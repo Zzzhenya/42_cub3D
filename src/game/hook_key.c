@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:16 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/01 14:02:23 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:42:16 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	keypress(int keysym, t_data *data)
 
 void	move_player(t_data *data, float target_x, float target_y)
 {
-	if (target_x < 0 || target_x > W || target_y < 0 || target_y > H)
-		return ;
+	// if (target_x < 0 || target_x > W || target_y < 0 || target_y > H)
+	// 	return ;
 	if (has_wall_at(data, target_x, data->player->py) != 1)
 		data->player->px = target_x;
 	if (has_wall_at(data, data->player->px, target_y) != 1)
@@ -69,8 +69,13 @@ int mouse_move(int x, int y, t_data *data)
 
 int	cross_exit(t_data *data)
 {
+	free_texture(data, data->elem);
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->win_ptr)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		data->win_ptr = NULL;
+	}
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	clean_up_data(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:34 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:22:08 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_filename(char *str, char *extention)
 }
 
 // return amount n-lines in a file
-int	file_line(char *file, t_data *data)
+int	count_file_lines(char *file, t_data *data)
 {
 	int		i;
 	char	*str;
@@ -86,3 +86,20 @@ int	validate_elem(t_elem *elem)
 	return (0);
 }
 
+int	get_max_strlen(char **map, int rows)
+{
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	while (j < rows && map[j])
+	{
+		len = ft_strlen(map[j]); 
+		if (len > i)
+			i = len;
+		j++;
+	}
+	return (i);
+}

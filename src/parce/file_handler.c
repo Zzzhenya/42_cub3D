@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 11:36:32 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:31:35 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	read_file(char *file, t_data *data)
 	data->fd = open(file, O_RDONLY);
 	if (data->fd == -1)
 		return (perror("Error opening file"), 1);
-	data->lines = file_line(file, data);
+	data->lines = count_file_lines(file, data);
 	close (data->fd);
 	data->fd = -1;
 	if (data->lines == 0)
@@ -32,54 +32,27 @@ int	read_file(char *file, t_data *data)
 	return (0);
 }
 
-int	game_map_dup(t_data *data, char **arr)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (arr[i + data->offset])
-	{
-		if (!is_whitespace_str(arr[i + data->offset]))
-			break ;
-		i++;
-	}
-	j = 0;
-	data->map->map = (char **)ft_calloc(data->lines - (i + data->offset - 1) \
-	+ 1, sizeof(char *));
-	if (!data->map->map)
-		return (print_error(NULL), perror("Malloc"), 1);
-	while (arr[i + data->offset + j])
-	{
-		if (is_whitespace_str(arr[i + data->offset + j]) && arr[i + data->offset + j + 1]\
-		 && !is_whitespace_str(arr[i + data->offset + j + 1]))
-			return (print_error("Map include empty lines"), 4);
-		if (!is_whitespace_str(arr[i + data->offset + j]))
-			data->map->map[j] = ft_strdup(arr[i + data->offset + j]);
-		j++;
-	}
-	return (0);
-}
 
 int	validate_file_content(char *file, t_data *data)
 {
-	if (copy_file(file, data) != 0)
+	if (copy_file_content(file, data) != 0)
 		return (print_error("Invalid file"));
 	if (parce_file(data) != 0)
 		return (2);
 	if (game_map_dup(data, data->arr_file) != 0)
 		return (3);
 	data->rows = ft_arrsize(data->map->map);
+	data->cols = get_max_strlen(data->map->map, data->rows);
 	if (validate_player(data, data->map->map, data->rows) != 0)
 		return (1);
-	int i = validate_map(data->map->map, data->rows);
+	int i = validate_map(data->map->map, data->rows); // TODO
 	if (i != 0)
 		return (print_error("Invalid map"), printf("%i\n", i), 2);
 	return (0);
 }
 
 // read from file and set an 2D array into an arr_file
-int	copy_file(char *file, t_data *data)
+int	copy_file_content(char *file, t_data *data)
 {
 	char	*str;
 	char	*tmp;
@@ -130,6 +103,35 @@ int	parce_file(t_data *data)
 			data->offset = i;
 			return (validate_elem(data->elem));
 		}
+	}
+	return (0);
+}
+
+int	game_map_dup(t_data *data, char **arr)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (arr[i + data->offset])
+	{
+		if (!is_whitespace_str(arr[i + data->offset]))
+			break ;
+		i++;
+	}
+	j = 0;
+	data->map->map = (char **)ft_calloc(data->lines - (i + data->offset - 1) \
+	+ 1, sizeof(char *));
+	if (!data->map->map)
+		return (print_error(NULL), perror("Malloc"), 1);
+	while (arr[i + data->offset + j])
+	{
+		if (is_whitespace_str(arr[i + data->offset + j]) && arr[i + data->offset + j + 1]\
+		 && !is_whitespace_str(arr[i + data->offset + j + 1]))
+			return (print_error("Map include empty lines"), 4);
+		if (!is_whitespace_str(arr[i + data->offset + j]))
+			data->map->map[j] = ft_strdup(arr[i + data->offset + j]);
+		j++;
 	}
 	return (0);
 }

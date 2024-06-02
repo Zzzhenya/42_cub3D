@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/31 20:35:02 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:34:48 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,20 @@ int	has_wall_at(t_data *data, float x, float y)
 {
 	int	idx_x;
 	int	idx_y;
-// x > W  || y > H
-	if (x < 0 || x > (15 * TILE_SIZE) || y < 0 || y > (TILE_SIZE * data->rows))
-	{
-		return (print_error("has_wall_at"), 1);
-	}
+
+	if (x < 0 || x > W || y < 0 || y > H)
+		return (1);
 	idx_x = (int)floor(x / TILE_SIZE);
 	idx_y = (int)floor(y / TILE_SIZE);
+	// printf("\t2 x: %f, y: %f, indxx: %i, idx_y: %i\n", x, y, idx_x, idx_y);
 	// printf("map->map[(int)floor(y)][(int)floor(x)]: %c | y = %d | x = %d\n", 
 	// data->map->map[idx_y][idx_x], idx_y, idx_x);
-	if (data->map->map[idx_y][idx_x] && data->map->map[idx_y][idx_x] == '1')
+
+	// if (!data->map->map[idx_y][idx_x] || data->map->map[idx_y][idx_x] == '1')
+	//data->map->map[idx_y][idx_x] && 
+	if (!data->map->map[idx_y][idx_x])
+		return (2);
+	if (data->map->map[idx_y][idx_x] == '1')
 		return (1);
 	return (0);
 }

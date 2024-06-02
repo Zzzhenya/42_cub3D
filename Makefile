@@ -6,7 +6,7 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/06/01 13:12:16 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/06/02 18:25:11 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS_DIR	=	src/
 
 SRCS		=	src/cub_main.c \
 				src/parce/file_handler.c \
-				src/parce/texture_handler.c \
+				src/parce/elem_handler.c \
 				src/parce/utils_cub.c \
 				src/parce/utils_angle.c \
 				src/parce/utils_file.c \
@@ -33,7 +33,7 @@ SRCS		=	src/cub_main.c \
 				src/raycasting/render_walls.c \
 				src/raycasting/ray_init.c \
 				src/raycasting/utils_raycasting.c \
-				src/bonus/mini_map.c
+				src/game/mini_map.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -51,7 +51,7 @@ GNL 		= gnl/get_next_line.h
 CC			= cc
 HEAD		= $(LIBFT_PATH)/libft.h $(MLX_PATH)/libmlx.h $(GNL)
 
-CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 
 LFLAGS	= -lX11 -lXext -lm
 

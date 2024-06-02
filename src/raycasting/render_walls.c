@@ -31,7 +31,6 @@ void	render_strip_wall(t_data *data, t_ray *ray)
 	t_line	line;
 	float	distance_proj_plane;
 	float	correct_wall_dist;
-	// int		col_intencity;
 
 	correct_wall_dist = ray->distance * cos(ray->ray_angle - data->player->pa_rad);
 	distance_proj_plane = (W / 2) / tan((60 * (PI / 180.0)) / 2);
@@ -43,13 +42,6 @@ void	render_strip_wall(t_data *data, t_ray *ray)
 	line.y_botm = line.y_top + ray->wall_height;
 	if (line.y_botm > H)
 		line.y_botm = H;
-	// int alpha = 1.0;
-	// if (ray->vert_hit)
-	// 	col_intencity = 255;
-	// else
-	// 	col_intencity = 180;
-	// printf("x0: %i, y0: %i, y1: %i\n", line.x0, line.y_top, line.y_botm);
-	// line.color = ft_rgba(col_intencity, col_intencity, col_intencity, alpha);
 	set_color_ceiling(&line, data);
 	set_color_wall(&line, data, data->ray);
 	set_color_floor(&line, data);

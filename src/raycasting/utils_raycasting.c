@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:43:47 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/31 14:16:50 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:11:08 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ float	get_distance(float px, float py, float hit_x, float hit_y)
 	return (sqrt((x * x) + (y * y)));
 }
 
-float	normilize_angle(float angle)
-{
-	angle = fmod(angle, (2.0 * PI));
-    if (angle < 0)
-    {
-		angle += 2.0 * PI;
-	}
-	return (angle);
-}
 
+/**
+ * uint32_t get_texture_pixel(t_data *data, int x, int y) {
+    if (x < 0 || x >= data->img_width || y < 0 || y >= data->img_height) {
+        return 0; // Return a default color or handle error
+    }
+
+    int pixel_index = y * data->size_line + x * (data->bits_per_pixel / 8);
+    return *(uint32_t *)(data->img_data + pixel_index);
+}
+*/

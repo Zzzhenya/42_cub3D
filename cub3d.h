@@ -29,21 +29,15 @@
 
 # define H 900
 # define W 1300
-# define TILE_SIZE 64
+# define TILE_SIZE 32
 # define PLAYER_SIZE 8
-# define TEXTURE_H 64
-# define TEXTURE_W 64
 # define PI 3.1415926535 //65358979323846
 # define FOV 60
-# define FOV_R PI / 3
-# define FOV_ANGELS 60 * (PI / 180.0)
+# define TEXTURE_W 64
+# define TEXTURE_H 64
 # define CASTED_RAYS 320  //amount of rays in FOV
-# define STEP_ANGLE FOV_R / CASTED_RAYS
-# define MAX_DEPTH H
-# define HFOV FOV / 2
-# define PL_STEP 6
-# define SCALE (W / 2) / CASTED_RAYS
-# define MINIMAP_SCALE 0.2
+# define PL_STEP 10
+# define MINIMAP_SCALE 0.15
 # define WALL_STRIP_WIDTH 1
 
 
@@ -107,6 +101,7 @@ typedef struct s_line
  * @brief					Represents a ray
  * @param	wall_hit_x		X-coordinate of the wall hit
  * @param	wall_hit_y		Y-coordinate of the wall hit
+ * @param	size			1 - East, 2 - North, 3 - West, 4 - South
 
 */
 
@@ -119,6 +114,7 @@ typedef struct s_ray
 	int		ray_count;
 	float	wall_hit_x;
 	float	wall_hit_y;
+	int		side;
 	int		up;
 	int		right;
 	int		left;
@@ -155,6 +151,17 @@ typedef struct s_map
 	int		py;
 }	t_map;
 
+typedef struct s_texture
+{
+	int			width;
+	int			height;
+	void		*img;
+	uint32_t	*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+}	t_txr;
+
 /**
  *	@struct		s_elem
  *	@brief		Represents an element with directional information and 
@@ -171,10 +178,13 @@ typedef struct s_elem
 {
 	int		rgb_f[3];
 	int		rgb_c[3];
+	int		hex_f;
+	int		hex_c;
 	char	*no;
 	char	*so;
 	char	*we;
 	char	*ea;
+	t_txr	*txr[4];
 }	t_elem;
 
 /*!
@@ -223,6 +233,9 @@ typedef struct s_data
 
 // init data & win
 
+uint32_t get_texture_pixel(t_txr *texture, int x, int y);
+
+t_data *initialize_data(void);
 void	data_init(t_data *data);
 void	window_init(t_data *data);
 
@@ -242,9 +255,9 @@ int		validate_map(char **map, int rows);
 
 // read file
 int		check_filename(char *str, char *extention);
-int		file_line(char *file, t_data	*data);
+int		count_file_lines(char *file, t_data	*data);
 int		read_file(char *file, t_data	*data);
-int		copy_file(char *file, t_data *data);
+int		copy_file_content(char *file, t_data *data);
 int		validate_player(t_data *data, char **map, int rows);
 int		validate_file_content(char *file, t_data *data);
 int		parce_file(t_data *data);
@@ -267,6 +280,8 @@ int		has_wall_at(t_data *data, float x, float y);
 // draw game
 void	game_init(t_data *data);
 void	game(t_data *data);
+void	init_elem_struct(t_data *data);
+int	set_textures(t_data *data, t_elem *elem);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 void	ft_put_pixel_buf(t_data *data, t_image *img);
 int		ft_rgb(int r, int g, int b);
@@ -288,7 +303,7 @@ void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
 
 void	malloc_error(void);
 void	clean_up_data(t_data *data);
-void	free_elem(t_elem *elem);
+void	free_elem(t_data *data, t_elem *elem);
 void	free_arr_int(int **arr, int size);
 int		print_error(char *s);
 
@@ -303,5 +318,7 @@ int		ft_isdigit_str(char *s);
 void	ft_free(char **str);
 void	ft_free_arr(char **arr);
 int		count_elem(char *s, char c);
+int		get_max_strlen(char **map, int rows);
+void	free_texture(t_data *data, t_elem *elem);
 
 #endif

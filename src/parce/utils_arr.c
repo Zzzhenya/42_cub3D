@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_arr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:25 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:51 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:09:31 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		printf("%s", arr[i]);
+		printf("%s\n", arr[i]);
 		i++;
 	}
 }

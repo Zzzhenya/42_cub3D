@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/26 14:51:10 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:26:21 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	validate_map(char **map, int rows)
 {
 	(void)map;
-	// print_arr(map);
+	print_arr(map);
 	printf("rows: %i\n", rows);
 	// t_map_utils t;
 	// t.col = 0;
