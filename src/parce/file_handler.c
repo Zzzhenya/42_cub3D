@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 21:13:43 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:07:22 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	validate_file_content(char *file, t_data *data)
 	data->cols = get_max_strlen(data->map->map, data->rows);
 	if (validate_player(data, data->map->map, data->rows) != 0)
 		return (1);
-	i = validate_map(data->map->map, data->rows);
+	i = validate_map(data->map->map, data->rows); // TODO
 	if (i != 0)
 		return (print_err("Invalid map"), printf("%i\n", i), 2);
 	return (0);

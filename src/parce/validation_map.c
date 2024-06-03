@@ -6,12 +6,15 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 19:49:32 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:08:27 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
+/**
+ * return valu: 0 - valid map, otherwise not 0
+*/
 int	validate_map(char **map, int rows)
 {
 	(void)map;

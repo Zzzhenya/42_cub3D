@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 21:03:32 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:46:43 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	draw_mini_map(t_data *data, int map_y, int map_x, float scale_map)
 			if (data->map->map[row][col] == '1')
 				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0x125478);
 			else
-				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0x051474);
+				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xffffff00);//0x2c3e5080
 			col++;
 		}
 		row++;

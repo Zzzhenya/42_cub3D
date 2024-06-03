@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:28 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 20:55:46 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:26:43 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	print_err(char *s)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (s)
-	{
 		ft_putendl_fd(s, 2);
-	}
 	return (1);
 }
 
@@ -56,8 +54,8 @@ int	has_wall_at(t_data *data, float x, float y)
 		return (1);
 	idx_x = (int)floor(x / TILE_SIZE);
 	idx_y = (int)floor(y / TILE_SIZE);
-	if (!data->map->map[idx_y][idx_x])
-		return (2);
+	// if (!data->map->map[idx_y][idx_x])
+	// 	return (2);
 	if (data->map->map[idx_y][idx_x] == '1')
 		return (1);
 	return (0);
