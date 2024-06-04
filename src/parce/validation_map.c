@@ -21,22 +21,40 @@ int ft_isaplayer(char c)
 	else
 		return (0);
 }
-
-void	fill(char **map, int row, int col, int rows)
+/*
+void	fill(char **map, int row, int col, int rows, int cols)
 {
-	if (row < 0 || col < 0 || row >= rows || !map[row][col] || map[row][col] == '1')
+	if (map[row][col] == '1')
+		return;
+	if (row <= 0 || col <= 0 || row >= rows || col >= cols)
 		return;
 	map[row][col] = 'X';
-	//fill(map, row, col - 1 ,rows);
-	fill(map, row, col + 1, rows) ;
-	//fill(map, row - 1, col, rows);
-	fill(map, row + 1, col, rows);
+	fill(map, row, col + 1, rows, cols) ;
+	fill(map, row + 1, col, rows, cols);
+	//fill(map, row, col - 1 ,rows, cols);
+	//fill(map, row - 1, col, rows, cols);
+}*/
+
+int	check_for_leaks(char **map, int rows, int cols, int x, int y, int k)
+{
+	if ((y < 1 || y >= cols - 1 || x < 1 || x >= rows - 1) && map[x][y] != '1')
+	{
+		return (++k);
+	}
+	if (map[x][y] != '0')
+		return (k);
+	map[x][y] = 'X';
+	k = check_for_leaks(map, rows, cols, x - 1, y, k);
+	k = check_for_leaks(map, rows, cols, x + 1, y, k);
+	k = check_for_leaks(map, rows, cols, x, y - 1, k);
+	k = check_for_leaks(map, rows, cols, x, y + 1, k);
+	return (k);
 }
 
 // char **convert_to_rectangle(char **map, int rows)
 // {
 // 	char **new;
-// 	size_t max = 0;
+// 	size_t max = 0;	
 // 	size_t len = 0;
 // 	int i = 0;
 
@@ -57,6 +75,7 @@ void	fill(char **map, int row, int col, int rows)
 int	validate_map(char **map, int rows)
 {
 	//(void)map;
+	int cols = 0;
 	print_arr(map);
 	printf("rows: %i\n", rows);
 	// map = convert_to_rectangle(map, rows);
@@ -87,12 +106,19 @@ int	validate_map(char **map, int rows)
 			}
 			j ++;
 		}
+		cols = j;
 		i ++;
 	}
+	map[row][col] = '0';
+	if (check_for_leaks(map, rows, cols,row, col, 0) != 0)
+	{
+		print_arr(map);
+		print_err("Map is not complete");
+	}
 	// Change the player to X
-	map[row][col] = 'X';
+	//map[row][col] = 'X';
 	// fill with X
-	fill(map, row, col, rows);
+	//fill(map, row, col, rows, cols);
 	// Check for holes in the first row
 	/*
 	while (map[i][j] && ft_isspace(map[i][j]))
@@ -114,7 +140,7 @@ int	validate_map(char **map, int rows)
 	/*
 		Check the entire map's 0's are enclosed by 1's
 	*/
-	print_arr(map);
+	
 	return (0);
 }
 
