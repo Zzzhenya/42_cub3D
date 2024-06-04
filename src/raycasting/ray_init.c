@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/03 14:28:40 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:47:29 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_struct_ray(t_ray *ray, t_player *player)
 void	update_ray_angle(t_ray *ray)
 {
 	ray->ray_angle = normilize_angle(ray->ray_angle);
-	if (ray->ray_angle > 0 && ray->ray_angle < (float)PI)
+	if (ray->ray_angle > 0 && ray->ray_angle < PI)
 		ray->down = 1;
 	else
 		ray->down = 0;
@@ -32,8 +32,8 @@ void	update_ray_angle(t_ray *ray)
 		ray->up = 0;
 	else
 		ray->up = 1;
-	if ((ray->ray_angle < (float)(0.5f * (float)PI)) || \
-	(ray->ray_angle > (float)(1.5f * (float)PI)))
+	if ((ray->ray_angle < (0.5 * PI)) || \
+	(ray->ray_angle > (1.5 * PI)))
 		ray->right = 1;
 	else
 		ray->right = 0;
@@ -42,13 +42,13 @@ void	update_ray_angle(t_ray *ray)
 	else
 		ray->left = 1;
 	if (!ray->vert_hit && ray->up)
-		ray->side = 1;
+		ray->side = NO;
 	else if (ray->vert_hit && ray->left)
-		ray->side = 2;
+		ray->side = WE;
 	if (!ray->vert_hit && ray->down)
-		ray->side = 3;
+		ray->side = SO;
 	else if (ray->vert_hit && ray->right)
-		ray->side = 4;
+		ray->side = EA;
 }
 
 float	normilize_angle(float angle)
