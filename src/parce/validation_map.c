@@ -48,6 +48,10 @@ int	check_for_leaks(char **map, int rows, int cols, int x, int y, int k)
 	k = check_for_leaks(map, rows, cols, x + 1, y, k);
 	k = check_for_leaks(map, rows, cols, x, y - 1, k);
 	k = check_for_leaks(map, rows, cols, x, y + 1, k);
+	k = check_for_leaks(map, rows, cols, x - 1, y - 1, k);
+	k = check_for_leaks(map, rows, cols, x + 1, y + 1, k);
+	k = check_for_leaks(map, rows, cols, x - 1, y + 1, k);
+	k = check_for_leaks(map, rows, cols, x + 1, y - 1, k);
 	return (k);
 }
 
