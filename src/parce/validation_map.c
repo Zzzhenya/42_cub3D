@@ -12,15 +12,109 @@
 
 #include "../../cub3d.h"
 
+int ft_isaplayer(char c)
+{
+	if (!c)
+		return (0);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	else
+		return (0);
+}
+
+void	fill(char **map, int row, int col, int rows)
+{
+	if (row < 0 || col < 0 || row >= rows || !map[row][col] || map[row][col] == '1')
+		return;
+	map[row][col] = 'X';
+	//fill(map, row, col - 1 ,rows);
+	fill(map, row, col + 1, rows) ;
+	//fill(map, row - 1, col, rows);
+	fill(map, row + 1, col, rows);
+}
+
+// char **convert_to_rectangle(char **map, int rows)
+// {
+// 	char **new;
+// 	size_t max = 0;
+// 	size_t len = 0;
+// 	int i = 0;
+
+// 	while (i < rows)
+// 	{
+// 		len = ft_strlen(map[i]);
+// 		if (len > max)
+// 			max = len;
+// 		i ++;
+// 	}
+
+
+// }
+
 /**
  * return valu: 0 - valid map, otherwise not 0
 */
 int	validate_map(char **map, int rows)
 {
-	(void)map;
+	//(void)map;
 	print_arr(map);
 	printf("rows: %i\n", rows);
-
+	// map = convert_to_rectangle(map, rows);
+	int i = 0;
+	int j = 0;
+	int row = -1; int col = -1;
+	// Already handled in the file parser
+	if (!map || !map[i] || !map[i][j])
+	{
+		print_err("Empty map");
+		return (1);
+	}
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (ft_isaplayer(map[i][j]))
+			{
+				if (row == -1 && col == -1)
+				{
+					row = i;
+					col = j;
+					printf("ROW: %d, COL: %d\n", row, col);
+				}
+				else
+					return (1);
+			}
+			j ++;
+		}
+		i ++;
+	}
+	// Change the player to X
+	map[row][col] = 'X';
+	// fill with X
+	fill(map, row, col, rows);
+	// Check for holes in the first row
+	/*
+	while (map[i][j] && ft_isspace(map[i][j]))
+		j ++;
+	while (map[i][j] && map[i][j] == '1')
+		j ++;
+	if (map[i][j] && (map[i][j] == '0' || ft_isspace(map[i][j])))
+	{
+		print_err("First row has a hole");
+		return (1);
+	}*/
+	/* Check whether the map only has 
+		leading and trailing spaces in lines, 
+		1, 0 and one of N, S, E, W
+	*/
+	/*
+		Find the location of N,S,E or W and check it is enclosed by 1's
+	*/
+	/*
+		Check the entire map's 0's are enclosed by 1's
+	*/
+	print_arr(map);
 	return (0);
 }
 
