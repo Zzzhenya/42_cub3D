@@ -21,19 +21,6 @@ int ft_isaplayer(char c)
 	else
 		return (0);
 }
-/*
-void	fill(char **map, int row, int col, int rows, int cols)
-{
-	if (map[row][col] == '1')
-		return;
-	if (row <= 0 || col <= 0 || row >= rows || col >= cols)
-		return;
-	map[row][col] = 'X';
-	fill(map, row, col + 1, rows, cols) ;
-	fill(map, row + 1, col, rows, cols);
-	//fill(map, row, col - 1 ,rows, cols);
-	//fill(map, row - 1, col, rows, cols);
-}*/
 
 int	check_for_leaks(char **map, int rows, int cols, int x, int y, int k)
 {
@@ -78,7 +65,6 @@ int	check_for_leaks(char **map, int rows, int cols, int x, int y, int k)
 */
 int	validate_map(char **map, int rows)
 {
-	//(void)map;
 	int cols = 0;
 	print_arr(map);
 	printf("rows: %i\n", rows);
@@ -103,10 +89,13 @@ int	validate_map(char **map, int rows)
 				{
 					row = i;
 					col = j;
-					printf("ROW: %d, COL: %d\n", row, col);
 				}
 				else
+				{
+					// When there is more than one player
+					// Already handled in a previous parsing function - I thinks
 					return (1);
+				}
 			}
 			j ++;
 		}
@@ -116,13 +105,12 @@ int	validate_map(char **map, int rows)
 	map[row][col] = '0';
 	if (check_for_leaks(map, rows, cols,row, col, 0) != 0)
 	{
-		print_arr(map);
+		//print_arr(map);
 		print_err("Map is not complete");
+		return (1);
 	}
-	// Change the player to X
-	//map[row][col] = 'X';
-	// fill with X
-	//fill(map, row, col, rows, cols);
+	// Check for stray 0's
+
 	// Check for holes in the first row
 	/*
 	while (map[i][j] && ft_isspace(map[i][j]))
