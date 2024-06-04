@@ -147,9 +147,9 @@ int	game_map_dup(t_data *data, char **arr)
 // copy valid data from file to struct elem (textures and colors)
 int	copy_data(t_data *data, char *s)
 {
-	// char	*tmp;
+	char	*tmp;
 
-	// tmp = s;
+	tmp = s;
 	while (*s != '\0')
 	{
 		while (is_whitespace(*s))

@@ -27,16 +27,16 @@ int	main(int ac, char **av)
 		return (clean_up_data(data), 1);
 	if (validate_file_content(av[1], data) != 0)
 		return (clean_up_data(data), 1);
-	// window_init(data);
-	// if (game_init(data) != 0)
-	// 	return (cross_exit(data), 1);
-	// display_controls();
-	// mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &keypress, data);
-	// mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross_exit, \
-	// data);
-	// // mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
-	// game(data);
-	// mlx_loop(data->mlx_ptr);
+	window_init(data);
+	if (game_init(data) != 0)
+		return (cross_exit(data), 1);
+	display_controls();
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &keypress, data);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &cross_exit, \
+	data);
+	// mlx_hook(data->win_ptr, 6, 1L << 6, mouse_move, data);
+	game(data);
+	mlx_loop(data->mlx_ptr);
 	return (0);
 }
 

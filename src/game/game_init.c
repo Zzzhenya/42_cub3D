@@ -28,11 +28,11 @@
 
 void	game(t_data *data)
 {
-	// int	x;
-	// int	y;
+	int	x;
+	int	y;
 
-	// x = 0;
-	// y = 0;
+	x = 0;
+	y = 0;
 	// mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	// clear_color_buf(data, 0xFFFFFFFF);
 	render_3d_walls(data, data->player, data->ray);
