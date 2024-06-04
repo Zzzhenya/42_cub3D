@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/03 14:46:43 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:10:24 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	mini_map(t_data *data)
 	float	scale_map;
 
 	scale_map = 0.4;
-	if (TILE_SIZE > 32)
-		scale_map = 0.15;
-	if (data->cols > 40 || data->rows > 40)
-	{
-		scale_map = 0.1;
-		if (data->cols > 100 || data->rows > 100)
-			return ;
-	}
+	// if (TILE_SIZE > 32)
+	// 	scale_map = 0.15;
+	// if (data->cols > 40 || data->rows > 40)
+	// {
+	// 	scale_map = 0.1;
+	// 	if (data->cols > 100 || data->rows > 100)
+	// 		return ;
+	// }
 	offset_x = TILE_SIZE * scale_map;
 	offset_y = H - (data->rows * TILE_SIZE * scale_map) - TILE_SIZE;
 	draw_mini_map(data, offset_y, offset_x, scale_map);
@@ -54,9 +54,9 @@ static void	draw_mini_map(t_data *data, int map_y, int map_x, float scale_map)
 			tile_y = row * TILE_SIZE * scale_map;
 			tile_x = col * TILE_SIZE * scale_map;
 			if (data->map->map[row][col] == '1')
-				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0x125478);
-			else
-				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xffffff00);//0x2c3e5080
+				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xc7ced2);
+			else if (data->map->map[row][col] != ' ')
+				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xeff8fd);
 			col++;
 		}
 		row++;
@@ -99,7 +99,7 @@ void	draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl)
 	line.x1 = offset_x + floor(trgt_x) * scl;
 	line.y_top = offset_y + map_y;
 	line.y_botm = offset_y + floor(trgt_y) * scl;
-	line.color = 0xff0000;
+	line.color = 0x0DFF0000;
 	draw_line_other(&line, data);
 }
 
@@ -109,10 +109,10 @@ static void	draw_rectangle(int row, int col, t_data *data, int color)
 	int	j;
 
 	i = 0;
-	while (i < TILE_SIZE)
+	while (i < TILE_SIZE * 0.4)
 	{
 		j = 0;
-		while (j < TILE_SIZE)
+		while (j < TILE_SIZE * 0.4)
 		{
 			ft_pixel_put(&data->img, col + i, row + j, color);
 			j++;
