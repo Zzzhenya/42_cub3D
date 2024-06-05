@@ -6,7 +6,7 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/06/05 20:33:30 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/06/05 20:57:42 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS		=	src/cub_main.c \
 				src/parce/validation_map.c \
 				src/parce/validation_map_utils.c \
 				src/parce/map_duplication.c \
-				src/game/game_init.c \
+				src/game/start_game.c \
 				src/game/mini_map.c \
 				src/game/hook_key.c \
 				src/game/utils_draw.c \
