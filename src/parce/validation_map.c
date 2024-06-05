@@ -33,9 +33,9 @@ int ft_isaplayer(char c)
 int	check_for_leaks(t_parse *data, int x, int y, int k)
 {
 	if ((y < 1 || y >= data->cols - 1 || x < 1 || x >= data->rows - 1)
-		&& data->map[x][y] != '1')
+		&& (data->map[x][y] != '1'))
 		return (++k);
-	if (data->map[x][y] != '0')
+	if (data->map[x][y] != '0' && data->map[x][y] != ' ')
 		return (k);
 	data->map[x][y] = 'X';
 	k = check_for_leaks(data, x - 1, y, k);
@@ -185,6 +185,30 @@ void	init_struct(t_parse *data, int rows, char **map)
 	data->cols = 0;
 	data->rows = rows;
 	data->map = map;
+	// get a copy of the map 
+}
+
+int	flood_fill_all_islands(t_parse *data, int k)
+{
+	int i = 0;
+	int j = 0;
+
+	while (i < data->rows)
+	{
+		j = 0;
+		while (j < data->cols)
+		{
+			if (data->map[i][j] == '0')
+			{
+				k += check_for_leaks(data, i, j, k);
+				if (k > 0)
+					return (1);
+			}
+			j ++;
+		}
+		i ++;
+	}
+	return (0);
 }
 
 int	validate_map(char **map, int rows)
@@ -193,7 +217,6 @@ int	validate_map(char **map, int rows)
 	int 	col;
 	t_parse	data;
 
-	init_struct(&data, rows, map);
 	col = -1;
 	row = -1;
 	// print_arr(map);
@@ -207,6 +230,7 @@ int	validate_map(char **map, int rows)
 			return (1);
 		}
 	}
+	init_struct(&data, rows, map);
 	if (find_player_loc(map, &(row), &(col), &(data.cols)) != 0)
 	{
 		print_err("Player location error");
@@ -215,10 +239,15 @@ int	validate_map(char **map, int rows)
 	map[row][col] = '0';
 	if (check_for_leaks(&data, row, col, 0) != 0)
 	{
+		print_err("Spawning area is incomplete");
+		return (1);
+	}
+	if (flood_fill_all_islands(&data, 0) != 0)
+	{
 		print_err("Incomplete map");
 		return (1);
 	}
-	// print_arr(map);
+	print_arr(map);
 	return (0);
 }
 
