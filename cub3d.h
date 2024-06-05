@@ -27,19 +27,19 @@
 # include <X11/keysymdef.h>
 # include "libft/libft.h"
 
-# define H 900
-# define W 1300
+# define H 960
+# define W 2000
 # define TILE_SIZE 32
 # define PLAYER_SIZE 8
-# define PI 3.1415926535 //65358979323846
+# define PI 3.14159265 //3565358979323846
 # define FOV 60
 # define TEXTURE_W 64
 # define TEXTURE_H 64
-# define CASTED_RAYS 320  //amount of rays in FOV
+# define CASTED_RAYS 320
 # define PL_STEP 10
 # define MINIMAP_SCALE 0.2
 # define WALL_STRIP_WIDTH 1
-
+# define MAX_VAL 100000
 
 /**
  * 
@@ -53,6 +53,14 @@
  *		 90
  * 
 */
+
+enum e_dir
+{
+	NO,
+	WE,
+	SO,
+	EA,
+};
 
 typedef struct s_map_utils
 {
@@ -283,8 +291,8 @@ void	ft_pixel_put(t_image *img, int x, int y, int color);
 void	ft_put_pixel_buf(t_data *data, t_image *img);
 int		ft_rgb(int r, int g, int b);
 int		ft_rgba(int r, int g, int b, int a);
-void	set_color_ceiling(t_line *line, t_data *data);
-void	set_color_floor(t_line *line, t_data *data);
+void	set_color_ceiling(t_line *line, t_data *data, t_elem *elem);
+void	set_color_floor(t_line *line, t_data *data, t_elem *elem);
 
 // raycalsting
 void	cast_ray(t_data *data, t_player *player, t_ray *ray);

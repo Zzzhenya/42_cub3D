@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 19:29:05 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:53:17 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	set_color_wall(t_line *line, t_data *data, t_ray *ray)
 	t_txr		*tmp;
 
 	// printf("ray->side: %i\n", ray->side);
-	if (ray->side < 1 || ray->side > 4)
+	if (ray->side < 0 || ray->side > 3)
 	{
         perror("Error\nInvalid ray side index");
         return ;
     }
-	tmp = data->elem->txr[ray->side - 1];
+	tmp = data->elem->txr[ray->side];
 	y = line->y_top;
 	if (ray->vert_hit)
 		texture_offset_x = (int)ray->wall_hit_y % TILE_SIZE;
@@ -92,30 +92,32 @@ void	set_color_wall(t_line *line, t_data *data, t_ray *ray)
 	}
 }
 
-void	set_color_ceiling(t_line *line, t_data *data)
+void	set_color_ceiling(t_line *line, t_data *data, t_elem *elem)
 {
 	int	y;
 	int	y_max;
 
 	y = 0;
 	y_max = line->y_top;
+	line->color = ft_rgb(elem->rgb_c[0], elem->rgb_c[1], elem->rgb_c[2]);
 	while (y < y_max)
 	{
-		data->color_buf[(W * y) + line->x0] = 0xFF124565;
+		data->color_buf[(W * y) + line->x0] = line->color;
 		y++;
 	}
 }
 
-void	set_color_floor(t_line *line, t_data *data)
+void	set_color_floor(t_line *line, t_data *data, t_elem *elem)
 {
 	int	y;
 	int	y_max;
 
 	y = line->y_botm;
 	y_max = H;
+	line->color = ft_rgb(elem->rgb_f[0], elem->rgb_f[1], elem->rgb_f[2]);
 	while (y < y_max)
 	{
-		data->color_buf[(W * y) + line->x0] = 0xFF777777;
+		data->color_buf[(W * y) + line->x0] = line->color;
 		y++;
 	}
 }

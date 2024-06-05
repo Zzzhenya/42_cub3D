@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_strip_wall.c                                     :+:      :+:    :+:   */
+/*   render_walls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/05/30 16:36:02 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:09:31 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	render_3d_walls(t_data *data, t_player *player, t_ray *ray)
 		cast_ray(data, player, ray);
 		render_strip_wall(data, ray);
 		ray->ray_count++;
-		ray->ray_angle += ((60 * ((float)PI / 180.0)) / W);
+		ray->ray_angle += ((60 * (PI / 180)) / W);
 		update_ray_angle(ray);
 	}
 }
@@ -42,7 +42,7 @@ void	render_strip_wall(t_data *data, t_ray *ray)
 	line.y_botm = line.y_top + ray->wall_height;
 	if (line.y_botm > H)
 		line.y_botm = H;
-	set_color_ceiling(&line, data);
+	set_color_ceiling(&line, data, data->elem);
 	set_color_wall(&line, data, data->ray);
-	set_color_floor(&line, data);
+	set_color_floor(&line, data, data->elem);
 }
