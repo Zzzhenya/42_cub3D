@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:38 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:41:03 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 22:20:41 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	check_for_leaks(t_parse *data, int x, int y, int k)
 		return (++k);
 	if (data->map[x][y] != '0' && data->map[x][y] != ' ')
 		return (k);
-	data->map[x][y] = 'X';
+	if (data->map[x][y] != ' ')
+		data->map[x][y] = 'X';
+	else
+		return (++k);
 	k = check_for_leaks(data, x - 1, y, k);
 	k = check_for_leaks(data, x + 1, y, k);
 	k = check_for_leaks(data, x, y - 1, k);
