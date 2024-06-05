@@ -127,11 +127,11 @@ int	find_player_loc(char **map, int *row, int *col, int *cols)
 	i = 0;
 	j = 0;
 	// Already handled in the file parser
-	if (!map || !map[i] || !map[i][j])
-	{
-		print_err("Empty map");
-		return (1);
-	}
+	// if (!map || !map[i] || !map[i][j])
+	// {
+	// 	print_err("Empty map");
+	// 	return (1);
+	// }
 	while (map[i])
 	{
 		j = 0;
@@ -147,7 +147,7 @@ int	find_player_loc(char **map, int *row, int *col, int *cols)
 				else
 					return (1);
 				// When there is more than one player
-				// Already handled in a previous parsing function - I thinks
+				// Already handled in a previous parsing function - I think
 			}
 			j ++;
 		}
@@ -180,19 +180,44 @@ int	find_player_loc(char **map, int *row, int *col, int *cols)
 		Check the entire map's 0's are enclosed by 1's
 */
 
-void	init_struct(t_parse *data, int rows, char **map)
+char **copy_arr(char **map, int rows)
+{
+	char **new;
+	int i = 0;
+
+	new = NULL;
+	new = (char **)malloc(sizeof(char *) * (rows + 1));
+	if (!new)
+	{
+		print_err("Memory allocation error.");
+		return (NULL);
+	}
+	while (i < rows)
+	{
+		new[i] = ft_strdup(map[i]);
+		i ++;
+	}
+	new[i] = NULL;
+	return (new);
+}
+
+int	init_parse_struct(t_parse *data, int rows, char **map)
 {
 	data->cols = 0;
 	data->rows = rows;
-	data->map = map;
-	// get a copy of the map 
+	data->map = copy_arr(map, rows);
+	if (!data->map)
+		return (1);
+	return (0);
 }
 
 int	flood_fill_all_islands(t_parse *data, int k)
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (i < data->rows)
 	{
 		j = 0;
@@ -211,6 +236,13 @@ int	flood_fill_all_islands(t_parse *data, int k)
 	return (0);
 }
 
+static int free_map_ret_one(t_parse *data, char *msg)
+{
+	ft_free_arr(data->map);
+	print_err(msg);
+	return (1);
+}
+
 int	validate_map(char **map, int rows)
 {
 	int 	row; 
@@ -219,35 +251,26 @@ int	validate_map(char **map, int rows)
 
 	col = -1;
 	row = -1;
-	// print_arr(map);
-	// printf("rows: %i\n", rows);
 	if (map_not_rectangle(map))
 	{
 		map = convert_to_rectangle(map, rows, get_max_len(map));
 		if (!map)
 		{
-			print_err("Memory allocation error");
+			print_err("Memory allocation error.");
 			return (1);
 		}
 	}
-	init_struct(&data, rows, map);
-	if (find_player_loc(map, &(row), &(col), &(data.cols)) != 0)
-	{
-		print_err("Player location error");
+	if (init_parse_struct(&data, rows, map) != 0)
 		return (1);
-	}
+	if (find_player_loc(map, &(row), &(col), &(data.cols)) != 0)
+		return (free_map_ret_one(&data,"Player location error."));
 	map[row][col] = '0';
 	if (check_for_leaks(&data, row, col, 0) != 0)
-	{
-		print_err("Spawning area is incomplete");
-		return (1);
-	}
+		return (free_map_ret_one(&data, "Spawning area is incomplete."));
 	if (flood_fill_all_islands(&data, 0) != 0)
-	{
-		print_err("Incomplete map");
-		return (1);
-	}
-	print_arr(map);
+		return (free_map_ret_one(&data, "Incomplete map."));
+	//print_arr(data.map);
+	ft_free_arr(data.map);
 	return (0);
 }
 
