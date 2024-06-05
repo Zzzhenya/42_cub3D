@@ -6,13 +6,15 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:23 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 20:56:55 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:39:47 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-// function set a players's positon && point of view && check if only one player
+/* function set a players's positon && point of view 
+&& check if only one player */
+
 int	validate_player(t_data *data, char **map, int rows)
 {
 	int	row;
@@ -20,8 +22,8 @@ int	validate_player(t_data *data, char **map, int rows)
 
 	if (!*map || !map || rows == 0)
 		return (print_err("Missing a game map"));
-	row = 0;
-	while (row < rows)
+	row = -1;
+	while (++row < rows)
 	{
 		col = 0;
 		while (map[row][col] != '\0')
@@ -36,7 +38,6 @@ int	validate_player(t_data *data, char **map, int rows)
 			}
 			col++;
 		}
-		row++;
 	}
 	if (data->map->view == 0)
 		return (print_err("Missing a player"));

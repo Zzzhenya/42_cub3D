@@ -1,49 +1,22 @@
-SYSTEMD_EXEC_PID=3461
-SSH_AUTH_SOCK=/run/user/101457/keyring/ssh
-SESSION_MANAGER=local/c3a5c1.42berlin.de:@/tmp/.ICE-unix/3461,unix/c3a5c1.42berlin.de:/tmp/.ICE-unix/3461
-GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/53f65b40_c890_4b0e_992f_8efc85226352
-LANG=en_US.UTF-8
-LANGUAGE=en
-XDG_CURRENT_DESKTOP=ubuntu:GNOME
-XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/ohladkov
-PWD=/home/ohladkov/Documents/my_repo_cub3d
-QT_IM_MODULE=ibus
-GPG_AGENT_INFO=/run/user/101457/gnupg/S.gpg-agent:0:1
-USER=ohladkov
-DESKTOP_SESSION=ubuntu
-XDG_MENU_PREFIX=gnome-
-XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
-HOME=/home/ohladkov
-DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101457/bus,guid=3a6deea069a4e69d78e52644665c3924
-DOCKER_HOST=unix:///run/user/101457/docker.sock
-SSH_AGENT_LAUNCHER=gnome-keyring
-GTK_MODULES=gail:atk-bridge
-XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
-GTK_IM_MODULE=ibus
-XDG_SESSION_DESKTOP=ubuntu
-QT_ACCESSIBILITY=1
-GNOME_DESKTOP_SESSION_ID=this-is-deprecated
-KRB5CCNAME=FILE:/tmp/krb5cc_101457_yhiH8v
-MAIL=ohladkov@student.42berlin.de
-XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
-LOGNAME=ohladkov
-GNOME_TERMINAL_SERVICE=:1.93
-PATH=/home/ohladkov/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-XDG_RUNTIME_DIR=/run/user/101457
-XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/home/ohladkov/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
-XMODIFIERS=@im=ibus
-SHELL=/bin/zsh
-XDG_SESSION_TYPE=x11
-DBUS_STARTER_BUS_TYPE=session
-VTE_VERSION=6800
-GDM_LANG=en
-COLORTERM=truecolor
-XAUTHORITY=/home/ohladkov/.Xauthority
-DBUS_STARTER_ADDRESS=unix:path=/run/user/101457/bus,guid=3a6deea069a4e69d78e52644665c3924
-XDG_SESSION_CLASS=user
-TERM=xterm-256color
-GDMSESSION=ubuntu
-DISPLAY=:0
-SHLVL=1
-OLDPWD=/home/ohladkov/Documents/my_repo_cub3d
-_=/usr/bin/env
+NO textures/wolfenstein/grey_stone.xpm
+SO textures/wolfenstein/purple_stone.xpm
+WE textures/wolfenstein/red_brick.xpm
+EA textures/wolfenstein/wood.xpm
+
+F 156,155,155
+C 204,229,255
+
+        111111111111111111111
+        100000000110000000001
+        101100001110000000001
+        100100000000000000001
+11111111101100001110000000001
+10000011101100001110111101111
+11110S11111111111000000111111
+1111011111111111101010010001
+1100000011010111100000010001
+1000000000000000000000000001 
+1000000000000001101010010001
+1100000111010111111011110001
+11110111 111011 101111010001
+11111111 111111 111111111111

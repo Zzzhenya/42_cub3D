@@ -6,19 +6,16 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/04 21:49:53 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:31:59 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
+static int	txr_init(t_elem *elem);
+
 void	game(t_data *data)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
 	render_3d_walls(data, data->player, data->ray);
 	ft_put_pixel_buf(data, &data->img);
 	mini_map(data);
@@ -26,17 +23,13 @@ void	game(t_data *data)
 	data->img.mlx_img, 0, 0);
 }
 
-int	set_textures(t_data *data, t_elem *elem)
+int	load_textures(t_data *data, t_elem *elem)
 {
 	int	i;
 
 	i = -1;
-	while (++i < 4)
-	{
-		data->elem->txr[i] = (t_txr *)ft_calloc(1, sizeof(t_txr));
-		if (!data->elem->txr[i])
-			return (perror("Error\nTexture malloc"), 1);
-	}
+	if (txr_init(elem) != 0)
+		return (1);
 	elem->txr[NO]->img = mlx_xpm_file_to_image(data->mlx_ptr, elem->no, \
 	&elem->txr[0]->width, &elem->txr[1]->height);
 	elem->txr[WE]->img = mlx_xpm_file_to_image(data->mlx_ptr, elem->we, \
@@ -52,6 +45,20 @@ int	set_textures(t_data *data, t_elem *elem)
 			return (perror("Error\nFailed loading texture"), 1);
 		elem->txr[i]->addr = (uint32_t *)mlx_get_data_addr(elem->txr[i]->img, \
 		&elem->txr[i]->bpp, &elem->txr[i]->line_length, &elem->txr[i]->endian);
+	}
+	return (0);
+}
+
+static int	txr_init(t_elem *elem)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		elem->txr[i] = (t_txr *)ft_calloc(1, sizeof(t_txr));
+		if (!elem->txr[i])
+			return (perror("Error\nTexture malloc"), 1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:08 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/04 21:47:29 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:41:41 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	update_ray_angle(t_ray *ray)
 		ray->up = 0;
 	else
 		ray->up = 1;
-	if ((ray->ray_angle < (0.5 * PI)) || \
-	(ray->ray_angle > (1.5 * PI)))
+	if ((ray->ray_angle < (0.5 * PI)) || (ray->ray_angle > (1.5 * PI)))
 		ray->right = 1;
 	else
 		ray->right = 0;
@@ -60,4 +59,3 @@ float	normilize_angle(float angle)
 	}
 	return (angle);
 }
-

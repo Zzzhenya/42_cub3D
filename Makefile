@@ -6,13 +6,12 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/06/02 19:16:14 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/06/05 20:33:30 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRCS_DIR	=	src/
 
 SRCS		=	src/cub_main.c \
 				src/parce/file_handler.c \
@@ -23,17 +22,20 @@ SRCS		=	src/cub_main.c \
 				src/parce/utils_arr.c \
 				src/parce/utils_str.c \
 				src/parce/utils_free.c \
+				src/parce/utils_free_data.c \
 				src/parce/validation_player.c \
 				src/parce/validation_map.c \
+				src/parce/validation_map_utils.c \
+				src/parce/map_duplication.c \
 				src/game/game_init.c \
+				src/game/mini_map.c \
 				src/game/hook_key.c \
 				src/game/utils_draw.c \
 				src/game/color_buf.c \
 				src/raycasting/raycasting.c \
 				src/raycasting/render_walls.c \
 				src/raycasting/ray_init.c \
-				src/raycasting/utils_raycasting.c \
-				src/game/mini_map.c
+				src/raycasting/utils_raycasting.c
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -51,7 +53,7 @@ GNL 		= gnl/get_next_line.h
 CC			= cc
 HEAD		= $(LIBFT_PATH)/libft.h $(MLX_PATH)/libmlx.h $(GNL)
 
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -O3
 
 LFLAGS	= -lX11 -lXext -lm
 

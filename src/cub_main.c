@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:10:55 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 21:14:27 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:52:29 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	data_init(t_data *data)
 
 int	game_init(t_data *data)
 {
-	if (set_textures(data, data->elem) != 0)
+	if (load_textures(data, data->elem) != 0)
 		return (1);
 	data->player->pa_rad = degrees_to_radians(get_degree(data->map->view));
 	data->player->px = data->map->px * TILE_SIZE + TILE_SIZE / 2;

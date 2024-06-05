@@ -6,13 +6,13 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/04 22:10:24 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:03:37 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-static void	draw_rectangle(int row, int col, t_data *data, int color);
+static void	draw_rectangle(int row, int col, t_data *data, float scl);
 static void	draw_player(t_data *data, int map_y, int map_x, float scale_map);
 static void	draw_mini_map(t_data *data, int map_y, int map_x, float scale_map);
 
@@ -23,14 +23,14 @@ void	mini_map(t_data *data)
 	float	scale_map;
 
 	scale_map = 0.4;
-	// if (TILE_SIZE > 32)
-	// 	scale_map = 0.15;
-	// if (data->cols > 40 || data->rows > 40)
-	// {
-	// 	scale_map = 0.1;
-	// 	if (data->cols > 100 || data->rows > 100)
-	// 		return ;
-	// }
+	if (TILE_SIZE > 32)
+		scale_map = 0.15;
+	if (data->cols > 40 || data->rows > 30)
+	{
+		scale_map = 0.1;
+		if (data->cols > 100 || data->rows > 100)
+			return ;
+	}
 	offset_x = TILE_SIZE * scale_map;
 	offset_y = H - (data->rows * TILE_SIZE * scale_map) - TILE_SIZE;
 	draw_mini_map(data, offset_y, offset_x, scale_map);
@@ -54,9 +54,7 @@ static void	draw_mini_map(t_data *data, int map_y, int map_x, float scale_map)
 			tile_y = row * TILE_SIZE * scale_map;
 			tile_x = col * TILE_SIZE * scale_map;
 			if (data->map->map[row][col] == '1')
-				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xc7ced2);
-			else if (data->map->map[row][col] != ' ')
-				draw_rectangle(map_y + tile_y, map_x + tile_x, data, 0xeff8fd);
+				draw_rectangle(map_y + tile_y, map_x + tile_x, data, scale_map);
 			col++;
 		}
 		row++;
@@ -100,51 +98,23 @@ void	draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl)
 	line.y_top = offset_y + map_y;
 	line.y_botm = offset_y + floor(trgt_y) * scl;
 	line.color = 0x0DFF0000;
-	draw_line_other(&line, data);
+	draw_line(&line, data);
 }
 
-static void	draw_rectangle(int row, int col, t_data *data, int color)
+static void	draw_rectangle(int row, int col, t_data *data, float scl)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < TILE_SIZE * 0.4)
+	while (i < TILE_SIZE * scl)
 	{
 		j = 0;
-		while (j < TILE_SIZE * 0.4)
+		while (j < TILE_SIZE * scl)
 		{
-			ft_pixel_put(&data->img, col + i, row + j, color);
+			ft_pixel_put(&data->img, col + i, row + j, 0xeff8fd);
 			j++;
 		}
 		i++;
-	}
-}
-
-// Function to draw a line using Bresenham's line algorithm
-void	draw_line_other(t_line *line, t_data *data) 
-{
-	int dx = abs(line->x1 - line->x0);
-	int dy = abs(line->y_botm - line->y_top);
-	int sx = line->x0 < line->x1 ? 1 : -1;
-	int sy = line->y_top < line->y_botm ? 1 : -1;
-	int err = (dx > dy ? dx : -dy) / 2;
-	int e2;
-
-	while (1) {
-		ft_pixel_put(&data->img, line->x0, line->y_top, line->color);
-		if (line->x0 == line->x1 && line->y_top == line->y_botm)
-			break ;
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			line->x0 += sx;
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			line->y_top += sy;
-		}
 	}
 }

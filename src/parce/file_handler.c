@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:07:22 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:11:04 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	read_file(char *file, t_data *data)
 
 int	validate_file_content(char *file, t_data *data)
 {
-	int	i;
-
 	if (copy_file_content(file, data) != 0)
 		return (print_err("Invalid file"));
 	if (parce_file(data) != 0)
@@ -46,9 +44,8 @@ int	validate_file_content(char *file, t_data *data)
 	data->cols = get_max_strlen(data->map->map, data->rows);
 	if (validate_player(data, data->map->map, data->rows) != 0)
 		return (1);
-	i = validate_map(data->map->map, data->rows); // TODO
-	if (i != 0)
-		return (print_err("Invalid map"), printf("%i\n", i), 2);
+	if (validate_map(data->map->map, data->rows) != 0)
+		return (2);
 	return (0);
 }
 
@@ -70,7 +67,8 @@ int	copy_file_content(char *file, t_data *data)
 		if (len)
 			str[len] = '\0';
 		data->arr_file[i] = ft_strdup(str);
-		data->arr_file[i][len - 1] = '\0';
+		if (data->arr_file[i][len - 1] == '\n')
+			data->arr_file[i][len - 1] = '\0';
 		i++;
 		ft_free(&str);
 	}
@@ -102,44 +100,6 @@ int	parce_file(t_data *data)
 			data->offset = i;
 			return (validate_elem(data->elem));
 		}
-	}
-	return (0);
-}
-
-int	duplicate_str(char **arr, t_map *map, int ofs, int j)
-{
-	if (is_whitespace_str(arr[ofs + j]) && arr[ofs + j + 1] \
-		&& !is_whitespace_str(arr[ofs + j + 1]))
-			return (print_err("Map include empty lines"), 4);
-		if (!is_whitespace_str(arr[ofs + j]))
-			map->map[j] = ft_strdup(arr[ofs + j]);
-	return (0);
-}
-
-int	game_map_dup(t_data *data, char **arr)
-{
-	int	i;
-	int	j;
-	int	ofs;
-
-	i = 1;
-	while (arr[i + data->offset])
-	{
-		if (!is_whitespace_str(arr[i + data->offset]))
-			break ;
-		i++;
-	}
-	ofs = i + data->offset;
-	data->map->map = (char **)ft_calloc(data->lines - (ofs - 1) + 1, \
-	sizeof(char *));
-	if (!data->map->map)
-		return (print_err(NULL), perror("Malloc"), 1);
-	j = 0;
-	while (arr[ofs + j])
-	{
-		if (duplicate_str(arr, data->map, ofs, j) != 0)
-			return (4);
-		j++;
 	}
 	return (0);
 }

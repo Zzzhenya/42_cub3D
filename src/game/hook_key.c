@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:16 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 18:42:16 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:28:18 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,29 @@ int	keypress(int keysym, t_data *data)
 		return (rotate_player(data, data->player, keysym), 0);
 	if (keysym == XK_w || keysym == XK_W)
 	{
-		move_player(data, (data->player->px + cos(data->player->pa_rad) * PL_STEP),\
-		(data->player->py + sin(data->player->pa_rad) * PL_STEP));
+		move_player(data, (data->player->px + cos(data->player->pa_rad) * \
+		PL_STEP), (data->player->py + sin(data->player->pa_rad) * PL_STEP));
 	}
 	else if (keysym == XK_s || keysym == XK_S)
 	{
-		move_player(data, (data->player->px - cos(data->player->pa_rad) * PL_STEP),\
-		(data->player->py - sin(data->player->pa_rad) * PL_STEP));
+		move_player(data, (data->player->px - cos(data->player->pa_rad) * \
+		PL_STEP), (data->player->py - sin(data->player->pa_rad) * PL_STEP));
 	}
 	else if (keysym == XK_a || keysym == XK_A)
 	{
-		move_player(data, (data->player->px + sin(data->player->pa_rad) * PL_STEP),\
-		(data->player->py - cos(data->player->pa_rad) * PL_STEP));
+		move_player(data, (data->player->px + sin(data->player->pa_rad) * \
+		PL_STEP), (data->player->py - cos(data->player->pa_rad) * PL_STEP));
 	}
 	else if (keysym == XK_d || keysym == XK_D)
 	{
-		move_player(data, (data->player->px - sin(data->player->pa_rad) * PL_STEP),\
-		(data->player->py + cos(data->player->pa_rad) * PL_STEP));
+		move_player(data, (data->player->px - sin(data->player->pa_rad) * \
+		PL_STEP), (data->player->py + cos(data->player->pa_rad) * PL_STEP));
 	}
 	return (game(data), 0);
 }
 
 void	move_player(t_data *data, float target_x, float target_y)
 {
-	// if (target_x < 0 || target_x > W || target_y < 0 || target_y > H)
-	// 	return ;
 	if (has_wall_at(data, target_x, data->player->py) != 1)
 		data->player->px = target_x;
 	if (has_wall_at(data, data->player->px, target_y) != 1)
@@ -60,11 +58,11 @@ void	rotate_player(t_data *data, t_player *player, int keysym)
 	game(data);
 }
 
-int mouse_move(int x, int y, t_data *data)
+int	mouse_move(int x, int y, t_data *data)
 {
 	(void)data;
-    printf("Mouse is at position (%d, %d)\n", x, y);
-    return 0;
+	printf("Mouse is at position (%d, %d)\n", x, y);
+	return (0);
 }
 
 int	cross_exit(t_data *data)

@@ -28,17 +28,14 @@
 # include "libft/libft.h"
 
 # define H 960
-# define W 2000
-# define TILE_SIZE 32
+# define W 1600
+# define TILE_SIZE 64
 # define PLAYER_SIZE 8
-# define PI 3.14159265 //3565358979323846
+# define PI 3.14159265
 # define FOV 60
-# define TEXTURE_W 64
-# define TEXTURE_H 64
 # define CASTED_RAYS 320
-# define PL_STEP 10
+# define PL_STEP 20
 # define MINIMAP_SCALE 0.2
-# define WALL_STRIP_WIDTH 1
 # define MAX_VAL 100000
 
 /**
@@ -62,19 +59,12 @@ enum e_dir
 	EA,
 };
 
-typedef struct s_map_utils
+typedef struct s_parse
 {
-	int	row;
-	int	col;
-	char cur_char;
-	char *cur_row;
-	char *row_on_top;
-	char *row_on_btm;
-	int cur_row_len;
-	int top_row_len;
-	int btm_row_len;
-}	t_map_utils;
-
+	int		rows;
+	int		cols;
+	char	**map;
+}	t_parse;
 
 /*!
  *	@struct				s_image
@@ -128,7 +118,6 @@ typedef struct s_ray
 	int		left;
 	int		down;
 }	t_ray;
-
 
 /**
  * @struct			s_map
@@ -240,23 +229,18 @@ typedef struct s_data
 */
 
 // init data & win
-
-uint32_t get_texture_pixel(t_txr *texture, int x, int y);
-
-t_data *initialize_data(void);
+t_data	*initialize_data(void);
 void	data_init(t_data *data);
 void	window_init(t_data *data);
-
 int		game_map_dup(t_data *data, char **arr);
 void	set_color_wall(t_line *line, t_data *data, t_ray *ray);
-void	draw_line_other(t_line *line, t_data *data);
+void	draw_line(t_line *line, t_data *data);
 void	draw_vert_line(t_line *line, t_data *data);
 void	mini_map(t_data *data);
 float	degrees_to_radians(int degrees);
 int		get_degree(char view);
 int		fix_angle(int a);
 void	draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl);
-int		validate_map(char **map, int rows);
 
 // read file
 int		check_filename(char *str, char *extention);
@@ -266,7 +250,6 @@ int		copy_file_content(char *file, t_data *data);
 int		validate_player(t_data *data, char **map, int rows);
 int		validate_file_content(char *file, t_data *data);
 int		parce_file(t_data *data);
-
 int		copy_data(t_data *data, char *s);
 int		fill_struct_elem(t_data *data, char **s);
 int		copy_texture(t_elem *elem, char **s, char **texture);
@@ -276,44 +259,49 @@ int		validate_elem(t_elem *elem);
 
 int		cross_exit(t_data *data);
 int		keypress(int keysym, t_data *data);
-int 	mouse_move(int x, int y, t_data *data);
+int		mouse_move(int x, int y, t_data *data);
 void	display_controls(void);
 void	move_player(t_data *data, float target_x, float target_y);
 void	rotate_player(t_data *data, t_player *player, int keysym);
 int		has_wall_at(t_data *data, float x, float y);
 
+//map validation
+int		validate_map(char **map, int rows);
+int		init_parse_struct(t_parse *data, int rows, char **map);
+int		ft_isaplayer(char c);
+int		check_for_leaks(t_parse *data, int x, int y, int k);
+size_t	get_max_len(char **map);
+char	**copy_arr(char **map, int rows);
+
+
 // draw game
 int		game_init(t_data *data);
 void	game(t_data *data);
-// void	init_elem_struct(t_data *data);
-int	set_textures(t_data *data, t_elem *elem);
+int		load_textures(t_data *data, t_elem *elem);
 void	ft_pixel_put(t_image *img, int x, int y, int color);
 void	ft_put_pixel_buf(t_data *data, t_image *img);
 int		ft_rgb(int r, int g, int b);
-int		ft_rgba(int r, int g, int b, int a);
 void	set_color_ceiling(t_line *line, t_data *data, t_elem *elem);
 void	set_color_floor(t_line *line, t_data *data, t_elem *elem);
 
 // raycalsting
 void	cast_ray(t_data *data, t_player *player, t_ray *ray);
-void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scale_map);
+void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scl);
 void	update_ray_angle(t_ray *ray);
 float	normilize_angle(float angle);
 void	init_struct_ray(t_ray *ray, t_player *player);
-// void	init_texture_buf(t_data *data);
 float	get_distance(float px, float py, float hit_x, float hit_y);
-void    render_strip_wall(t_data *data, t_ray *ray);
+void	render_strip_wall(t_data *data, t_ray *ray);
 void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
 
-
+// utils
+void	print_arr(char **arr);
 void	malloc_error(void);
 void	clean_up_data(t_data *data);
 void	free_elem(t_elem *elem);
 void	free_arr_int(int **arr, int size);
+int 	free_map_ret_one(t_parse *data, char *msg);
 int		print_err(char *s);
-
-// utils
-void	print_arr(char **arr);
 size_t	ft_arrlen(char **arr);
 size_t	ft_arrsize(char	**arr);
 int		is_whitespace(char c);
