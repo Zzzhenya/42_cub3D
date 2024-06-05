@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:38:41 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 22:30:17 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static int	find_player_loc(char **map, int *row, int *col, int *cols)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (map[i])
 	{
 		j = 0;
