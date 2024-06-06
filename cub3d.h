@@ -85,6 +85,21 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
+typedef struct s_raycast
+{
+	float	x_step;
+	float	y_step;
+	float	x_intercept;
+	float	y_intercept;
+	float	next_touch_x;
+	float	next_touch_y;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	int		found_wall_hit;
+	float	hit_dist;
+	int		len;
+}	t_raycast;
+
 typedef struct s_line
 {
 	int	x0;
@@ -131,7 +146,7 @@ typedef struct s_ray
 	int		vert_hit;
 	float	ray_angle;
 	float	distance;
-	float	wall_height;
+	float	wall_h;
 	int		ray_count;
 	float	wall_hit_x;
 	float	wall_hit_y;
@@ -256,7 +271,7 @@ t_data	*initialize_data(void);
 void	data_init(t_data *data);
 void	window_init(t_data *data);
 int		game_map_dup(t_data *data, char **arr);
-void	set_color_wall(t_line *line, t_data *data, t_ray *ray);
+int		set_color_wall(t_line *line, t_data *data, t_ray *ray);
 void	draw_line(t_line *line, t_data *data);
 void	draw_vert_line(t_line *line, t_data *data);
 void	mini_map(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:42:27 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/05 21:47:29 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	render_strip_wall(t_data *data, t_ray *ray)
 	correct_wall_dist = ray->distance * \
 		cos(ray->ray_angle - data->player->pa_rad);
 	distance_proj_plane = (W / 2) / tan((60 * (PI / 180.0)) / 2);
-	ray->wall_height = (TILE_SIZE / correct_wall_dist) * distance_proj_plane;
+	ray->wall_h = (TILE_SIZE / correct_wall_dist) * distance_proj_plane;
 	line.x0 = ray->ray_count;
-	line.y_top = ((int)H / 2) - (ray->wall_height / 2);
+	line.y_top = ((int)H / 2) - (ray->wall_h / 2);
 	if (line.y_top < 0)
 		line.y_top = 0;
-	line.y_botm = line.y_top + ray->wall_height;
+	line.y_botm = line.y_top + ray->wall_h;
 	if (line.y_botm > H)
 		line.y_botm = H;
 	set_color_ceiling(&line, data, data->elem);
