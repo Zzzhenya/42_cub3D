@@ -72,31 +72,52 @@ void	draw_vert_line(t_line *line, t_data *data)
 	}
 }
 
-// Function to draw a line using Bresenham's line algorithm
+/*
+	Function to initiate the bresenham line algorithm struct
+*/
+void	set_bres_struct(t_bres *bres, t_line *line)
+{
+	bres->line = line;
+	bres->dx = abs(bres->line->x1 - bres->line->x0);
+	bres->dy = abs(bres->line->y_botm - bres->line->y_top);
+	if (bres->line->x0 < bres->line->x1)
+		bres->sx = 1;
+	else
+		bres->sx = -1;
+	if (bres->line->y_top < bres->line->y_botm)
+		bres->sy = 1;
+	else
+		bres->sy = -1;
+	if (bres->dx > bres->dy)
+		bres->err = bres->dx / 2;
+	else
+		bres->err = -bres->dy / 2;
+	bres->e2 = 0;
+}
+
+/* 
+	Function to draw a line using Bresenham's line algorithm
+*/
 void	draw_line(t_line *line, t_data *data) 
 {
-	int dx = abs(line->x1 - line->x0);
-	int dy = abs(line->y_botm - line->y_top);
-	int sx = line->x0 < line->x1 ? 1 : -1;
-	int sy = line->y_top < line->y_botm ? 1 : -1;
-	int err = (dx > dy ? dx : -dy) / 2;
-	int e2;
+	t_bres bres;
 
+	set_bres_struct(&bres, line);
 	while (1)
 	{
-		ft_pixel_put(&data->img, line->x0, line->y_top, line->color);
-		if (line->x0 == line->x1 && line->y_top == line->y_botm)
+		ft_pixel_put(&data->img, bres.line->x0, bres.line->y_top, bres.line->color);
+		if (bres.line->x0 == bres.line->x1 && bres.line->y_top == bres.line->y_botm)
 			break ;
-		e2 = err;
-		if (e2 > -dx)
+		bres.e2 = bres.err;
+		if (bres.e2 > -bres.dx)
 		{
-			err -= dy;
-			line->x0 += sx;
+			bres.err -= bres.dy;
+			bres.line->x0 += bres.sx;
 		}
-		if (e2 < dy)
+		if (bres.e2 < bres.dy)
 		{
-			err += dx;
-			line->y_top += sy;
+			bres.err += bres.dx;
+			bres.line->y_top += bres.sy;
 		}
 	}
 }
