@@ -72,17 +72,9 @@ void	draw_vert_line(t_line *line, t_data *data)
 	}
 }
 
-typedef struct s_bres
-{
-	t_line		*line; 
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			err;
-	int			e2;
-}				t_bres;
-
+/*
+	Function to initiate the bresenham line algorithm struct
+*/
 void	set_bres_struct(t_bres *bres, t_line *line)
 {
 	bres->line = line;
@@ -103,7 +95,9 @@ void	set_bres_struct(t_bres *bres, t_line *line)
 	bres->e2 = 0;
 }
 
-// Function to draw a line using Bresenham's line algorithm
+/* 
+	Function to draw a line using Bresenham's line algorithm
+*/
 void	draw_line(t_line *line, t_data *data) 
 {
 	t_bres bres;

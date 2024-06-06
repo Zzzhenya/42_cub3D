@@ -95,6 +95,29 @@ typedef struct s_line
 }	t_line;
 
 /**
+ * @struct 					s_bres
+ * @brief					Used to calculate pixel loc
+ * @param	line 			Pointer to line struct
+ * @param 	dx				diff in x dir
+ * @param	dy 				diff in y dir
+ * @param	sx 				unit dir in x
+ * @param	sy 				unit dir in y
+ * @param	err 			overall error
+ * @param	e2				error in step
+*/
+
+typedef struct s_bres
+{
+	t_line		*line; 
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			e2;
+}				t_bres;
+
+/**
  * @struct					s_ray
  * @brief					Represents a ray
  * @param	wall_hit_x		X-coordinate of the wall hit
