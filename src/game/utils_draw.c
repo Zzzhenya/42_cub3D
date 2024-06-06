@@ -75,18 +75,11 @@ void	draw_vert_line(t_line *line, t_data *data)
 typedef struct s_bres
 {
 	t_line		*line; 
-		/*
-		x0 line->x0
-		x1 line->x1
-		y0 line->y_botm
-		y1 line->y_top
-		line->color
-		*/
 	int			dx;
 	int			dy;
 	int			sx;
 	int			sy;
-	int			err; // e
+	int			err;
 	int			e2;
 }				t_bres;
 
@@ -99,14 +92,14 @@ void	set_bres_struct(t_bres *bres, t_line *line)
 		bres->sx = 1;
 	else
 		bres->sx = -1;
-	if (bres->line->y_tol < bres->line->y_botm)
+	if (bres->line->y_top < bres->line->y_botm)
 		bres->sy = 1;
 	else
 		bres->sy = -1;
-	if (dx > dy)
-		bres->err = dx / 2;
+	if (bres->dx > bres->dy)
+		bres->err = bres->dx / 2;
 	else
-		bres->err = -dy / 2;
+		bres->err = -bres->dy / 2;
 	bres->e2 = 0;
 }
 
@@ -114,38 +107,19 @@ void	set_bres_struct(t_bres *bres, t_line *line)
 void	draw_line(t_line *line, t_data *data) 
 {
 	t_bres bres;
-	set_bres_struct(&bres, line);
-	// int dx = abs(line->x1 - line->x0);
-	// int dy = abs(line->y_botm - line->y_top);
-	// int sx = line->x0 < line->x1 ? 1 : -1;
-	// int sy = line->y_top < line->y_botm ? 1 : -1;
-	// int err = (dx > dy ? dx : -dy) / 2;
-	//int e2;
 
+	set_bres_struct(&bres, line);
 	while (1)
 	{
-		// ft_pixel_put(&data->img, line->x0, line->y_top, line->color);
 		ft_pixel_put(&data->img, bres.line->x0, bres.line->y_top, bres.line->color);
-		// if (line->x0 == line->x1 && line->y_top == line->y_botm)
 		if (bres.line->x0 == bres.line->x1 && bres.line->y_top == bres.line->y_botm)
 			break ;
 		bres.e2 = bres.err;
-		//e2 = err;
-		// if (e2 > -dx)
-		// {
-		// 	err -= dy;
-		// 	line->x0 += sx;
-		// }
 		if (bres.e2 > -bres.dx)
 		{
 			bres.err -= bres.dy;
 			bres.line->x0 += bres.sx;
 		}
-		// if (e2 < dy)
-		// {
-		// 	err += dx;
-		// 	line->y_top += sy;
-		// }
 		if (bres.e2 < bres.dy)
 		{
 			bres.err += bres.dx;
