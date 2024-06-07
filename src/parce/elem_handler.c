@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:21 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/02 20:54:30 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:57:42 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	copy_c_color(t_elem *elem, char **s)
 		tmp = ft_strtrim(arr[j], " \t\n\r\f\v");
 		if (!tmp)
 			return (ft_free_arr(arr), print_err("Invalid color"));
+		if (!ft_isdigit_str(tmp))
+			return (free(tmp), ft_free_arr(arr), print_err("Invalid color"));
 		elem->rgb_c[j] = ft_atoi(tmp);
 		free(tmp);
 		if (elem->rgb_c[j] < 0 || elem->rgb_c[j] > 255)
@@ -88,6 +90,8 @@ int	copy_f_color(t_elem *elem, char **s)
 		tmp = ft_strtrim(arr[j], " \t\n\r\f\v");
 		if (!tmp)
 			return (ft_free_arr(arr), print_err("Invalid color"));
+		if (!ft_isdigit_str(tmp))
+			return (free(tmp), ft_free_arr(arr), print_err("Invalid color"));
 		elem->rgb_f[j] = ft_atoi(tmp);
 		ft_free(&tmp);
 		if (elem->rgb_f[j] < 0 || elem->rgb_f[j] > 255)
