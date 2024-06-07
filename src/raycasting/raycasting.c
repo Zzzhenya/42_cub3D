@@ -6,15 +6,11 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/07 12:47:27 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:25:25 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
-
-t_raycast	*horz_intersection(t_data *data, t_player *player, t_ray *ray);
-t_raycast	*vert_intersection(t_data *data, t_player *player, t_ray *ray);
-void	update_ray_coordinates(t_ray *ray, t_raycast *horz, t_raycast *vert);
 
 void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scl)
 {
@@ -46,15 +42,16 @@ void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 	vert = NULL;
 }
 
-t_raycast	*horz_intersection(t_data *data, t_player *player, t_ray *ray)
+t_raycast	*horz_intersection(t_data *data, t_player *pl, t_ray *ray)
 {
 	t_raycast	*h;
+	int			tmp;
 
 	h = ft_calloc(1, sizeof(t_raycast));
-	h->y_intercept = floor(player->py / TILE_SIZE) * TILE_SIZE;
+	h->y_intercept = floor(pl->py / TILE_SIZE) * TILE_SIZE;
 	if (ray->down)
 		h->y_intercept += TILE_SIZE;
-	h->x_intercept = player->px + (h->y_intercept - player->py) / tan(ray->angle);
+	h->x_intercept = pl->px + (h->y_intercept - pl->py) / tan(ray->angle);
 	h->y_step = TILE_SIZE;
 	if (ray->up)
 		h->y_step *= -1;
@@ -63,40 +60,22 @@ t_raycast	*horz_intersection(t_data *data, t_player *player, t_ray *ray)
 		h->x_step *= -1;
 	h->next_touch_x = h->x_intercept;
 	h->next_touch_y = h->y_intercept;
-	if (floor(h->next_touch_y / TILE_SIZE) < data->rows && floor(h->next_touch_y / TILE_SIZE) >= 0)
-	{
-		h->len = (int)ft_strlen(data->map->map[(int)floor(h->next_touch_y / TILE_SIZE)]);
-		while (h->next_touch_x >= 0 && h->next_touch_x <= (h->len) * TILE_SIZE && h->next_touch_y >= 0 && h->next_touch_y <= ((data->rows) * TILE_SIZE))
-		{
-			if (floor(h->next_touch_y / TILE_SIZE) >= data->rows)
-				break ;
-			h->len = (int)ft_strlen(data->map->map[(int)floor(h->next_touch_y / TILE_SIZE)]);
-			if (has_wall_at(data, h->next_touch_x, h->next_touch_y - ray->up) == 1)
-			{
-				h->found_wall_hit = 1;
-				h->wall_hit_x = h->next_touch_x;
-				h->wall_hit_y = h->next_touch_y;
-				break ;
-			}
-			else
-			{
-				h->next_touch_x += h->x_step;
-				h->next_touch_y += h->y_step;
-			}
-		}
-	}
+	tmp = floor(h->next_touch_y / TILE_SIZE);
+	if (tmp >= 0 && tmp < data->rows)
+		calc_vert_intersection(data, h, ray->up);
 	return (h);
 }
 
-t_raycast	*vert_intersection(t_data *data, t_player *player, t_ray *ray)
+t_raycast	*vert_intersection(t_data *data, t_player *pl, t_ray *ray)
 {
 	t_raycast	*v;
+	int			tmp;
 
 	v = ft_calloc(1, sizeof(t_raycast));
-	v->x_intercept = floor(player->px / TILE_SIZE) * TILE_SIZE;
+	v->x_intercept = floor(pl->px / TILE_SIZE) * TILE_SIZE;
 	if (ray->right)
 		v->x_intercept += TILE_SIZE;
-	v->y_intercept = player->py + (v->x_intercept - player->px) * tan(ray->angle);
+	v->y_intercept = pl->py + (v->x_intercept - pl->px) * tan(ray->angle);
 	v->x_step = TILE_SIZE;
 	if (ray->left)
 		v->x_step *= -1;
@@ -105,28 +84,9 @@ t_raycast	*vert_intersection(t_data *data, t_player *player, t_ray *ray)
 		v->y_step *= -1;
 	v->next_touch_x = v->x_intercept;
 	v->next_touch_y = v->y_intercept;
-	if (floor(v->next_touch_y / TILE_SIZE) < data->rows && floor(v->next_touch_y / TILE_SIZE) >= 0)
-	{
-		v->len = (int)ft_strlen(data->map->map[(int)round(v->next_touch_y / TILE_SIZE)]);
-		while (v->next_touch_x >= 0 && v->next_touch_x <= (v->len * TILE_SIZE) && v->next_touch_y >= 0 && v->next_touch_y <= ((data->rows) * TILE_SIZE))
-		{
-			if (floor(v->next_touch_y / TILE_SIZE) >= data->rows)
-				break ;
-			v->len = (int)ft_strlen(data->map->map[(int)round(v->next_touch_y / TILE_SIZE)]);
-			if (has_wall_at(data, v->next_touch_x - ray->left, v->next_touch_y))
-			{
-				v->found_wall_hit = 1;
-				v->wall_hit_x = v->next_touch_x;
-				v->wall_hit_y = v->next_touch_y;
-				break ;
-			}
-			else
-			{
-				v->next_touch_x += v->x_step;
-				v->next_touch_y += v->y_step;
-			}
-		}
-	}
+	tmp = floor(v->next_touch_y / TILE_SIZE);
+	if (tmp >= 0 && tmp < data->rows)
+		calc_vert_intersection(data, v, ray->left);
 	return (v);
 }
 

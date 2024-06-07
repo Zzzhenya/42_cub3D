@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 21:47:29 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:48:04 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	render_3d_walls(t_data *data, t_player *player, t_ray *ray)
 		cast_ray(data, player, ray);
 		render_strip_wall(data, ray);
 		ray->ray_count++;
-		ray->ray_angle += ((60 * (PI / 180)) / W);
-		update_ray_angle(ray);
+		ray->angle += ((60 * (PI / 180)) / W);
+		update_angle(ray);
 	}
 }
 
@@ -33,7 +33,7 @@ void	render_strip_wall(t_data *data, t_ray *ray)
 	float	correct_wall_dist;
 
 	correct_wall_dist = ray->distance * \
-		cos(ray->ray_angle - data->player->pa_rad);
+		cos(ray->angle - data->player->pa_rad);
 	distance_proj_plane = (W / 2) / tan((60 * (PI / 180.0)) / 2);
 	ray->wall_h = (TILE_SIZE / correct_wall_dist) * distance_proj_plane;
 	line.x0 = ray->ray_count;

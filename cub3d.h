@@ -144,7 +144,7 @@ typedef struct s_bres
 typedef struct s_ray
 {
 	int		vert_hit;
-	float	ray_angle;
+	float	angle;
 	float	distance;
 	float	wall_h;
 	int		ray_count;
@@ -267,89 +267,94 @@ typedef struct s_data
 */
 
 // init data & win
-t_data	*initialize_data(void);
-void	data_init(t_data *data);
-void	window_init(t_data *data);
-int		game_map_dup(t_data *data, char **arr);
-int		set_color_wall(t_line *line, t_data *data, t_ray *ray);
-void	draw_line(t_line *line, t_data *data);
-void	draw_vert_line(t_line *line, t_data *data);
-void	mini_map(t_data *data);
-float	degrees_to_radians(int degrees);
-int		get_degree(char view);
-int		fix_angle(int a);
-void	draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl);
+t_data		*initialize_data(void);
+void		data_init(t_data *data);
+void		window_init(t_data *data);
+int			game_map_dup(t_data *data, char **arr);
+int			set_color_wall(t_line *line, t_data *data, t_ray *ray);
+void		draw_line(t_line *line, t_data *data);
+void		draw_vert_line(t_line *line, t_data *data);
+void		mini_map(t_data *data);
+float		degrees_to_radians(int degrees);
+int			get_degree(char view);
+int			fix_angle(int a);
+void		draw_player_dir(t_data *data, float trgt_x, float trgt_y, float scl);
 
 // read file
-int		check_filename(char *str, char *extention);
-int		count_file_lines(char *file, t_data	*data);
-int		read_file(char *file, t_data	*data);
-int		copy_file_content(char *file, t_data *data);
-int		validate_player(t_data *data, char **map, int rows);
-int		validate_file_content(char *file, t_data *data);
-int		parce_file(t_data *data);
-int		copy_data(t_data *data, char *s);
-int		fill_struct_elem(t_data *data, char **s);
-int		copy_texture(t_elem *elem, char **s, char **texture);
-int		copy_c_color(t_elem *elem, char **s);
-int		copy_f_color(t_elem *elem, char **s);
-int		validate_elem(t_elem *elem);
-
-int		cross_exit(t_data *data);
-int		keypress(int keysym, t_data *data);
-int		mouse_move(int x, int y, t_data *data);
-void	display_controls(void);
-void	move_player(t_data *data, float target_x, float target_y);
-void	rotate_player(t_data *data, t_player *player, int keysym);
-int		has_wall_at(t_data *data, float x, float y);
+int			check_filename(char *str, char *extention);
+int			count_file_lines(char *file, t_data	*data);
+int			read_file(char *file, t_data	*data);
+int			copy_file_content(char *file, t_data *data);
+int			validate_player(t_data *data, char **map, int rows);
+int			validate_file_content(char *file, t_data *data);
+int			parce_file(t_data *data);
+int			copy_data(t_data *data, char *s);
+int			fill_struct_elem(t_data *data, char **s);
+int			copy_texture(t_elem *elem, char **s, char **texture);
+int			copy_c_color(t_elem *elem, char **s);
+int			copy_f_color(t_elem *elem, char **s);
+int			validate_elem(t_elem *elem);
+int			cross_exit(t_data *data);
+int			keypress(int keysym, t_data *data);
+int			mouse_move(int x, int y, t_data *data);
+void		display_controls(void);
+void		move_player(t_data *data, float target_x, float target_y);
+void		rotate_player(t_data *data, t_player *player, int keysym);
+int			has_wall_at(t_data *data, float x, float y);
 
 //map validation
-int		validate_map(char **map, int rows);
-int		init_parse_struct(t_parse *data, int rows, char **map);
-int		ft_isaplayer(char c);
-int		check_for_leaks(t_parse *data, int x, int y, int k);
-size_t	get_max_len(char **map);
-char	**copy_arr(char **map, int rows);
+int			validate_map(char **map, int rows);
+int			init_parse_struct(t_parse *data, int rows, char **map);
+int			ft_isaplayer(char c);
+int			check_for_leaks(t_parse *data, int x, int y, int k);
+size_t		get_max_len(char **map);
+char		**copy_arr(char **map, int rows);
 
 
 // draw game
-int		game_init(t_data *data);
-void	game(t_data *data);
-int		load_textures(t_data *data, t_elem *elem);
-void	ft_pixel_put(t_image *img, int x, int y, int color);
-void	ft_put_pixel_buf(t_data *data, t_image *img);
-int		ft_rgb(int r, int g, int b);
-void	set_color_ceiling(t_line *line, t_data *data, t_elem *elem);
-void	set_color_floor(t_line *line, t_data *data, t_elem *elem);
+int			game_init(t_data *data);
+void		game(t_data *data);
+int			load_textures(t_data *data, t_elem *elem);
+void		ft_pixel_put(t_image *img, int x, int y, int color);
+void		ft_put_pixel_buf(t_data *data, t_image *img);
+int			ft_rgb(int r, int g, int b);
+void		set_color_ceiling(t_line *line, t_data *data, t_elem *elem);
+void		set_color_floor(t_line *line, t_data *data, t_elem *elem);
 
 // raycalsting
-void	cast_ray(t_data *data, t_player *player, t_ray *ray);
-void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scl);
-void	update_ray_angle(t_ray *ray);
-float	normilize_angle(float angle);
-void	init_struct_ray(t_ray *ray, t_player *player);
-float	get_distance(float px, float py, float hit_x, float hit_y);
-void	render_strip_wall(t_data *data, t_ray *ray);
-void	render_3d_walls(t_data *data, t_player *player, t_ray *ray);
+void		cast_ray(t_data *data, t_player *player, t_ray *ray);
+void		cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scl);
+void		update_angle(t_ray *ray);
+float		normilize_angle(float angle);
+void		init_struct_ray(t_ray *ray, t_player *player);
+float		get_distance(float px, float py, float hit_x, float hit_y);
+float		get_hit_dist(t_raycast *src, t_player *pl);
+void		render_strip_wall(t_data *data, t_ray *ray);
+void		render_3d_walls(t_data *data, t_player *player, t_ray *ray);
+t_raycast	*horz_intersection(t_data *data, t_player *pl, t_ray *ray);
+t_raycast	*vert_intersection(t_data *data, t_player *pl, t_ray *ray);
+void		update_ray_coordinates(t_ray *ray, t_raycast *horz, t_raycast *vert);
+void		calc_vert_intersection(t_data *data, t_raycast *v, int side);
+void		calc_horz_intersection(t_data *data, t_raycast *h, int side);
 
 // utils
-void	print_arr(char **arr);
-void	malloc_error(void);
-void	clean_up_data(t_data *data);
-void	free_elem(t_elem *elem);
-void	free_arr_int(int **arr, int size);
-int 	free_map_ret_one(t_parse *data, char *msg);
-int		print_err(char *s);
-size_t	ft_arrlen(char **arr);
-size_t	ft_arrsize(char	**arr);
-int		is_whitespace(char c);
-int		is_whitespace_str(char *str);
-int		ft_isspace(int c);
-int		ft_isdigit_str(char *s);
-void	ft_free(char **str);
-void	ft_free_arr(char **arr);
-int		count_elem(char *s, char c);
-int		get_max_strlen(char **map, int rows);
-void	free_texture(t_data *data, t_elem *elem);
+void		print_arr(char **arr);
+void		malloc_error(void);
+void		clean_up_data(t_data *data);
+void		free_elem(t_elem *elem);
+void		free_arr_int(int **arr, int size);
+int 		free_map_ret_one(t_parse *data, char *msg);
+int			print_err(char *s);
+size_t		ft_arrlen(char **arr);
+size_t		ft_arrsize(char	**arr);
+int			is_whitespace(char c);
+int			is_whitespace_str(char *str);
+int			ft_isspace(int c);
+int			ft_isdigit_str(char *s);
+void		ft_free(char **str);
+void		ft_free_arr(char **arr);
+int			count_elem(char *s, char c);
+int			get_max_strlen(char **map, int rows);
+void		free_texture(t_data *data, t_elem *elem);
 
 #endif

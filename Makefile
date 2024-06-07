@@ -6,7 +6,7 @@
 #    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/06/05 20:57:42 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/06/07 15:33:12 by ohladkov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		=	src/cub_main.c \
 				src/game/mini_map.c \
 				src/game/hook_key.c \
 				src/game/utils_draw.c \
+				src/game/utils_draw2.c \
 				src/game/color_buf.c \
 				src/raycasting/raycasting.c \
 				src/raycasting/render_walls.c \
@@ -39,7 +40,6 @@ SRCS		=	src/cub_main.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-# DEPS	= minilibx-linux/mlx.h
 MLX_PATH	= minilibx-linux
 MLX_NAME 	= libmlx.a
 MLX			= $(MLX_PATH)/$(MLX_NAME)
@@ -80,67 +80,4 @@ fclean:		clean
 	rm -f $(NAME)
 
 re:		fclean all
-
-
-# NAME        = cub3D
-
-# SUBFOLDERSRC = . parce
-# BASEPATHSRC = ./src/
-# PATHSRC     = $(addprefix $(BASEPATHSRC), $(SUBFOLDERSRC))
-
-# SRCS        = $(foreach dir,$(PATHSRC),$(wildcard $(dir)/*.c)) // not allowed
-# OBJS_DIR    = build
-# OBJS        = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
-
-# INCLUDE_DIR = ./include
-# HEADERS     = cub3d.h
-
-# MLX_PATH    = minilibx-linux
-# MLX_NAME    = libmlx.a
-# MLX         = $(MLX_PATH)/$(MLX_NAME)
-
-# LIBFT_PATH  = libft
-# LIBFT_NAME  = libft.a
-# LIBFT       = $(LIBFT_PATH)/$(LIBFT_NAME)
-
-# GNL         = gnl/get_next_line.h
-
-# CC          = cc
-# CFLAGS      = -Wall -Wextra -Werror #-g -fsanitize=address
-# LFLAGS      = -Llibft -lft -L$(MLX_PATH) -lmlx -lX11 -lXext -lXrandr -lm
-
-# VPATH       = $(PATHSRC)
-
-# .PHONY: all clean fclean re
-
-# all:        $(NAME)
-
-# $(NAME):	$(OBJS) $(LIBFT) $(MLX)
-# 			$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
-
-# $(LIBFT):
-# 	@make -sC $(LIBFT_PATH)
-
-# $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-# 			$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -I$(MLX_PATH) -c -o $@ $<
-
-# $(OBJS_DIR):
-# 			mkdir -p $(OBJS_DIR)
-
-# $(HEADERS):         $(INCLUDE_DIR)
-# 			cp your_header.h $(INCLUDE_DIR)
-
-# $(INCLUDE_DIR):
-# 			mkdir -p $(INCLUDE_DIR)
-
-# clean:
-# 	@make -sC $(LIBFT_PATH) clean
-# 	rm -rf $(OBJS_DIR)
-
-# fclean: clean
-# 	@make -sC $(LIBFT_PATH) fclean
-# 	rm -f $(NAME)
-
-# re:	fclean all
-
 

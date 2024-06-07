@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ohladkov/Documents/my_repo_cub3d/src/game",
-      "program": "/home/ohladkov/Documents/my_repo_cub3d/src/game/build/Debug/outDebug",
+      "cwd": "/home/ohladkov/Documents/my_repo_cub3d/src/raycasting",
+      "program": "/home/ohladkov/Documents/my_repo_cub3d/src/raycasting/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
