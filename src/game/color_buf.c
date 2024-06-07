@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:01:31 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/07 13:07:47 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:26:49 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,55 +42,6 @@ int	set_color_wall(t_line *line, t_data *data, t_ray *ray)
 	}
 	return (0);
 }
-
-// int	set_color_wall(t_line *line, t_data *data, t_ray *ray)
-// {
-// 	uint32_t	texture_pixel_color;
-// 	int			texture_offset_x;
-// 	int			texture_offset_y;
-// 	int			distance_from_top;
-// 	int			y;
-// 	t_txr		*tmp;
-
-// 	if (ray->side < 0 || ray->side > 3)
-// 	{
-//         perror("Error\nInvalid ray side index");
-//         return 1;
-//     }
-// 	tmp = data->elem->txr[ray->side];
-// 	y = line->y_top;
-// 	if (ray->vert_hit)
-// 		texture_offset_x = (int)ray->wall_hit_y % TILE_SIZE;
-// 	else
-// 		texture_offset_x = (int)ray->wall_hit_x % TILE_SIZE;
-// 	while (y < line->y_botm)
-// 	{
-// 		distance_from_top = y + (ray->wall_h / 2) - (H / 2);
-// 		texture_offset_y = distance_from_top * ((float)tmp->height / ray->wall_h);
-
-// 		// Ensure texture coordinates are within bounds
-// 		if (texture_offset_y >= tmp->height)
-// 			texture_offset_y = tmp->height - 1;
-// 		if (texture_offset_y < 0)
-// 			texture_offset_y = 0;
-// 		if (texture_offset_x >= tmp->width)
-// 			texture_offset_x = tmp->width - 1;
-// 		if (texture_offset_x < 0)
-// 			texture_offset_x = 0;
-
-// 		// Get the pixel color from the texture buffer
-//         texture_pixel_color = tmp->addr[(tmp->width * texture_offset_y) + texture_offset_x];
-
-// 		// Ensure color buffer index is within bounds
-//         if ((W * y) + line->x0 >= W * H || (W * y) + line->x0 < 0) {
-//             perror("Error\nColor buffer index out of bounds");
-//             return 1;
-//         }
-//         data->color_buf[(W * y) + line->x0] = texture_pixel_color;
-// 		y++;
-// 	}
-// 	return (0);
-// }
 
 void	set_color_ceiling(t_line *line, t_data *data, t_elem *elem)
 {
