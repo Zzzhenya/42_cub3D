@@ -135,9 +135,22 @@ typedef struct s_bres
 /**
  * @struct					s_ray
  * @brief					Represents a ray
- * @param	wall_hit_x		X-coordinate of the wall hit
- * @param	wall_hit_y		Y-coordinate of the wall hit
- * @param	size			1 - East, 2 - North, 3 - West, 4 - South
+ * This structure is used to represent a ray in a 2D environment, often used in ray-casting 
+ * algorithms for games or simulations, particularly in rendering 3D perspectives from a 2D map.
+ * 
+ * @param	vert_hit		Indicates if the ray hit a vertical wall (1 for true, 0 for false)
+ * @param	angle			The angle at which the ray is cast, in degrees or radians
+ * @param	distance		The distance from the ray's origin to the wall hit
+ * @param	wall_h			The height of the wall hit by the ray
+ * @param	ray_count		An identifier or index for the ray, useful in rendering
+ * @param	wall_hit_x		X-coordinate of the point where the ray hits the wall
+ * @param	wall_hit_y		Y-coordinate of the point where the ray hits the wall
+ * @param	side			Indicates which side of the wall was hit: 
+ * 							1 - East, 2 - North, 3 - West, 4 - South
+ * @param	up				Indicates if the ray is facing upward (1 for true, 0 for false)
+ * @param	right			Indicates if the ray is facing to the right (1 for true, 0 for false)
+ * @param	left			Indicates if the ray is facing to the left (1 for true, 0 for false)
+ * @param	down			Indicates if the ray is facing downward (1 for true, 0 for false)
 
 */
 
@@ -158,15 +171,18 @@ typedef struct s_ray
 }	t_ray;
 
 /**
- * @struct			s_map
- * @brief			Represents a map with player coordinates and view direction
- * @param	px		X-coordinate of the player in pixels
- * @param	py		Y-coordinate of the player in pixels
- * @param	pa		Angle of the player view's direction
- * @param	pa_rad	Angle of the player view's direction in radians
- * @param	view	Direction the player is facing (N, S, E, W)
- * @param	map		2D array representing the map
-*/
+ * @struct					s_player
+ * @brief					Represents a player in the game
+ * 
+ * This structure is used to represent the player's state in a 2D game environment. It includes
+ * the player's position, orientation, and movement attributes.
+ * 
+ * @param	px				The player's x-coordinate position in the game world
+ * @param	py				The player's y-coordinate position in the game world
+ * @param	pa				The player's angle (orientation) in degrees
+ * @param	pa_rad			The player's angle (orientation) in radians
+ * @param	rotation_speed	The speed at which the player can rotate, typically measured in degrees per second
+ */
 
 typedef struct s_player
 {
@@ -177,6 +193,17 @@ typedef struct s_player
 	float	rotation_speed;
 }	t_player;
 
+/**
+ * @struct			s_map
+ * @brief			Represents a map with player coordinates and view direction
+ * @param	px		X-coordinate of the player in pixels
+ * @param	py		Y-coordinate of the player in pixels
+ * @param	pa		Angle of the player view's direction
+ * @param	pa_rad	Angle of the player view's direction in radians
+ * @param	view	Direction the player is facing (N, S, E, W)
+ * @param	map		2D array representing the map
+*/
+
 typedef struct s_map
 {
 	char	*str;
@@ -185,6 +212,22 @@ typedef struct s_map
 	int		px;
 	int		py;
 }	t_map;
+
+/**
+ * @struct					s_texture
+ * @brief					Represents a texture in the game
+ * 
+ * This structure is used to represent a texture in a game, including its dimensions, pixel data,
+ * and other properties needed for rendering.
+ * 
+ * @param	width			The width of the texture in pixels
+ * @param	height			The height of the texture in pixels
+ * @param	img				A pointer to the image data (implementation-specific, could be an image object or raw data)
+ * @param	addr			A pointer to the beginning of the pixel data for the texture
+ * @param	bpp				Bits per pixel, indicating the color depth of the texture
+ * @param	line_length		The number of bytes in a single row of the texture
+ * @param	endian			Indicates the endianess of the pixel data (0 for little-endian, 1 for big-endian)
+*/
 
 typedef struct s_texture
 {
@@ -198,13 +241,13 @@ typedef struct s_texture
 }	t_txr;
 
 /**
- *	@struct		s_elem
- *	@brief		Represents an element with directional information and 
- 				color properties
- *	@param so	Represents the direction South
- *	@param no	Represents the direction North
- *	@param ea	Represents the direction East
- *	@param we	Represents the direction West
+ *	@struct			s_elem
+ *	@brief			Represents an element with directional information and 
+ 					color properties
+ *	@param so		Represents the direction South
+ *	@param no		Represents the direction North
+ *	@param ea		Represents the direction East
+ *	@param we		Represents the direction West
  *	@param rgb_f	Array representing the foreground color
  *	@param rgb_c	Array representing the ceiling color
  */
@@ -238,7 +281,9 @@ typedef struct s_elem
  *	@param img			An instance of the t_image struct representing an image
  *	@param map			A pointer to the t_map struct containing map data
  *	@param elem			A pointer to the t_elem struct containing element data
- */
+ *	@param ray			A pointer to the t_ray struct containing ray data
+ *	@param player		A pointer to the t_player struct containing player data
+*/
 
 typedef struct s_data
 {
@@ -252,7 +297,6 @@ typedef struct s_data
 	int			lines;
 	int			offset;
 	u_int32_t	*color_buf;
-	u_int32_t	*texture_buf;
 	t_image		img;
 	t_map		*map;
 	t_elem		*elem;
