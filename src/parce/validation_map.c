@@ -19,23 +19,23 @@ static char	**convert_to_rectangle(char **map, int rows, size_t max);
 
 int	validate_map(char **map, int rows)
 {
-	int		row; 
+	int		row;
 	int		col;
 	t_parse	data;
 
 	col = -1;
 	row = -1;
-	if (map_not_rectangle(map))
-	{
-		map = convert_to_rectangle(map, rows, get_max_len(map));
-		if (!map)
-			return (print_err("Memory allocation"), 1);
-	}
 	if (init_parse_struct(&data, rows, map) != 0)
 		return (1);
-	if (find_player_loc(map, &(row), &(col), &(data.cols)) != 0)
+	if (map_not_rectangle(data.map))
+	{
+		data.map = convert_to_rectangle(data.map, rows, get_max_len(data.map));
+		if (!data.map)
+			return (print_err("Memory allocation"), 1);
+	}
+	if (find_player_loc(data.map, &(row), &(col), &(data.cols)) != 0)
 		return (free_map_ret_one(&data, "Player location error."));
-	map[row][col] = '0';
+	data.map[row][col] = '0';
 	if (check_for_leaks(&data, row, col, 0) != 0)
 		return (free_map_ret_one(&data, "Spawning area is incomplete."));
 	if (flood_fill_all_islands(&data, 0) != 0)
