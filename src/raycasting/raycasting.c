@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:00:20 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/07 21:54:43 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:30:47 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,19 @@ void	cast_all_rays(t_data *data, t_player *player, t_ray *ray, float scl)
 	}
 }
 
+/* 
 void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 {
-	float	x_step;
-	float	y_step;
-	float	x_intercept;
-	float	y_intercept;
-	float	next_horz_touch_x;
-	float	next_horz_touch_y;
-	float	horz_wall_hit_x;
-	float	horz_wall_hit_y;
-	int		found_horz_wall_hit;
-	int		len;
+	float	x_step = 0;
+	float	y_step = 0;
+	float	x_intercept = 0;
+	float	y_intercept = 0;
+	float	next_horz_touch_x = 0;
+	float	next_horz_touch_y = 0;
+	float	horz_wall_hit_x = 0;
+	float	horz_wall_hit_y = 0;
+	int		found_horz_wall_hit = 0;
+	int		len = 0;
 
 	// ---------------------- horisontal ray-grid intersection --------------
 
@@ -87,10 +88,10 @@ void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 	// ---------------------- vertical ray-grid intersection ----------------
 
 	int		found_vert_wall_hit = 0;
-	float	vert_wall_hit_x;
-	float	vert_wall_hit_y;
-	float next_vert_touch_x;
-	float next_vert_touch_y;
+	float	vert_wall_hit_x = 0;
+	float	vert_wall_hit_y = 0;
+	float next_vert_touch_x = 0;
+	float next_vert_touch_y = 0;
 
 	// find the x-coordinate of the closest vertical intersection
 	x_intercept = floor(player->px / TILE_SIZE) * TILE_SIZE;
@@ -136,8 +137,8 @@ void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 	}
 
 	// calculate both horizontal and vertical distances and choose the smalest value
-	float	horz_hit_distance;
-	float	vert_hit_distance;
+	float	horz_hit_distance = 0;
+	float	vert_hit_distance = 0;
 
 	if (found_horz_wall_hit)
 		horz_hit_distance = get_distance(player->px, player->py, horz_wall_hit_x, horz_wall_hit_y);
@@ -166,85 +167,103 @@ void	cast_ray(t_data *data, t_player *player, t_ray *ray)
 	}
 }
 
+ */
 
-// void	cast_ray(t_data *data, t_player *player, t_ray *ray)
-// {
-// 	t_raycast	*horz;
-// 	t_raycast	*vert;
+void	cast_ray(t_data *data, t_player *player, t_ray *ray)
+{
+	t_raycast	*horz;
+	t_raycast	*vert;
 
-// 	horz = horz_intersection(data, player, ray);
-// 	vert = vert_intersection(data, player, ray);
-// 	horz->hit_dist = get_hit_dist(horz, player);
-// 	vert->hit_dist = get_hit_dist(vert, player);
-// 	update_ray_coordinates(ray, horz, vert);
-// 	free(horz);
-// 	horz = NULL;
-// 	free(vert);
-// 	vert = NULL;
-// }
+	horz = horz_intersection(data, player, ray);
+	vert = vert_intersection(data, player, ray);
+	horz->hit_dist = get_hit_dist(horz, player);
+	vert->hit_dist = get_hit_dist(vert, player);
+	update_ray_coordinates(ray, horz, vert);
+	free(horz);
+	horz = NULL;
+	free(vert);
+	vert = NULL;
+}
 
-// t_raycast	*horz_intersection(t_data *data, t_player *pl, t_ray *ray)
-// {
-// 	t_raycast	*h;
-// 	int			tmp;
+void	init_raycast(t_raycast *src)
+{
+	src->found_wall_hit = 0;
+	src->hit_dist = 0;
+	src->len = 0;
+	src->next_touch_x = 0;
+	src->next_touch_y = 0;
+	src->wall_hit_x = 0;
+	src->wall_hit_y = 0;
+	src->x_intercept = 0;
+	src->y_intercept = 0;
+	src->x_step = 0;
+	src->y_step = 0;
+}
 
-// 	h = ft_calloc(1, sizeof(t_raycast));
-// 	h->y_intercept = floor(pl->py / TILE_SIZE) * TILE_SIZE;
-// 	if (ray->down)
-// 		h->y_intercept += TILE_SIZE;
-// 	h->x_intercept = pl->px + (h->y_intercept - pl->py) / tan(ray->angle);
-// 	h->y_step = TILE_SIZE;
-// 	if (ray->up)
-// 		h->y_step *= -1;
-// 	h->x_step = TILE_SIZE / tan(ray->angle);
-// 	if ((ray->left && (h->x_step > 0)) || (ray->right && (h->x_step < 0)))
-// 		h->x_step *= -1;
-// 	h->next_touch_x = h->x_intercept;
-// 	h->next_touch_y = h->y_intercept;
-// 	tmp = floor(h->next_touch_y / TILE_SIZE);
-// 	if (tmp >= 0 && tmp < data->rows)
-// 		calc_vert_intersection(data, h, ray->up);
-// 	return (h);
-// }
+t_raycast	*horz_intersection(t_data *data, t_player *pl, t_ray *ray)
+{
+	t_raycast	*h;
+	int			tmp;
 
-// t_raycast	*vert_intersection(t_data *data, t_player *pl, t_ray *ray)
-// {
-// 	t_raycast	*v;
-// 	int			tmp;
+	h = ft_calloc(1, sizeof(t_raycast));
+	init_raycast(h);
+	h->y_intercept = floor(pl->py / TILE_SIZE) * TILE_SIZE;
+	if (ray->down)
+		h->y_intercept += TILE_SIZE;
+	h->x_intercept = pl->px + (h->y_intercept - pl->py) / tan(ray->angle);
+	h->y_step = TILE_SIZE;
+	if (ray->up)
+		h->y_step *= -1;
+	h->x_step = TILE_SIZE / tan(ray->angle);
+	if ((ray->left && (h->x_step > 0)) || (ray->right && (h->x_step < 0)))
+		h->x_step *= -1;
+	h->next_touch_x = h->x_intercept;
+	h->next_touch_y = h->y_intercept;
+	tmp = floor(h->next_touch_y / TILE_SIZE);
+	if (tmp >= 0 && tmp < data->rows)
+		calc_horz_intersection(data, h, ray->up);
+	return (h);
+}
 
-// 	v = ft_calloc(1, sizeof(t_raycast));
-// 	v->x_intercept = floor(pl->px / TILE_SIZE) * TILE_SIZE;
-// 	if (ray->right)
-// 		v->x_intercept += TILE_SIZE;
-// 	v->y_intercept = pl->py + (v->x_intercept - pl->px) * tan(ray->angle);
-// 	v->x_step = TILE_SIZE;
-// 	if (ray->left)
-// 		v->x_step *= -1;
-// 	v->y_step = TILE_SIZE * tan(ray->angle);
-// 	if ((ray->up && (v->y_step > 0)) || (ray->down && (v->y_step < 0)))
-// 		v->y_step *= -1;
-// 	v->next_touch_x = v->x_intercept;
-// 	v->next_touch_y = v->y_intercept;
-// 	tmp = floor(v->next_touch_y / TILE_SIZE);
-// 	if (tmp >= 0 && tmp < data->rows)
-// 		calc_vert_intersection(data, v, ray->left);
-// 	return (v);
-// }
+t_raycast	*vert_intersection(t_data *data, t_player *pl, t_ray *ray)
+{
+	t_raycast	*v;
+	int			tmp;
 
-// void	update_ray_coordinates(t_ray *ray, t_raycast *horz, t_raycast *vert)
-// {
-// 	if (horz->hit_dist < vert->hit_dist)
-// 	{
-// 		ray->wall_hit_x = horz->wall_hit_x;
-// 		ray->wall_hit_y = horz->wall_hit_y;
-// 		ray->distance = horz->hit_dist;
-// 		ray->vert_hit = 0;
-// 	}
-// 	else
-// 	{
-// 		ray->wall_hit_x = vert->wall_hit_x;
-// 		ray->wall_hit_y = vert->wall_hit_y;
-// 		ray->distance = vert->hit_dist;
-// 		ray->vert_hit = 1;
-// 	}
-// }
+	v = ft_calloc(1, sizeof(t_raycast));
+	init_raycast(v);
+	v->x_intercept = floor(pl->px / TILE_SIZE) * TILE_SIZE;
+	if (ray->right)
+		v->x_intercept += TILE_SIZE;
+	v->y_intercept = pl->py + (v->x_intercept - pl->px) * tan(ray->angle);
+	v->x_step = TILE_SIZE;
+	if (ray->left)
+		v->x_step *= -1;
+	v->y_step = TILE_SIZE * tan(ray->angle);
+	if ((ray->up && (v->y_step > 0)) || (ray->down && (v->y_step < 0)))
+		v->y_step *= -1;
+	v->next_touch_x = v->x_intercept;
+	v->next_touch_y = v->y_intercept;
+	tmp = floor(v->next_touch_y / TILE_SIZE);
+	if (tmp >= 0 && tmp < data->rows)
+		calc_vert_intersection(data, v, ray->left);
+	return (v);
+}
+
+void	update_ray_coordinates(t_ray *ray, t_raycast *horz, t_raycast *vert)
+{
+	if (horz->hit_dist < vert->hit_dist)
+	{
+		ray->wall_hit_x = horz->wall_hit_x;
+		ray->wall_hit_y = horz->wall_hit_y;
+		ray->distance = horz->hit_dist;
+		ray->vert_hit = 0;
+	}
+	else
+	{
+		ray->wall_hit_x = vert->wall_hit_x;
+		ray->wall_hit_y = vert->wall_hit_y;
+		ray->distance = vert->hit_dist;
+		ray->vert_hit = 1;
+	}
+}

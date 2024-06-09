@@ -6,7 +6,7 @@
 /*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:43:47 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/07 15:26:06 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:30:53 by ohladkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	calc_horz_intersection(t_data *data, t_raycast *h, int side)
 
 	map = data->map->map;
 	h->len = (int)ft_strlen(map[(int)floor(h->next_touch_y / TILE_SIZE)]);
-	while (h->next_touch_x >= 0 && h->next_touch_x <= (h->len) * TILE_SIZE && \
-	h->next_touch_y >= 0 && h->next_touch_y <= ((data->rows) * TILE_SIZE))
+	while (h->next_touch_x >= 0 && h->next_touch_x <= (h->len * TILE_SIZE) && \
+	h->next_touch_y >= 0 && h->next_touch_y <= (data->rows * TILE_SIZE))
 	{
 		if (floor(h->next_touch_y / TILE_SIZE) >= data->rows)
 			break ;
@@ -59,9 +59,9 @@ void	calc_horz_intersection(t_data *data, t_raycast *h, int side)
 
 void	calc_vert_intersection(t_data *data, t_raycast *v, int side)
 {
-	v->len = ft_strlen(data->map->map[(int)round(v->next_touch_y / TILE_SIZE)]);
-	while (v->next_touch_x >= 0 && v->next_touch_x <= (v->len * TILE_SIZE) && \
-	v->next_touch_y >= 0 && v->next_touch_y <= ((data->rows) * TILE_SIZE))
+	v->len = (int)ft_strlen(data->map->map[(int)round(v->next_touch_y / TILE_SIZE)]);
+	while (v->next_touch_x >= 0 && v->next_touch_x <= (float)(v->len * TILE_SIZE) && \
+	v->next_touch_y >= 0 && v->next_touch_y <= (float)(data->rows * TILE_SIZE))
 	{
 		if (floor(v->next_touch_y / TILE_SIZE) >= data->rows)
 			break ;
