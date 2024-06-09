@@ -19,7 +19,7 @@ static char	**convert_to_rectangle(char **map, int rows, size_t max);
 
 int	validate_map(char **map, int rows)
 {
-	int		row; 
+	int		row;
 	int		col;
 	t_parse	data;
 

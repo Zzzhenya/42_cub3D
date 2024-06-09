@@ -93,7 +93,7 @@ int	get_max_strlen(char **map, int rows)
 	j = 0;
 	while (j < rows && map[j])
 	{
-		len = ft_strlen(map[j]); 
+		len = ft_strlen(map[j]);
 		if (len > i)
 			i = len;
 		j++;
