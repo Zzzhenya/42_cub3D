@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:12:19 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/07 21:56:50 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:04:04 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	validate_map(char **map, int rows)
 
 	col = -1;
 	row = -1;
+	if (invalid_map_char(map, rows) != 0)
+		return (print_err("Invalid character in map"), 1);
 	if (init_parse_struct(&data, rows, map) != 0)
 		return (1);
 	if (map_not_rectangle(data.map))
@@ -103,7 +105,7 @@ static int	find_player_loc(char **map, int *row, int *col, int *cols)
 		j = 0;
 		while (map[i][j])
 		{
-			if (ft_isaplayer(map[i][j]))
+			if (ft_strchr("SNEW", map[i][j]))
 			{
 				if (*row == -1 && *col == -1)
 				{

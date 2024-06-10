@@ -6,11 +6,31 @@
 /*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:38 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 22:20:41 by sde-silv         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:02:01 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
+
+int	invalid_map_char(char **map, int rows)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < rows)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (!ft_strchr("SNEW01 ", map[i][j]))
+				return (1);
+			j ++;
+		}
+		i ++;
+	}
+	return (0);
+}
 
 int	init_parse_struct(t_parse *data, int rows, char **map)
 {
@@ -20,16 +40,6 @@ int	init_parse_struct(t_parse *data, int rows, char **map)
 	if (!data->map)
 		return (1);
 	return (0);
-}
-
-int	ft_isaplayer(char c)
-{
-	if (!c)
-		return (0);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	else
-		return (0);
 }
 
 //int	check_for_leaks(char **map, int rows, int cols, int x, int y, int k)
