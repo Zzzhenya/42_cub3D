@@ -349,7 +349,7 @@ int			has_wall_at(t_data *data, float x, float y);
 //map validation
 int			validate_map(char **map, int rows);
 int			init_parse_struct(t_parse *data, int rows, char **map);
-int			ft_isaplayer(char c);
+int			invalid_map_char(char **map, int rows);
 int			check_for_leaks(t_parse *data, int x, int y, int k);
 size_t		get_max_len(char **map);
 char		**copy_arr(char **map, int rows);
