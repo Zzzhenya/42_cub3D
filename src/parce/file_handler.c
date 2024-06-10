@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:11:04 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:08:32 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,6 @@ int	parce_file(t_data *data)
 // copy valid data from file to struct elem (textures and colors)
 int	copy_data(t_data *data, char *s)
 {
-	char	*tmp;
-
-	tmp = s;
 	while (*s != '\0')
 	{
 		while (is_whitespace(*s))
