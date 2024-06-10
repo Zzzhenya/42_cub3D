@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+         #
+#    By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 18:20:36 by ohladkov          #+#    #+#              #
-#    Updated: 2024/06/07 15:33:12 by ohladkov         ###   ########.fr        #
+#    Updated: 2024/06/10 21:46:42 by sde-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ $(MLX):
 $(LIBFT):
 	@make -sC $(LIBFT_PATH)
 
-%.o: %.c
+%.o: %.c Makefile
 		$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
@@ -81,3 +81,4 @@ fclean:		clean
 
 re:		fclean all
 
+.PHONY:	all clean fclean re
