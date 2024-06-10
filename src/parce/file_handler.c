@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   file_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohladkov <ohladkov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sde-silv <sde-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 15:11:03 by ohladkov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:11:04 by ohladkov         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:10:03 by sde-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-// allocate memory for 2D array in struct t_map
+/* allocate memory for 2D array in struct t_map*/
 int	read_file(char *file, t_data *data)
 {
 	data->fd = open(file, O_RDONLY);
@@ -49,7 +49,7 @@ int	validate_file_content(char *file, t_data *data)
 	return (0);
 }
 
-// read from file and set an 2D array into an arr_file
+/* read from file and set an 2D array into an arr_file*/
 int	copy_file_content(char *file, t_data *data)
 {
 	char	*str;
@@ -79,7 +79,7 @@ int	copy_file_content(char *file, t_data *data)
 	return (0);
 }
 
-// coping only texture and color + validating if struct elem is filled
+/* coping only texture and color + validating if struct elem is filled*/
 int	parce_file(t_data *data)
 {
 	int	i;
@@ -104,12 +104,9 @@ int	parce_file(t_data *data)
 	return (0);
 }
 
-// copy valid data from file to struct elem (textures and colors)
+/* copy valid data from file to struct elem (textures and colors)*/
 int	copy_data(t_data *data, char *s)
 {
-	char	*tmp;
-
-	tmp = s;
 	while (*s != '\0')
 	{
 		while (is_whitespace(*s))
